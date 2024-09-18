@@ -1,0 +1,10 @@
+.title {
+    font-family: "Russo One", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 70px;
+    color: #ffcc00;
+    text-shadow:
+    0 0 5px #ffcc00, /* Sombra amarilla más intensa */
+    0 0 10px #ffcc00; /* Sombra amarilla muy fuerte */
+  }
