@@ -1,7 +1,7 @@
 "use client"
 import styles from "./futbolitosDraft.module.css";
 import { useRouter } from "next/navigation";
-export default function eleccionModo() {
+export default function futbolitosDraft() {
     const router = useRouter();
     function futbolitosBattle(){
         router.push("/futbolitosBattle")

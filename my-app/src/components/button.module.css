@@ -20,6 +20,9 @@
 }
 .jugar:hover{
     transform: scale(1.1);
+    box-shadow:
+    0 0 5px #00ffff, 
+    0 0 10px #00ffff;
 }
 
 .normal{
@@ -29,4 +32,7 @@
 }
 .normal:hover{
     transform: scale(1.1);
+    box-shadow:
+    0 0 5px #00ffff, 
+    0 0 10px #00ffff;
 }

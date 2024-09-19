@@ -1,7 +1,7 @@
 "use client"
-import styles from "./FutbolitosBattle.module.css";
+import styles from "./guia.module.css";
 import { useRouter } from "next/navigation";
-export default function futbolitosBattle() {
+export default function Guia() {
     const router = useRouter();
     function futbolitosBattle(){
         router.push("/futbolitosBattle")
@@ -11,7 +11,6 @@ export default function futbolitosBattle() {
     }
     return (
         <main className={styles.main}>
-
         </main>
     )
 }
