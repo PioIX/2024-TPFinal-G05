@@ -1,0 +1,22 @@
+.main{
+    text-align: center;
+}
+
+.imgDraft{
+    margin-right: 210px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.imgDraft:hover{
+    transform: scale(0.8);
+}
+
+.imgBattle{
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.imgBattle:hover{
+    transform: scale(0.8);
+}

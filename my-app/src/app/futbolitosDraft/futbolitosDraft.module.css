@@ -1,0 +1,14 @@
+.body{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background:linear-gradient(180deg, #350b49, #46021f);
+    display: grid;
+    grid-template-columns: 300px, 600px;
+}
+
+.main{
+    border: solid lightblue 4px ;
+    height: 100%;
+    width: 90%;
+}

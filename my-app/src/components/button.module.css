@@ -1,0 +1,32 @@
+.button{
+    font-family: "Russo One", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 25px;
+    background: linear-gradient(180deg, #350b49, #46021f);
+    height: 75px;
+    width: 270px;
+    border-radius: 20px;
+    border: solid 4px #5ce1e6;
+    color: #ffcc00;
+    margin: 40px;
+}
+
+.jugar{
+    margin-top: 100px;
+    width: 500px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.jugar:hover{
+    transform: scale(1.1);
+}
+
+.normal{
+    margin-top: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.normal:hover{
+    transform: scale(1.1);
+}
