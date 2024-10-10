@@ -3,5 +3,12 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-    background-color: black;
+    background-color: rgb(255, 255, 255);
+
+    height: 60vh;
+    width: 60vw;
+}
+
+.span:hover {
+    color: aqua;
 }

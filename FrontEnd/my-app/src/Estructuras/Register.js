@@ -1,54 +1,14 @@
-const [registro, setRegistro] = useState(false);
+import { useState } from "react";
+import styles from "./Register.module.css";
+import Icon from "@/Components/Icon";
 
 
-
-export default function Register() {
-    const [inputNewName, setNewName] = useState("")
-    const [inputNewApellido, setNewApellido] = useState("")
-    const [inputNewUserName, setNewUserName] = useState("")
-    const [inputNewpassword, setNewpassword] = useState("")
-
-    const [userNamePlaceholderDos, setUserNamePlaceholderDos] = useState("");
-    const [userPasswordPlaceholderDos, setUserPasswordPlaceholderDos] = useState("");
-    const [userNombrePlaceholder, setUserNombrePlaceholder] = useState("");
-    const [userApellidoPlaceholder, setUserApellidoPlaceholder] = useState("");
-
-
-    async function RegistrarUsuario() {
-        if (inputNewName === "") {setUserNombrePlaceholder("Campo Obligatorio");}
-        if (inputNewApellido === "") {setUserApellidoPlaceholder("Campo Obligatorio");}
-        if (inputNewUserName === "") {setUserNamePlaceholderDos("Campo Obligatorio");}
-        if (inputNewpassword === "") {setUserPasswordPlaceholderDos("Campo Obligatorio");}
-
-        if (inputNewpassword !== "" && inputNewUserName !== "" && inputNewName !== "" && inputNewApellido !== "") {
-            const data = {
-                UserName: inputNewUserName,
-                UserPassword: inputNewpassword,
-                Nombre: inputNewName,
-                Apellido: inputNewApellido,
-            }
-            const response = await fetch('http://localhost:4000/NuevoUser', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            })
-            setUserNamePlaceholderDos("");
-            setUserPasswordPlaceholderDos("");
-            setUserApellidoPlaceholder("")
-            setUserNombrePlaceholder("")
-        }
-    }
-
-    const Registrarse = (event) => {
-        if (event.key === 'Enter') {RegistrarUsuario()}
-    };
-
+export default function Register({onClickCambio, OnClickRegistro, OnKeyDownRegistro, inputNewName, inputNewApellido, inputNewUserName, inputNewpassword, userNamePlaceholderDos, userPasswordPlaceholderDos, userNombrePlaceholder, userApellidoPlaceholder, onChangeUno, onChangeDos, onChangeTres, onChangeCuatro}) {
+        
     return (
         <div className={styles.divRegister}>
             <div>
-                <Icon onClick={registrarse} srcImg="/Iconos/IconoVolver.svg" variant="section"></Icon>
+                <Icon onClick={onClickCambio} srcImg="/Iconos/IconoVolver.svg" variant="section"></Icon>
             </div>
             <div className={styles.containerDatos}>
                 <div>
@@ -57,24 +17,24 @@ export default function Register() {
                 <div className={styles.divInput}>
                     <div className={styles.inputGroup}>
                         <label className={styles.label} htmlFor="Nombre">Nombre</label>
-                        <input placeholder={userNombrePlaceholder} id="Nombre" className={styles.input} value={inputNewName} onChange={e => setNewName(e.target.value)} />
+                        <input placeholder={userNombrePlaceholder} id="Nombre" className={styles.input} value={inputNewName} onChange={onChangeUno} />
                     </div>
 
                     <div className={styles.inputGroup}>
                         <label className={styles.label} htmlFor="Apellido">Apellido</label>
-                        <input placeholder={userApellidoPlaceholder} id="Apellido" className={styles.input} value={inputNewApellido} onChange={e => setNewApellido(e.target.value)} />
+                        <input placeholder={userApellidoPlaceholder} id="Apellido" className={styles.input} value={inputNewApellido} onChange={onChangeDos} />
                     </div>
 
                     <div className={styles.inputGroup}>
                         <label className={styles.label} htmlFor="UserNameDos">Nombre de usuario</label>
-                        <input placeholder={userNamePlaceholderDos} id="UserNameDos" className={styles.input} value={inputNewUserName} onChange={e => setNewUserName(e.target.value)} />
+                        <input placeholder={userNamePlaceholderDos} id="UserNameDos" className={styles.input} value={inputNewUserName} onChange={onChangeTres} />
                     </div>
                     <div className={styles.inputGroup}>
                         <label className={styles.label} htmlFor="Pasword">Contraseña</label>
-                        <input placeholder={userPasswordPlaceholderDos} id="Pasword" className={styles.input} vvalue={inputNewpassword} onChange={e => setNewpassword(e.target.value)} onKeyDown={Registrarse} />
+                        <input placeholder={userPasswordPlaceholderDos} id="Pasword" className={styles.input} vvalue={inputNewpassword} onChange={onChangeCuatro} onKeyDown={OnKeyDownRegistro} />
                     </div>
 
-                    <button className={styles.button} onClick={RegistrarUsuario}>registrarse</button>
+                    <button className={styles.button} onClick={OnClickRegistro}>registrarse</button>
                 </div>
             </div>
         </div>
