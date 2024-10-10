@@ -18,6 +18,32 @@ const MySQL = require('./modulos/mysql');
 const session = require('express-session');
 const cors = require('cors'); 
 const app = express();
+app.use(cors({
+    origin: ["http://localhost:3000", "http://localhost:3001"],
+    methods: ["GET", "POST", "PUT", "DELETE"], 
+    credentials: true 
+}));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+const server = app.listen(LISTEN_PORT, () => {
+    console.log(`Servidor NodeJS corriendo en http://localhost:${LISTEN_PORT}/`);
+});
+const io = require('socket.io')(server, {
+    cors: {
+        origin: ["http://localhost:3000", "http://localhost:3001"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true
+    }
+});
+const sessionMiddleware = session({
+    secret: "supersarasa",
+    resave: false,
+    saveUninitialized: false
+});
+app.use(sessionMiddleware);
+io.use((socket, next) => {
+    sessionMiddleware(socket.request, {}, next);
+});
 
 let sesionActual = {
     UserId: 0,
@@ -28,62 +54,19 @@ let sesionActual = {
 const LISTEN_PORT = 4000;
 const codigos = []
 
-app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
-    methods: ["GET", "POST", "PUT", "DELETE"], 
-    credentials: true 
-}));
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-
-const server = app.listen(LISTEN_PORT, () => {
-    console.log(`Servidor NodeJS corriendo en http://localhost:${LISTEN_PORT}/`);
-});
-
-const io = require('socket.io')(server, {
-    cors: {
-        origin: ["http://localhost:3000", "http://localhost:3001"],
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true
-    }
-});
-
-const sessionMiddleware = session({
-    secret: "supersarasa",
-    resave: false,
-    saveUninitialized: false
-});
-
-app.use(sessionMiddleware);
-
-io.use((socket, next) => {
-    sessionMiddleware(socket.request, {}, next);
-});
-
-// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
-// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
-// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
-// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
-// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
-// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
-// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
-// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
-// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
-
 // PROYECTO FUTBOLITOS //
 
 // USUARIOS
+
 // LOGIN //
 app.get('/Usuario', async function(req,res){
     console.log(req.query) 
-    const respuesta = await MySQL.realizarQuery(`SELECT * FROM UserWpp;`)
+    const respuesta = await MySQL.realizarQuery(`SELECT * FROM UserFutbolito;`)
     res.send(respuesta)
 })
 app.post('/ExisteUsuario', async function(req,res){
     console.log(req.body) 
-    const respuesta = await MySQL.realizarQuery(`SELECT UserId FROM UserWpp WHERE UserName = '${req.body.UserName}' AND UserPassword = '${req.body.UserPassword}';`)
+    const respuesta = await MySQL.realizarQuery(`SELECT UserId FROM UserFutbolito WHERE UserName = '${req.body.UserName}' AND UserPassword = '${req.body.UserPassword}';`)
     if (respuesta.length > 0) {
         sesionActual.UserId = respuesta[0].UserId // A REVISAR // 
         console.log(respuesta)
@@ -95,7 +78,7 @@ app.post('/ExisteUsuario', async function(req,res){
 // REGISTER //
 app.post('/NuevoUser', async function(req,res) {
     console.log(req.body) 
-    result = await MySQL.realizarQuery(`INSERT INTO UserWpp (UserName, UserPassword, Nombre, Apellido) VALUES ('${req.body.UserName}','${req.body.UserPassword}','${req.body.Nombre}', '${req.body.Apellido}')`);
+    result = await MySQL.realizarQuery(`INSERT INTO UserFutbolito (UserName, UserPassword, Nombre, Apellido) VALUES ('${req.body.UserName}','${req.body.UserPassword}','${req.body.Nombre}', '${req.body.Apellido}')`);
     res.send(result)
 })
 

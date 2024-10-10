@@ -3,34 +3,27 @@ import { useRouter } from "next/navigation";
 import Button from "../Components/Button";
 import Texto from "../Components/Texto";
 import styles from "./page.module.css"
+import Login from "@/Estructuras/Login";
+import Register from "@/Estructuras/Register";
+import { useState } from "react/cjs/react.production.min";
 
 export default function Home() {
-    const router = useRouter();
-    function eleccionModo() {
-        router.push('/eleccionModo');
-    }
-    function cartas() {
-        router.push('/cartas');
-    }
-    function ranking() {
-        router.push('/ranking');
-    }
-    function guia() {
-        router.push('/guia');
+    const [Ingreso, setIngreso] = useState(true)
+    const [Registro, setRegistro] = useState(false)
+
+    function hola() {
+        if (Ingreso === true) {
+            setRegistro(!Registro)
+            setIngreso(!Ingreso)
+        } else if (Ingreso === false) {
+            setRegistro(!Registro)
+            setIngreso(!Ingreso)
+        }
     }
     return (
-        <main className={styles.main}>
-            <div>
-                <Texto text="Futbolitos" variant="title"/>
-            </div>
-            <div>
-                <Button text="Guia" variant="normal" onClick={guia}/>
-                <Button text="Cartas" variant="normal" onClick={cartas}/>
-                <Button text="Ranking" variant="normal" onClick={ranking}/>
-            </div>
-            <div>
-                <Button text="JUGAR" variant="jugar" onClick={eleccionModo}/>
-            </div>
+        <main >
+            <Login style={{ display: Ingreso ? 'flex' : 'none' }}></Login>
+            <Register style={{ display: Registro ? 'flex' : 'none' }}></Register>
         </main>
     )
 }
