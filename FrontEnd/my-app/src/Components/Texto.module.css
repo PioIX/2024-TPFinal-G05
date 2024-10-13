@@ -20,3 +20,11 @@
   0 0 5px #ffcc00, /* Sombra amarilla más intensa */
   0 0 7px #ffcc00; /* Sombra amarilla muy fuerte */
 }
+
+.error {
+  font-size: 13px;
+  color: #cc0404;
+  margin-block-start: 0;
+  margin-block-end: 0;
+
+}

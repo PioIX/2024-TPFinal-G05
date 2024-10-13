@@ -31,7 +31,7 @@ export default function Home() {
         if (event.key === 'Enter') { ExisteUsuario() }
     };
     const Registrarse = (event) => {
-        if (event.key === 'Enter') {RegistrarUsuario()}
+        if (event.key === 'Enter') { RegistrarUsuario() }
     };
 
     const toggleMode = () => setIngreso(!Ingreso);
@@ -90,10 +90,10 @@ export default function Home() {
     }
 
     async function RegistrarUsuario() {
-        if (inputNewName === "") {setUserNombrePlaceholder("Campo Obligatorio");}
-        if (inputNewApellido === "") {setUserApellidoPlaceholder("Campo Obligatorio");}
-        if (inputNewUserName === "") {setUserNamePlaceholderDos("Campo Obligatorio");}
-        if (inputNewpassword === "") {setUserPasswordPlaceholderDos("Campo Obligatorio");}
+        if (inputNewName === "") { setUserNombrePlaceholder("Campo Obligatorio"); }
+        if (inputNewApellido === "") { setUserApellidoPlaceholder("Campo Obligatorio"); }
+        if (inputNewUserName === "") { setUserNamePlaceholderDos("Campo Obligatorio"); }
+        if (inputNewpassword === "") { setUserPasswordPlaceholderDos("Campo Obligatorio"); }
 
         if (inputNewpassword !== "" && inputNewUserName !== "" && inputNewName !== "" && inputNewApellido !== "") {
             const data = {
@@ -137,21 +137,21 @@ export default function Home() {
                 ></Login>
             ) : (
                 <Register
-                    onClickCambio = {toggleMode}
-                    OnClickRegistro = {RegistrarUsuario}
-                    OnKeyDownRegistro = {Registrarse}
-                    inputNewName = {inputNewName}
-                    inputNewApellido = {inputNewApellido}
-                    inputNewUserName = {inputNewUserName}
-                    inputNewpassword = {inputNewpassword}
-                    userNamePlaceholderDos = {userNamePlaceholderDos}
-                    userPasswordPlaceholderDos = {userPasswordPlaceholderDos}
-                    userNombrePlaceholder = {userNombrePlaceholder}
-                    userApellidoPlaceholder = {userApellidoPlaceholder}
-                    onChangeUno = {e => setNewName(e.target.value)}
-                    onChangeDos = {e => setNewApellido(e.target.value)}
-                    onChangeTres = {e => setNewUserName(e.target.value)}
-                    onChangeCuatro = {e => setNewpassword(e.target.value)}
+                    onClickCambio={toggleMode}
+                    OnClickRegistro={RegistrarUsuario}
+                    OnKeyDownRegistro={Registrarse}
+                    inputNewName={inputNewName}
+                    inputNewApellido={inputNewApellido}
+                    inputNewUserName={inputNewUserName}
+                    inputNewpassword={inputNewpassword}
+                    userNamePlaceholderDos={userNamePlaceholderDos}
+                    userPasswordPlaceholderDos={userPasswordPlaceholderDos}
+                    userNombrePlaceholder={userNombrePlaceholder}
+                    userApellidoPlaceholder={userApellidoPlaceholder}
+                    onChangeUno={e => setNewName(e.target.value)}
+                    onChangeDos={e => setNewApellido(e.target.value)}
+                    onChangeTres={e => setNewUserName(e.target.value)}
+                    onChangeCuatro={e => setNewpassword(e.target.value)}
                 ></Register>
             )}
 

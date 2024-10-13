@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styles from "./Login.module.css"
+import Texto from "@/Components/Texto";
 
 
 
@@ -15,7 +16,7 @@ export default function Login({inputUserPassword, inputUserName, mensajeDeError,
                     <h2 className={styles.h2}>Login</h2>
                     <p className={styles.h1}>Si no tienes cuenta, <span className={styles.span} onClick={onClickCambio}>Registrate</span></p>
                     {mensajeDeError && (
-                        <p className={styles.error}>No se encuentra el Usuario o la Contraseña</p>
+                        <Texto variant="error">No se encuentra el Usuario o la Contraseña</Texto>
                     )} {/* HACERLO COMPONENTE */}
 
                 </div>
