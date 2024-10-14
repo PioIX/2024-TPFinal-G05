@@ -1,35 +1,23 @@
 "use client";
-import { useRouter } from "next/navigation";
+
 import Button from "../../Components/Button";
 import Texto from "../../Components/Texto";
-import styles from "./inicio.module.css"
+import styles from "./page.module.css"
+import Link from "next/link";
 
 export default function Home() {
-    const router = useRouter();
-    function eleccionModo() {
-        router.push('/eleccionModo');
-    }
-    function cartas() {
-        router.push('/cartas');
-    }
-    function ranking() {
-        router.push('/ranking');
-    }
-    function guia() {
-        router.push('/guia');
-    }
     return (
         <main className={styles.main}>
             <div>
                 <Texto text="Futbolitos" variant="title"/>
             </div>
             <div>
-                <Button text="Guia" variant="normal" onClick={guia}/>
-                <Button text="Cartas" variant="normal" onClick={cartas}/>
-                <Button text="Ranking" variant="normal" onClick={ranking}/>
+                <Link href = "./guia"><Button text="Guia" variant="normal"/></Link>
+                <Link href = "./cartas"><Button text="Cartas" variant="normal"/></Link>
+                <Link href = "./ranking"><Button text="Ranking" variant="normal"/></Link>                
             </div>
             <div>
-                <Button text="JUGAR" variant="jugar" onClick={eleccionModo}/>
+                <Link href = "./eleccionModo"><Button text="JUGAR" variant="jugar"/></Link>
             </div>
         </main>
     )

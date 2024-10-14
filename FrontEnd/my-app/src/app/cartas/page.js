@@ -1,5 +1,5 @@
 "use client"
-import styles from "./cartas.module.css";
+import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
 export default function Cartas() {
     const router = useRouter();
@@ -10,7 +10,8 @@ export default function Cartas() {
         router.push("/futbolitosDraft")
     }
     return (
-        <main className={styles.main}>
+        <main className = {styles.main}>
+            
         </main>
     )
 }
