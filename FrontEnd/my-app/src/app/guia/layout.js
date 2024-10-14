@@ -1,5 +1,6 @@
 "use client"
-import styles from "./guia.module.css"
+import styles from "./page.module.css"
+
 export default function RootLayout({ children }) {
     return (
       <html lang="en">

@@ -1,6 +1,6 @@
 "use client"
-import styles from "./ranking.module.css";
-import { useRouter } from "next/navigation";
+import styles from "./page.module.css"
+
 export default function Ranking() {
     const router = useRouter();
     function futbolitosBattle(){
