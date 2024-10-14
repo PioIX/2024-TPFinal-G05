@@ -1,6 +1,6 @@
 "use client";
 
-import Card from "@/Components/Card";
+import Card from "@/Estructuras/Card";
 import Button from "../../Components/Button";
 import Texto from "../../Components/Texto";
 import styles from "./page.module.css"
