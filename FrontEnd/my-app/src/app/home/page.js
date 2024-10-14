@@ -12,11 +12,11 @@ export default function Home() {
             <div>
                 <Texto text="Futbolitos" variant="title"/>
             </div>
+            <Card></Card>
             <div>
                 <Link href = "./guia"><Button text="Guia" variant="normal"/></Link>
                 <Link href = "./cartas"><Button text="Cartas" variant="normal"/></Link>
-                <Link href = "./ranking"><Button text="Ranking" variant="normal"/></Link>
-                <Card></Card>                
+                <Link href = "./ranking"><Button text="Ranking" variant="normal"/></Link>                
             </div>
             <div>
                 <Link href = "./eleccionModo"><Button text="JUGAR" variant="jugar"/></Link>

@@ -7,6 +7,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     color: white;
     text-align: center;
+}
+
+.img{
+    margin-right: 4px;
+    margin-top: 5px;
+    height: 205px;
+    width: 170px;
+}
+
+.titulo{
+        margin-right: 4px;
+        margin-top: -5px;
 }
