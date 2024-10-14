@@ -1,5 +1,6 @@
 "use client";
 
+import Card from "@/Components/Card";
 import Button from "../../Components/Button";
 import Texto from "../../Components/Texto";
 import styles from "./page.module.css"
@@ -14,7 +15,8 @@ export default function Home() {
             <div>
                 <Link href = "./guia"><Button text="Guia" variant="normal"/></Link>
                 <Link href = "./cartas"><Button text="Cartas" variant="normal"/></Link>
-                <Link href = "./ranking"><Button text="Ranking" variant="normal"/></Link>                
+                <Link href = "./ranking"><Button text="Ranking" variant="normal"/></Link>
+                <Card></Card>                
             </div>
             <div>
                 <Link href = "./eleccionModo"><Button text="JUGAR" variant="jugar"/></Link>
