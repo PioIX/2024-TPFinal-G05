@@ -6,3 +6,8 @@
 .informacion {
     background-color: aqua;
 }
+
+.InfoBotones {
+    display: flex;
+    flex-direction: row;
+}
