@@ -11,7 +11,7 @@ export default function Cartas() {
     }
     return (
         <main className = {styles.main}>
-            
+            <div></div>
         </main>
     )
 }
