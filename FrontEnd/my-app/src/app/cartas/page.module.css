@@ -1,9 +1,8 @@
-.body{
-    background-image: url("/images/fondoPagInicial.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat; 
-    background-attachment: fixed;
-    max-height: 100vh;
-    max-width: 100vw;
+.main {
+    display: grid;
+    grid-template-columns: 1fr 4fr; /* Dos columnas de igual tamaño */
+}
+
+.informacion {
+    background-color: aqua;
 }

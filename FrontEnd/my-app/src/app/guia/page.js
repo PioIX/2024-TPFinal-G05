@@ -1,6 +1,6 @@
 "use client"
-import styles from "./guia.module.css";
-import { useRouter } from "next/navigation";
+import styles from "./page.module.css"
+
 export default function Guia() {
     const router = useRouter();
     function futbolitosBattle(){

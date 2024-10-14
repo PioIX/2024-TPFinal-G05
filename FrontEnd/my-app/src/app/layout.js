@@ -1,5 +1,5 @@
 "use clients"
-import styles from "./globals.module.css"
+import styles from "./page.module.css"
 
 export default function RootLayout({ children }) {
   return (
@@ -9,7 +9,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.gstatic.com"/>
         <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet"/>
       </head>
-      <body className={styles.body}>
+      <body className = {styles.body}>
         {children}
       </body>
     </html>
