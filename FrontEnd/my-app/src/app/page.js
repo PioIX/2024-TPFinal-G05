@@ -117,7 +117,7 @@ export default function Home() {
     }
 
     useEffect(() => {
-        // PedidoUsuarios();
+        PedidoUsuarios();
     }, []);
 
     return (

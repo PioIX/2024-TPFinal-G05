@@ -1,24 +1,39 @@
-.p {
-    font-family: "Russo One", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    color: #ffcc00;
-    text-shadow:
-    0 0 5px #ffcc00, /* Sombra amarilla más intensa */
-    0 0 10px #ffcc00; /* Sombra amarilla muy fuerte */
-  }
+/* .p {
+  font-family: "Russo One", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: #ffcc00;
+  text-shadow:
+    0 0 5px #ffcc00,
+    0 0 10px #ffcc00;
+} */
 
-.title{
+.title {
+  font-family: "Russo One", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: #ffcc00;
+  text-shadow:
+    0 0 5px #ffcc00,
+    0 0 10px #ffcc00;
+    /* /////// */
   font-size: 90px;
   margin-top: 40px;
 }
 
-.h2{
+.h2 {
+  font-family: "Russo One", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: #ffcc00;
+  /* /////////// */
   font-size: 60px;
   margin-top: -70px;
   text-shadow:
-  0 0 5px #ffcc00, /* Sombra amarilla más intensa */
-  0 0 7px #ffcc00; /* Sombra amarilla muy fuerte */
+    0 0 5px #ffcc00,
+    /* Sombra amarilla más intensa */
+    0 0 7px #ffcc00;
+  /* Sombra amarilla muy fuerte */
 }
 
 .error {
@@ -27,4 +42,13 @@
   margin-block-start: 0;
   margin-block-end: 0;
 
+}
+
+.p {
+  font-family: "Russo One", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: #ffcc00;
+  
+  font-size: x-large;
 }

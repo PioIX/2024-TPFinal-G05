@@ -12,22 +12,27 @@
 // Revisión 5 - Año 2024
 
 // Cargo librerías instaladas y necesarias
+const LISTEN_PORT = 4000;
+const codigos = []
 const express = require('express');
 const bodyParser = require('body-parser');
 const MySQL = require('./modulos/mysql');
 const session = require('express-session');
 const cors = require('cors'); 
 const app = express();
+
 app.use(cors({
     origin: ["http://localhost:3000", "http://localhost:3001"],
     methods: ["GET", "POST", "PUT", "DELETE"], 
     credentials: true 
 }));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const server = app.listen(LISTEN_PORT, () => {
     console.log(`Servidor NodeJS corriendo en http://localhost:${LISTEN_PORT}/`);
 });
+
 const io = require('socket.io')(server, {
     cors: {
         origin: ["http://localhost:3000", "http://localhost:3001"],
@@ -35,11 +40,13 @@ const io = require('socket.io')(server, {
         credentials: true
     }
 });
+
 const sessionMiddleware = session({
     secret: "supersarasa",
     resave: false,
     saveUninitialized: false
 });
+
 app.use(sessionMiddleware);
 io.use((socket, next) => {
     sessionMiddleware(socket.request, {}, next);
@@ -48,11 +55,10 @@ io.use((socket, next) => {
 let sesionActual = {
     UserId: 0,
     currentContact: 0, 
-    contactoId: [],
+    PlayerId: [],
     chatCode: 0
 }
-const LISTEN_PORT = 4000;
-const codigos = []
+
 
 // PROYECTO FUTBOLITOS //
 
@@ -61,12 +67,12 @@ const codigos = []
 // LOGIN //
 app.get('/Usuario', async function(req,res){
     console.log(req.query) 
-    const respuesta = await MySQL.realizarQuery(`SELECT * FROM UserFutbolito;`)
+    const respuesta = await MySQL.realizarQuery(`SELECT * FROM UserFutbolitos;`)
     res.send(respuesta)
 })
 app.post('/ExisteUsuario', async function(req,res){
     console.log(req.body) 
-    const respuesta = await MySQL.realizarQuery(`SELECT UserId FROM UserFutbolito WHERE UserName = '${req.body.UserName}' AND UserPassword = '${req.body.UserPassword}';`)
+    const respuesta = await MySQL.realizarQuery(`SELECT UserId FROM UserFutbolitos WHERE UserName = '${req.body.UserName}' AND UserPassword = '${req.body.UserPassword}';`)
     if (respuesta.length > 0) {
         sesionActual.UserId = respuesta[0].UserId // A REVISAR // 
         console.log(respuesta)
@@ -82,7 +88,41 @@ app.post('/NuevoUser', async function(req,res) {
     res.send(result)
 })
 
+// PLAYERS //
+app.get('/Player', async function(req,res){
+    console.log(req.query) 
+    const respuesta = await MySQL.realizarQuery(`SELECT * FROM PlayerFutbolitos;`)
+    res.send(respuesta)
+})
 
+// PLAYERS X USERS//
+app.get('/PlayerXUser', async function(req, res) {
+    console.log(req.query);
+    const respuesta = await MySQL.realizarQuery(`
+        SELECT PlayerId FROM PlayersUserFutbolitos WHERE UserId = '${sesionActual.UserId}';
+    `);
+    if (respuesta.length > 0) {
+        sesionActual.PlayerId = respuesta.map(row => row.PlayerId); 
+        console.log(sesionActual.UserId )
+        console.log(sesionActual.PlayerId)
+        res.send({currentId: sesionActual.UserId, contactos: sesionActual.PlayerId});
+    } else {
+        console.log(sesionActual.UserId )
+        res.send({message: "No se encontraron contactos para este usuario"});
+    }
+});
+
+app.get('/PlayerXUserDos', async function(req,res){
+    const respuesta = await MySQL.realizarQuery(`
+        SELECT * FROM PlayerFutbolitos WHERE PlayerId IN (${sesionActual.PlayerId.join(',')});
+    `);
+    if (respuesta.length > 0) {
+        console.log(respuesta);
+        res.send(respuesta);
+    } else {
+        res.send({message: "Tenemos problemas en este momento..."});
+    }
+})
 app.get('/', (req, res) => {
 	console.log(`[REQUEST - ${req.method}] ${req.url}`);
 });
