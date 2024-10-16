@@ -2,39 +2,47 @@
     background-image: url("/images/cartaB.png");
     background-size: cover;
     background-position: center;
-    height: 450px;
-    width: 450px;
+    height: 470px;
+    width: 470px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     text-align: center;
+    font-family: "Russo One", sans-serif;
+    flex-direction: column; 
 }
 
 .seccion1 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .seccion2 {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin-left: 0px;
     margin-top: -10px;
 }
 
-.fondostats {
-    margin-top: -4px;
-    margin-right: 7px;
-    background-color: rgb(20, 59, 255);
-    width: 265px;
+.seccion3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
+.linea{
+    height: 1px;
+    width: 50px;
+    background-color: #ff00e1;
+    justify-content: center;
+}
+
+
 .img {
-    margin-right: 38px;
-    margin-top: 10px;
-    height: 260px;
-    width: 240px;
+    
+    height: 270px;
+    width: 250px;
 }
 
 .imgcaract {
@@ -43,27 +51,26 @@
 }
 
 .p {
-    margin-top: 9px;
+    margin-top: 14px;
     margin-left: 2px;
 }
 
 .imgstatA {
-    height: 60px;
-    width: 60px;
+    height: 70px;
+    width: 70px;
     background-image: url("/images/statsAtaque.png");
     background-size: cover;
     background-position: center;
     font-size: 25px;
     color: #ffffff;
     text-shadow:
-        0 0 5px #00eeff,
-        /* Sombra amarilla más intensa */
-        0 0 10px #00eeff;
+        0 0 5px #000000,
+        0 0 10px #0091ff;
 }
 
 .imgstatC {
-    height: 60px;
-    width: 60px;
+    height: 70px;
+    width: 70px;
     background-image: url("/images/statsControl.png");
     background-size: cover;
     background-position: center;
@@ -72,38 +79,55 @@
     margin-right: 20px;
     color: #ffffff;
     text-shadow:
-        0 0 5px #00eeff,
-        0 0 10px #00eeff;
+        0 0 5px #000000,
+        0 0 10px #0091ff;
 }
 
 .imgstatD {
-    height: 60px;
-    width: 60px;
+    height: 70px;
+    width: 70px;
     background-image: url("/images/statsDefensa.png");
     background-size: cover;
     background-position: center;
     font-size: 25px;
     color: #ffffff;
     text-shadow:
-        0 0 5px #00eeff,
-        0 0 10px #00eeff;
+        0 0 5px #000000,
+        0 0 10px #0091ff;
 }
 
 .titulo {
-    margin-right: 40px;
-    margin-top: -1px;
     color: #ffffff;
     text-shadow:
-        0 0 5px #0d00ff,
-        0 0 15px #00a2ff;
+        0 0 5px #000000,
+        0 0 10px #0091ff;
+    letter-spacing: 3px;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 .caracteristicaPrin{
-    margin-top: 40px;
-    margin-right: 2px;
+    margin-top: 20px;
+    margin-bottom: 1px;
+    font-size: 50px;
+    text-shadow:
+        0 0 5px #000000,
+        0 0 10px #0091ff;
+}
+
+.posicion{
+    color:white;
+    font-size: 20px;
+    font-weight: bold;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    text-shadow:
+        0 0 5px #000000,
+        0 0 10px #0091ff;
 }
 
 .caracteristicas{
     margin-top: 10px;
-    margin-right: 2px;
 }
