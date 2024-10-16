@@ -2,8 +2,8 @@
     background-image: url("/images/cartaB.png");
     background-size: cover;
     background-position: center;
-    height: 350px;
-    width: 350px;
+    height: 450px;
+    width: 450px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,69 +11,99 @@
     text-align: center;
 }
 
-.seccion1{
+.seccion1 {
     display: flex;
     flex-direction: column;
 }
 
-.seccion2{
+.seccion2 {
     display: flex;
     flex-direction: row;
     margin-left: 0px;
     margin-top: -10px;
 }
 
-.fondostats{
+.fondostats {
     margin-top: -4px;
     margin-right: 7px;
     background-color: rgb(20, 59, 255);
     width: 265px;
 }
 
-.img{
-    margin-right: 4px;
+.img {
+    margin-right: 38px;
     margin-top: 10px;
-    height: 205px;
-    width: 190px;
+    height: 260px;
+    width: 240px;
 }
 
-.imgstatA{
+.imgcaract {
     height: 50px;
     width: 50px;
+}
+
+.p {
+    margin-top: 9px;
+    margin-left: 2px;
+}
+
+.imgstatA {
+    height: 60px;
+    width: 60px;
     background-image: url("/images/statsAtaque.png");
     background-size: cover;
     background-position: center;
-    font-size: 17px;
-    color: rgb(94, 82, 26);
-    padding-top: 5px;
+    font-size: 25px;
+    color: #ffffff;
+    text-shadow:
+        0 0 5px #00eeff,
+        /* Sombra amarilla más intensa */
+        0 0 10px #00eeff;
 }
 
-.imgstatC{
-    height: 50px;
-    width: 50px;
+.imgstatC {
+    height: 60px;
+    width: 60px;
     background-image: url("/images/statsControl.png");
     background-size: cover;
     background-position: center;
-    font-size: 17px;
-    color: rgb(94, 82, 26);
-    padding-top: 5px;
+    font-size: 25px;
     margin-left: 20px;
     margin-right: 20px;
+    color: #ffffff;
+    text-shadow:
+        0 0 5px #00eeff,
+        0 0 10px #00eeff;
 }
 
-.imgstatD{
-    height: 50px;
-    width: 50px;
+.imgstatD {
+    height: 60px;
+    width: 60px;
     background-image: url("/images/statsDefensa.png");
     background-size: cover;
     background-position: center;
-    font-size: 17px;
-    color: rgb(58, 48, 2);
-    padding-top: 5px;
+    font-size: 25px;
+    color: #ffffff;
+    text-shadow:
+        0 0 5px #00eeff,
+        0 0 10px #00eeff;
 }
 
-.titulo{
-        margin-right: 4px;
-        margin-top: 3px;
-        
+.titulo {
+    margin-right: 40px;
+    margin-top: -1px;
+    color: #ffffff;
+    text-shadow:
+        0 0 5px #0d00ff,
+        0 0 15px #00a2ff;
+}
+
+.caracteristicaPrin{
+    margin-top: 40px;
+    margin-right: 2px;
+}
+
+.caracteristicas{
+    margin-top: 10px;
+    margin-right: 2px;
 }
