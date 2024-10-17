@@ -9,14 +9,14 @@
 }
 
 .imgDraft:hover{
-    transform: scale(0.8);
+    transform: scale(0.91);
 }
 
 .imgBattle{
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: 0.3s ease;
 }
 
 .imgBattle:hover{
-    transform: scale(0.8);
+    transform: scale(0.91);
 }

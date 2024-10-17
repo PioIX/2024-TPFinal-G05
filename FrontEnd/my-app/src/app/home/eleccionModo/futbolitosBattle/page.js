@@ -7,9 +7,8 @@ export default function futbolitosBattle() {
     
     
     return (
-        <main className={styles.main}>
+        <section className={styles.main}>
             <CrearSala></CrearSala>
-
-        </main>
+        </section>
     )
 }
