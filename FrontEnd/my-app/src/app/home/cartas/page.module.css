@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 1fr 5fr; /* Dos columnas: la primera más pequeña */
     width: 100vw; 
-    height: 100vh; 
+    height: 87vh;  
 }
 
 .informacion {

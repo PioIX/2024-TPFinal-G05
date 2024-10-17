@@ -13,6 +13,7 @@
 }
 
 .jugar{
+    
     margin-top: 100px;
     width: 500px;
     cursor: pointer;
@@ -36,3 +37,4 @@
     0 0 5px #00ffff, 
     0 0 10px #00ffff;
 }
+

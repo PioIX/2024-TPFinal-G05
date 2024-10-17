@@ -1,0 +1,74 @@
+.Nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: black;
+    padding: 0 1.5em 0 1.5em;
+    margin: 0%;
+    height: 14vh;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin: -1em;
+}
+.botones {
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+}
+
+.titulo {
+    font-family: "Russo One", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: #ffffff;
+  text-shadow:
+    0 0 5px #929292,
+    0 0 10px #a8a6a6;
+    /* /////// */
+  font-size: 40px;
+}
+
+.Guia {
+    background-color: black;
+    font-family: "Russo One", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 25px;
+    /* background: linear-gradient(180deg, #350b49, #46021f); */
+    height: 75px;
+    width: 210px;
+    color: #ffcc00;
+    border: solid 0.1px #000000;
+    border-radius: 1em;
+}
+
+.Guia:hover {
+    transition: 0.5s;
+    border-bottom: 3px solid #350b49;
+    border-right: 3px solid #350b49;
+    transform: scale(1.1);
+}
+
+.Jugar {
+    background-color: #ffcc00;
+    font-family: "Russo One", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 25px;
+    /* background: linear-gradient(180deg, #350b49, #46021f); */
+    height: 75px;
+    width: 250px;
+    color: #000000;
+    border: solid 0.1px #000000;
+    border-radius: 1em;
+}
+
+.Jugar:hover {
+    transition: 0.5s;
+    background-color: #350b49;
+    color: #ffcc00;
+    border-bottom: 3px solid #350b49;
+    border-right: 3px solid #350b49;
+    transform: scale(1.1);
+}
+

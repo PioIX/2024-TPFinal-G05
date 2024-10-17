@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link";
-import P from "../../Components/Texto";
+import P from "../../../Components/Texto";
 import styles from "./page.module.css"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ export default function eleccionModo() {
                 <P text="Elije un modo de juego:" variant="h2" />
             </div>
             <div className={styles.img}>
-                <Link href="./FutbolitosDraft">
+                <Link href="./eleccionModo/futbolitosDraft">
                     <Image className={styles.imgDraft} 
                         src="/images/futbolitosDraft.png"
                         width={400}
@@ -22,7 +22,7 @@ export default function eleccionModo() {
                         alt="futbolitosDraft"
                     />
                 </Link>
-                <Link href="./FutbolitosBattle">
+                <Link href="./eleccionModo/futbolitosBattle">
                     <Image className={styles.imgBattle} 
                         src="/images/futbolitosBattle.png"
                         width={400}

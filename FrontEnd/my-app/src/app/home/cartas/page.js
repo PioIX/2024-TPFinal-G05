@@ -23,7 +23,7 @@ export default function Cartas() {
 
         console.log(respuesta)
 
-        const PlayerXUser = respuesta.map(Player => ({ 
+        const PlayerXUser = respuesta.map(Player => ({
             PlayerId: Player.PlayerId,
             Nombre: Player.Nombre,
             Apellido: Player.Apellido,
@@ -61,7 +61,7 @@ export default function Cartas() {
 
         console.log(respuestaDos)
 
-        const PlayerXUser = respuestaDos.map(Player => ({ 
+        const PlayerXUser = respuestaDos.map(Player => ({
             PlayerId: Player.PlayerId,
             Nombre: Player.Nombre,
             Apellido: Player.Apellido,
@@ -84,25 +84,25 @@ export default function Cartas() {
     }, []);
 
     return (
-        <main className={styles.main}>
+        <section className={styles.main}>
             <div className={styles.informacion}>
-                <Texto variant = "title" text = "Cartas"></Texto>
-                <Texto variant = "p" text = "En esta seccion podes ver todos los jugadores del juego y tambien que jugadores tenees actualmente."></Texto>
-                <Texto variant = "p" text = "¡Selecciona la opcion que queres mostrar!"></Texto>
+                <Texto variant="title" text="Cartas"></Texto>
+                <Texto variant="p" text="En esta seccion podes ver todos los jugadores del juego y tambien que jugadores tenees actualmente."></Texto>
+                <Texto variant="p" text="¡Selecciona la opcion que queres mostrar!"></Texto>
                 <div className={styles.InfoBotones}>
-                    <Button variant = "normal" text = "Mis cartas" onClick = {ToggleMode} ></Button>
-                    <Button variant = "normal" text = "Cartas Futbolito" onClick = {ToggleMode} ></Button>
+                    <Button variant="normal" text="Mis cartas" onClick={ToggleMode} ></Button>
+                    <Button variant="normal" text="Cartas Futbolito" onClick={ToggleMode} ></Button>
                 </div>
             </div>
             {miosTodos ? (
                 <CardTable
-                    Cadena = {todosJugadores}
+                    Cadena={todosJugadores}
                 ></CardTable>
             ) : (
                 <CardTable
-                    Cadena = {jugadoresUser}
+                    Cadena={jugadoresUser}
                 ></CardTable>
             )}
-        </main>
+        </section>
     )
 }
