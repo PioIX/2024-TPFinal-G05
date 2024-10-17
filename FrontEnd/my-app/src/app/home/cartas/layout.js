@@ -1,4 +1,5 @@
 "use client"
+import NavTop from "@/Estructuras/NavTop"
 import styles from "./page.module.css"
 export default function RootLayout({ children }) {
     return (
@@ -9,6 +10,7 @@ export default function RootLayout({ children }) {
           <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet"/>
         </head>
         <body >
+          <NavTop></NavTop>
           {children}
         </body>
       </html>
