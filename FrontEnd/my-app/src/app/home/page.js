@@ -9,7 +9,7 @@ import NavTop from "@/Estructuras/NavTop";
 
 export default function Home() {
     return (
-        <main className={styles.main}>
+        <section className={styles.main}>
             <NavTop></NavTop>
             <div>
                 <Texto text="Futbolitos" variant="title"/>
@@ -22,6 +22,6 @@ export default function Home() {
             <div>
                 <Link href = "/home/eleccionModo"><Button text="JUGAR" variant="jugar"/></Link>
             </div>
-        </main>
+        </section>
     )
 }

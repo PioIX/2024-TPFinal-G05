@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import NavTop from "@/Estructuras/NavTop";
 export default function eleccionModo() {
     return (
-        <main className={styles.main}>
+        <section className={styles.main}>
             <NavTop></NavTop>
             <div>
                 <P text="Futbolitos" variant="title" />
@@ -31,6 +31,6 @@ export default function eleccionModo() {
                 </Link>
 
             </div>
-        </main>
+        </section>
     )
 }
