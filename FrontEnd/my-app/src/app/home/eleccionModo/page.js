@@ -9,9 +9,13 @@ export default function eleccionModo() {
     return (
         <section className={styles.main}>
             <NavTop></NavTop>
-            <div>
-                <P text="Futbolitos" variant="title" />
-            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <div className={styles.img}>
                 <Link href="./eleccionModo/futbolitosDraft">
                     <Image className={styles.imgDraft} 
@@ -29,7 +33,6 @@ export default function eleccionModo() {
                         alt="futbolitosBattle"
                     />
                 </Link>
-
             </div>
         </section>
     )

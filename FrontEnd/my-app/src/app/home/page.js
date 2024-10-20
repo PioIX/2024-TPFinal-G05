@@ -10,7 +10,6 @@ import NavTop from "@/Estructuras/NavTop";
 export default function Home() {
     return (
         <section className={styles.main}>
-            <NavTop></NavTop>
             <div>
                 <Texto text="Futbolitos" variant="title"/>
             </div>

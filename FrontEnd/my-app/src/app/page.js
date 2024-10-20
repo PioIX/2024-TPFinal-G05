@@ -80,7 +80,7 @@ export default function Home() {
             console.log("El Back devuelve ", result);
             if (result.length > 0) {
                 console.log("Inicio secion el usuario ", result)
-                // window.location.href = './home';
+                window.location.href = './home';
             } else {
                 console.log(result);
                 setMensajeDeError(!mensajeDeError)
@@ -113,6 +113,7 @@ export default function Home() {
             setUserPasswordPlaceholderDos("");
             setUserApellidoPlaceholder("")
             setUserNombrePlaceholder("")
+            setIngreso(!Ingreso)
         }
     }
 

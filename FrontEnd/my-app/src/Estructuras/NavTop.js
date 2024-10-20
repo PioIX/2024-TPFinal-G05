@@ -9,7 +9,7 @@ import Link from "next/link"
 export default function NavTop(nombreEquipoUsuario) {
     return (
         <div className = {styles.Nav}>
-            <h2 className = {styles.titulo}>nombreEquipoUsuario</h2>
+            <Texto variant = "NavTitle" text="Futbolitos"></Texto>
             <div className={styles.botones}>
                 <Link href = "/home/guia"><button className = {styles.Guia}>Guia</button></Link>
                 <Link href = "/home/cartas"><button className = {styles.Guia}>Cartas</button></Link>

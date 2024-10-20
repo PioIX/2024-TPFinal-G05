@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     background-color: black;
-    padding: 0 1.5em 0 1.5em;
+    padding: 0 3em 0 2em;
     margin: 0%;
     height: 14vh;
     align-items: center;
@@ -35,8 +35,8 @@
     font-style: normal;
     font-size: 25px;
     /* background: linear-gradient(180deg, #350b49, #46021f); */
-    height: 75px;
-    width: 210px;
+    height: 60px;
+    width: 150px;
     color: #ffcc00;
     border: solid 0.1px #000000;
     border-radius: 1em;
@@ -56,8 +56,8 @@
     font-style: normal;
     font-size: 25px;
     /* background: linear-gradient(180deg, #350b49, #46021f); */
-    height: 75px;
-    width: 250px;
+    height: 60px;
+    width: 150px;
     color: #000000;
     border: solid 0.1px #000000;
     border-radius: 1em;

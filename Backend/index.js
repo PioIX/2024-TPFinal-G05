@@ -84,7 +84,7 @@ app.post('/ExisteUsuario', async function(req,res){
 // REGISTER //
 app.post('/NuevoUser', async function(req,res) {
     console.log(req.body) 
-    result = await MySQL.realizarQuery(`INSERT INTO UserFutbolito (UserName, UserPassword, Nombre, Apellido) VALUES ('${req.body.UserName}','${req.body.UserPassword}','${req.body.Nombre}', '${req.body.Apellido}')`);
+    result = await MySQL.realizarQuery(`INSERT INTO UserFutbolitos (UserName, UserPassword, Nombre, Apellido) VALUES ('${req.body.UserName}','${req.body.UserPassword}','${req.body.Nombre}', '${req.body.Apellido}')`);
     res.send(result)
 })
 
