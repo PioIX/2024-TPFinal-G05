@@ -39,46 +39,46 @@ export default function Cartas() {
         setTodosJugadores(PlayerXUser)
     }
 
-    // async function PlayersDelUsuario() {
-    //     const response = await fetch('http://localhost:4000/PlayerXUser', {
-    //         method: "GET",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //     })
-    //     const respuesta = await response.json()
+    async function PlayersDelUsuario() {
+        const response = await fetch('http://localhost:4000/PlayerXUser', {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        const respuesta = await response.json()
 
-    //     console.log(respuesta)
+        console.log(respuesta)
 
-    //     const responseDos = await fetch('http://localhost:4000/PlayerXUserDos', {
-    //         method: "GET",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //     })
-    //     const respuestaDos = await responseDos.json()
+        const responseDos = await fetch('http://localhost:4000/PlayerXUserDos', {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        const respuestaDos = await responseDos.json()
 
-    //     console.log(respuestaDos)
+        console.log(respuestaDos)
 
-    //     const PlayerXUser = respuestaDos.map(Player => ({
-    //         PlayerId: Player.PlayerId,
-    //         Nombre: Player.Nombre,
-    //         Apellido: Player.Apellido,
-    //         Nacionalidad: Player.Nacionalidad,
-    //         Equipo: Player.Equipo,
-    //         Posicion: Player.Posicion,
-    //         Imagen: Player.Imagen,
-    //         Ataque: Player.Ataque,
-    //         Control: Player.Control,
-    //         Defenza: Player.Defensa
-    //     }));
+        const PlayerXUser = respuestaDos.map(Player => ({
+            PlayerId: Player.PlayerId,
+            Nombre: Player.Nombre,
+            Apellido: Player.Apellido,
+            Nacionalidad: Player.Nacionalidad,
+            Equipo: Player.Equipo,
+            Posicion: Player.Posicion,
+            Imagen: Player.Imagen,
+            Ataque: Player.Ataque,
+            Control: Player.Control,
+            Defenza: Player.Defensa
+        }));
 
-    //     setJugadoresUser(PlayerXUser)
-    // }
+        setJugadoresUser(PlayerXUser)
+    }
 
     useEffect(() => {
         PlayersTodos();
-        // PlayersDelUsuario();
+        PlayersDelUsuario();
     }, []);
 
     return (
