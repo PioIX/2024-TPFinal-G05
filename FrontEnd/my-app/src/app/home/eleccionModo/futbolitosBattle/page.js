@@ -27,7 +27,7 @@ export default function futbolitosBattle() {
     
         socket.on('startGame', () => {
             console.log("se conectaron los dos."); 
-            window.location.href = '/home'; // TE LLEVARIA A OTRA PAGINA
+            window.location.href = '/home/eleccionModo/futbolitosBattle/eleccionCartas'; // TE LLEVARIA A OTRA PAGINA
         });
     
         return () => {
