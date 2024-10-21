@@ -33,8 +33,7 @@ export default function Cartas() {
             Imagen: Player.Imagen,
             Ataque: Player.Ataque,
             Control: Player.Control,
-            Defenza: Player.Defenza,
-            Media: Player.Media
+            Defensa: Player.Defensa
         }));
 
         setTodosJugadores(PlayerXUser)
@@ -71,8 +70,7 @@ export default function Cartas() {
             Imagen: Player.Imagen,
             Ataque: Player.Ataque,
             Control: Player.Control,
-            Defenza: Player.Defenza,
-            Media: Player.Media
+            Defenza: Player.Defensa
         }));
 
         setJugadoresUser(PlayerXUser)

@@ -96,33 +96,33 @@ app.get('/Player', async function (req, res) {
 })
 
 // PLAYERS X USERS//
-app.get('/PlayerXUser', async function (req, res) {
-    console.log(req.query);
-    const respuesta = await MySQL.realizarQuery(`
-        SELECT PlayerId FROM PlayersUserFutbolitos WHERE UserId = '${sesionActual.UserId}';
-    `);
-    if (respuesta.length > 0) {
-        sesionActual.PlayerId = respuesta.map(row => row.PlayerId);
-        console.log(sesionActual.UserId)
-        console.log(sesionActual.PlayerId)
-        res.send({ currentId: sesionActual.UserId, contactos: sesionActual.PlayerId });
-    } else {
-        console.log(sesionActual.UserId)
-        res.send({ message: "No se encontraron contactos para este usuario" });
-    }
-});
+// app.get('/PlayerXUser', async function (req, res) {
+//     console.log(req.query);
+//     const respuesta = await MySQL.realizarQuery(`
+//         SELECT PlayerId FROM PlayersUserFutbolitos WHERE UserId = '${sesionActual.UserId}';
+//     `);
+//     if (respuesta.length > 0) {
+//         sesionActual.PlayerId = respuesta.map(row => row.PlayerId);
+//         console.log(sesionActual.UserId)
+//         console.log(sesionActual.PlayerId)
+//         res.send({ currentId: sesionActual.UserId, contactos: sesionActual.PlayerId });
+//     } else {
+//         console.log(sesionActual.UserId)
+//         res.send({ message: "No se encontraron contactos para este usuario" });
+//     }
+// });
 
-app.get('/PlayerXUserDos', async function (req, res) {
-    const respuesta = await MySQL.realizarQuery(`
-        SELECT * FROM PlayerFutbolitos WHERE PlayerId IN (${sesionActual.PlayerId.join(',')});
-    `);
-    if (respuesta.length > 0) {
-        console.log(respuesta);
-        res.send(respuesta);
-    } else {
-        res.send({ message: "Tenemos problemas en este momento..." });
-    }
-})
+// app.get('/PlayerXUserDos', async function (req, res) {
+//     const respuesta = await MySQL.realizarQuery(`
+//         SELECT * FROM PlayerFutbolitos WHERE PlayerId IN (${sesionActual.PlayerId.join(',')});
+//     `);
+//     if (respuesta.length > 0) {
+//         console.log(respuesta);
+//         res.send(respuesta);
+//     } else {
+//         res.send({ message: "Tenemos problemas en este momento..." });
+//     }
+// })
 
 // SALAS //
 app.get('/Salas', async function (req, res) {

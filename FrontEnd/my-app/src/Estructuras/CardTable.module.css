@@ -4,4 +4,8 @@
     border-radius: 25px;
     margin: 1.5em 1.5em 0 0;
     max-height: 92vh;
+    display: flex; /* Habilita flexbox */
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan */
+    padding: 10px; /* Espacio interno para que las tarjetas no toquen los bordes */
 }
+    
