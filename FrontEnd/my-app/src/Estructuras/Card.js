@@ -18,7 +18,7 @@ export default function Card({
         <div className={clsx(styles.carta, { [styles.cartaSmall]: isSmall })}>
             <div className={clsx(styles.seccion1, { [styles.seccion1Small]: isSmall })}>
                 <div className={clsx(styles.seccion2, { [styles.seccion2Small]: isSmall })}>
-                    <p className={clsx(styles.caracteristicaPrin, { [styles.caracteristicaPrinSmall]: isSmall })}>{media}</p>
+                    <p className={clsx(styles.caracteristicaPrin, { [styles.caracteristicaPrinSmall]: isSmall })}>99</p> {/*LA MEDIA LA CALCULADOS CON LAS ESTADISTICAS*/}
                     <div className={styles.caracteristicas}>
                         <p className={clsx(styles.posicion, { [styles.posicionSmall]: isSmall })}>{posicion}</p>
                     </div>
@@ -26,14 +26,14 @@ export default function Card({
                         <img
                             className={clsx(styles.imgcaract, { [styles.imgcaractSmall]: isSmall })}
                             src={`/Nacionalidades/${nacionalidad}`}
-                            alt="nacionalidad"
+                            alt="."
                         />
                     </div>
                     <div className={styles.caracteristicas}>
                         <img
                             className={clsx(styles.imgcaract, { [styles.imgcaractSmall]: isSmall })}
                             src={`/Escudos/${escudo}`}
-                            alt="escudo"
+                            alt="."
                         />
                     </div>
                 </div>

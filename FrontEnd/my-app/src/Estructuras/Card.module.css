@@ -14,8 +14,8 @@
 }
 
 .cartaSmall {
-    height: 188px; /* 80% de 235px */
-    width: 188px; /* 80% de 235px */
+    height: 169px; /* 10% menos de 188px */
+    width: 169px; /* 10% menos de 188px */
 }
 
 .seccion1 {
@@ -24,7 +24,8 @@
 }
 
 .seccion1Small {
-    flex-direction: column; /* Cambiamos la dirección para la versión pequeña */
+    display: flex;
+    flex-direction: row;
 }
 
 .seccion2 {
@@ -35,7 +36,9 @@
 }
 
 .seccion2Small {
-    margin-top: -4px; /* 80% de -5px */
+    display: flex;
+    flex-direction: column;
+    margin-top: -4px; /* 10% menos de -4px */
 }
 
 .seccion3 {
@@ -45,6 +48,8 @@
 }
 
 .seccion3Small {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between; /* Ajustar para la versión pequeña */
 }
 
@@ -54,8 +59,8 @@
 }
 
 .imgSmall {
-    height: 108px; /* 80% de 135px */
-    width: 100px; /* 80% de 125px */
+    height: 97px; /* 10% menos de 108px */
+    width: 90px; /* 10% menos de 100px */
 }
 
 .imgcaract {
@@ -64,8 +69,8 @@
 }
 
 .imgcaractSmall {
-    height: 20px; /* 80% de 25px */
-    width: 20px; /* 80% de 25px */
+    height: 18px; /* 10% menos de 20px */
+    width: 18px; /* 10% menos de 20px */
 }
 
 .p {
@@ -74,8 +79,8 @@
 }
 
 .pSmall {
-    margin-top: 5px; /* 80% de 7px */
-    margin-left: 0px; /* 80% de 1px */
+    margin-top: 4px; /* 10% menos de 5px */
+    margin-left: 0px; /* 10% menos de 0px */
 }
 
 .imgstatA {
@@ -120,12 +125,12 @@
 }
 
 .imgstatASmall {
-    height: 28px; /* 80% de 35px */
-    width: 28px; /* 80% de 35px */
+    height: 25px; /* 10% menos de 28px */
+    width: 25px; /* 10% menos de 28px */
     background-image: url("/images/statsAtaque.png");
     background-size: cover;
     background-position: center;
-    font-size: 12px; /* 80% de 15px */
+    font-size: 11px; /* 10% menos de 12px */
     color: #ffffff;
     text-shadow:
         0 0 5px #000000,
@@ -133,14 +138,14 @@
 }
 
 .imgstatCSmall {
-    height: 28px; /* 80% de 35px */
-    width: 28px; /* 80% de 35px */
+    height: 25px; /* 10% menos de 28px */
+    width: 25px; /* 10% menos de 28px */
     background-image: url("/images/statsControl.png");
     background-size: cover;
     background-position: center;
-    font-size: 12px; /* 80% de 15px */
-    margin-left: 20px;
-    margin-right: 20px;
+    font-size: 11px; /* 10% menos de 12px */
+    margin-left: 10px;
+    margin-right: 10px;
     color: #ffffff;
     text-shadow:
         0 0 5px #000000,
@@ -148,12 +153,12 @@
 }
 
 .imgstatDSmall {
-    height: 28px; /* 80% de 35px */
-    width: 28px; /* 80% de 35px */
+    height: 25px; /* 10% menos de 28px */
+    width: 25px; /* 10% menos de 28px */
     background-image: url("/images/statsDefensa.png");
     background-size: cover;
     background-position: center;
-    font-size: 12px; /* 80% de 15px */
+    font-size: 11px; /* 10% menos de 12px */
     color: #ffffff;
     text-shadow:
         0 0 5px #000000,
@@ -167,7 +172,7 @@
 }
 
 .caracteristicaPrinSmall {
-    font-size: 20px; /* 80% de 25px */
+    font-size: 18px; /* 10% menos de 20px */
 }
 
 .titulo {
@@ -184,16 +189,16 @@
 }
     
 .tituloSmall {
-    font-size: 14px; /* 80% de 18px */
+    font-size: 13px; /* 10% menos de 14px */
     color: #ffffff;
     text-shadow:
         0 0 5px #000000,
         0 0 10px #0091ff;
-    letter-spacing: 2px; /* Ajustado a 67% */
+    letter-spacing: 1.8px; /* 10% menos de 2px */
     margin-block-start: 0em;
     margin-block-end: 0em;
-    margin-top: 4px; /* 80% de 5px */
-    margin-bottom: 8px; /* 80% de 10px */
+    margin-top: 4px; /* 10% menos de 4px */
+    margin-bottom: 7px; /* 10% menos de 8px */
 }
 
 .posicion {
@@ -205,7 +210,7 @@
 }
 
 .posicionSmall {
-    font-size: 16px; /* 80% de 20px */
+    font-size: 14px; /* 10% menos de 16px */
 }
 
 .caracteristicas {
