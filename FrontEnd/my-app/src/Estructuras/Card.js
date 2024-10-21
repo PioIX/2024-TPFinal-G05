@@ -26,14 +26,14 @@ export default function Card({
                         <img
                             className={clsx(styles.imgcaract, { [styles.imgcaractSmall]: isSmall })}
                             src={`/Nacionalidades/${nacionalidad}`}
-                            alt="imagen"
+                            alt="nacionalidad"
                         />
                     </div>
                     <div className={styles.caracteristicas}>
                         <img
                             className={clsx(styles.imgcaract, { [styles.imgcaractSmall]: isSmall })}
                             src={`/Escudos/${escudo}`}
-                            alt="imagen"
+                            alt="escudo"
                         />
                     </div>
                 </div>
@@ -41,7 +41,7 @@ export default function Card({
                     <img
                         className={clsx(styles.img, { [styles.imgSmall]: isSmall })}
                         src={imagenJugador}
-                        alt="imagen"
+                        alt="imagenJugador"
                     />
                 </div>
             </div>
