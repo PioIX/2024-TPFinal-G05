@@ -10,7 +10,7 @@ import { useState } from "react";
 import Paquete from "@/Estructuras/Paquete";
 
 export default function Home() {
-    const [muestroPaquete, setMuestroPaquete] = useState(true);
+    const [muestroPaquete, setMuestroPaquete] = useState(false);
 
     return (
         <section className={styles.main}>

@@ -8,12 +8,11 @@ export default function CardTable({Cadena}) {
         <div className = {styles.Desk}>
             {Cadena.map((jugador) => (
               <Card
-              media = {jugador.Media}
               posicion = {jugador.Posicion}
               nacionalidad = {jugador.Nacionalidad}
               imagenJugador = {jugador.Imagen}
               escudo = {jugador.Equipo}
-              nombreJugador = {jugador.Nombre}
+              nombreJugador = {jugador.Apellido}
               ataque = {jugador.Ataque}
               control = {jugador.Control}
               defensa = {jugador.Defensa}
