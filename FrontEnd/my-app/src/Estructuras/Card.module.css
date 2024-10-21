@@ -13,9 +13,18 @@
     flex-direction: column; 
 }
 
+.cartaSmall {
+    height: 235px; /* 50% de la altura original */
+    width: 235px; /* 50% de la anchura original */
+}
+
 .seccion1 {
     display: flex;
     flex-direction: row;
+}
+
+.seccion1Small {
+    flex-direction: column; /* Cambiamos la dirección para la versión pequeña */
 }
 
 .seccion2 {
@@ -25,39 +34,53 @@
     margin-top: -10px;
 }
 
+.seccion2Small {
+    margin-top: -5px; /* Ajustar el margen para la versión pequeña */
+}
+
 .seccion3 {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
 
-.linea{
-    height: 1px;
-    width: 50px;
-    background-color: #ff00e1;
-    justify-content: center;
+.seccion3Small {
+    justify-content: space-between; /* Ajustar para la versión pequeña */
 }
 
-
 .img {
-    
-    height: 270px;
-    width: 250px;
+    height: 270px; /* Ajustado a 50% */
+    width: 250px; /* Ajustado a 50% */
+}
+
+.imgSmall {
+    height: sfjkbdsfjkskjfñskjfñloskfpñojwkesrjtwpx; /* 50% de la versión original */
+    width: 62.5px; /* 50% de la versión original */
 }
 
 .imgcaract {
-    height: 50px;
-    width: 50px;
+    height: 50px; /* Ajustado a 50% */
+    width: 50px; /* Ajustado a 50% */
+}
+
+.imgcaractSmall {
+    height: 25px; /* 50% de la versión original */
+    width: 25px; /* 50% de la versión original */
 }
 
 .p {
-    margin-top: 14px;
-    margin-left: 2px;
+    margin-top: 14px; /* Ajustado a 50% */
+    margin-left: 2px; /* Ajustado a 50% */
 }
 
-.imgstatA {
-    height: 70px;
-    width: 70px;
+.pSmall {
+    margin-top: 7px; /* 50% de la versión original */
+    margin-left: 1px; /* 50% de la versión original */
+}
+
+.imgstatA{
+    height: 70px; /* Ajustado a 50% */
+    width: 70px; /* Ajustado a 50% */
     background-image: url("/images/statsAtaque.png");
     background-size: cover;
     background-position: center;
@@ -67,10 +90,9 @@
         0 0 5px #000000,
         0 0 10px #0091ff;
 }
-
-.imgstatC {
-    height: 70px;
-    width: 70px;
+.imgstatC{
+    height: 70px; /* Ajustado a 50% */
+    width: 70px; /* Ajustado a 50% */
     background-image: url("/images/statsControl.png");
     background-size: cover;
     background-position: center;
@@ -82,10 +104,9 @@
         0 0 5px #000000,
         0 0 10px #0091ff;
 }
-
 .imgstatD {
-    height: 70px;
-    width: 70px;
+    height: 70px; /* Ajustado a 50% */
+    width: 70px; /* Ajustado a 50% */
     background-image: url("/images/statsDefensa.png");
     background-size: cover;
     background-position: center;
@@ -96,38 +117,95 @@
         0 0 10px #0091ff;
 }
 
-.titulo {
+.imgstatASmall {
+    height: 35px; /* 50% de la versión original */
+    width: 35px; /* 50% de la versión original */
+    background-image: url("/images/statsAtaque.png");
+    background-size: cover;
+    background-position: center;
+    font-size: 12.5px;
     color: #ffffff;
     text-shadow:
         0 0 5px #000000,
         0 0 10px #0091ff;
-    letter-spacing: 3px;
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    margin-top: 10px;
-    margin-bottom: 15px;
 }
 
-.caracteristicaPrin{
-    margin-top: 20px;
-    margin-bottom: 1px;
-    font-size: 50px;
+.imgstatCSmall {
+    height: 35px; /* 50% de la versión original */
+    width: 35px; /* 50% de la versión original */
+    background-image: url("/images/statsControl.png");
+    background-size: cover;
+    background-position: center;
+    font-size: 12.5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    color: #ffffff;
     text-shadow:
         0 0 5px #000000,
         0 0 10px #0091ff;
 }
 
-.posicion{
-    color:white;
-    font-size: 20px;
+.imgstatDSmall {
+    height: 35px; /* 50% de la versión original */
+    width: 35px; /* 50% de la versión original */
+    background-image: url("/images/statsDefensa.png");
+    background-size: cover;
+    background-position: center;
+    font-size: 12.5px;
+    color: #ffffff;
+    text-shadow:
+        0 0 5px #000000,
+        0 0 10px #0091ff;
+}
+
+.caracteristicaPrin {
+    margin-top: 10px; /* Ajustado a 50% */
+    margin-bottom: 1px;
+    font-size: 50px; /* Ajustado a 50% */
+}
+
+.caracteristicaPrinSmall {
+    font-size: 25px; /* 50% de la versión original */
+}
+
+.titulo {
+    font-size: 36px;
+    color: #ffffff;
+    text-shadow:
+        0 0 5px #000000,
+        0 0 10px #0091ff;
+    letter-spacing: 3px; /* Ajustado a 67% */
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-top: 10px; /* Ajustado a 50% */
+    margin-bottom: 15px; /* Ajustado a 67% */
+}
+    
+.tituloSmall {
+    font-size: 18px; /* Ajustado a 50% */
+    color: #ffffff;
+    text-shadow:
+        0 0 5px #000000,
+        0 0 10px #0091ff;
+    letter-spacing: 2px; /* Ajustado a 67% */
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-top: 5px; /* Ajustado a 50% */
+    margin-bottom: 10px; /* Ajustado a 67% */
+}
+
+.posicion {
+    color: white;
+    font-size: 40px; /* Ajustado a 50% */
     font-weight: bold;
     margin-block-start: 0;
     margin-block-end: 0;
-    text-shadow:
-        0 0 5px #000000,
-        0 0 10px #0091ff;
 }
 
-.caracteristicas{
-    margin-top: 10px;
+.posicionSmall {
+    font-size: 20px; /* Ajustado a 50% */
+}
+
+.caracteristicas {
+    margin-top: 5px; /* Ajustado a 50% */
 }
