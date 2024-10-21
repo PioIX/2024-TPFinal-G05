@@ -18,13 +18,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const MySQL = require('./modulos/mysql');
 const session = require('express-session');
-const cors = require('cors'); 
+const cors = require('cors');
 const app = express();
 
 app.use(cors({
     origin: ["http://localhost:3000", "http://localhost:3001"],
-    methods: ["GET", "POST", "PUT", "DELETE"], 
-    credentials: true 
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
 }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -54,7 +54,7 @@ io.use((socket, next) => {
 
 let sesionActual = {
     UserId: 0,
-    currentContact: 0, 
+    currentContact: 0,
     PlayerId: [],
     chatCode: 0
 }
@@ -65,54 +65,54 @@ let sesionActual = {
 // USUARIOS
 
 // LOGIN //
-app.get('/Usuario', async function(req,res){
-    console.log(req.query) 
+app.get('/Usuario', async function (req, res) {
+    console.log(req.query)
     const respuesta = await MySQL.realizarQuery(`SELECT * FROM UserFutbolitos;`)
     res.send(respuesta)
 })
-app.post('/ExisteUsuario', async function(req,res){
-    console.log(req.body) 
+app.post('/ExisteUsuario', async function (req, res) {
+    console.log(req.body)
     const respuesta = await MySQL.realizarQuery(`SELECT UserId FROM UserFutbolitos WHERE UserName = '${req.body.UserName}' AND UserPassword = '${req.body.UserPassword}';`)
     if (respuesta.length > 0) {
         sesionActual.UserId = respuesta[0].UserId // A REVISAR // 
         console.log(respuesta)
         res.send(respuesta) // REVISAR QUE ME MANDA //
     } else {
-        res.send({message: "Registrse, Usuario no encontrado"})
+        res.send({ message: "Registrse, Usuario no encontrado" })
     }
 })
 // REGISTER //
-app.post('/NuevoUser', async function(req,res) {
-    console.log(req.body) 
+app.post('/NuevoUser', async function (req, res) {
+    console.log(req.body)
     result = await MySQL.realizarQuery(`INSERT INTO UserFutbolitos (UserName, UserPassword, Nombre, Apellido) VALUES ('${req.body.UserName}','${req.body.UserPassword}','${req.body.Nombre}', '${req.body.Apellido}')`);
     res.send(result)
 })
 
 // PLAYERS //
-app.get('/Player', async function(req,res){
-    console.log(req.query) 
+app.get('/Player', async function (req, res) {
+    console.log(req.query)
     const respuesta = await MySQL.realizarQuery(`SELECT * FROM PlayerFutbolitos;`)
     res.send(respuesta)
 })
 
 // PLAYERS X USERS//
-app.get('/PlayerXUser', async function(req, res) {
+app.get('/PlayerXUser', async function (req, res) {
     console.log(req.query);
     const respuesta = await MySQL.realizarQuery(`
         SELECT PlayerId FROM PlayersUserFutbolitos WHERE UserId = '${sesionActual.UserId}';
     `);
     if (respuesta.length > 0) {
-        sesionActual.PlayerId = respuesta.map(row => row.PlayerId); 
-        console.log(sesionActual.UserId )
+        sesionActual.PlayerId = respuesta.map(row => row.PlayerId);
+        console.log(sesionActual.UserId)
         console.log(sesionActual.PlayerId)
-        res.send({currentId: sesionActual.UserId, contactos: sesionActual.PlayerId});
+        res.send({ currentId: sesionActual.UserId, contactos: sesionActual.PlayerId });
     } else {
-        console.log(sesionActual.UserId )
-        res.send({message: "No se encontraron contactos para este usuario"});
+        console.log(sesionActual.UserId)
+        res.send({ message: "No se encontraron contactos para este usuario" });
     }
 });
 
-app.get('/PlayerXUserDos', async function(req,res){
+app.get('/PlayerXUserDos', async function (req, res) {
     const respuesta = await MySQL.realizarQuery(`
         SELECT * FROM PlayerFutbolitos WHERE PlayerId IN (${sesionActual.PlayerId.join(',')});
     `);
@@ -120,76 +120,87 @@ app.get('/PlayerXUserDos', async function(req,res){
         console.log(respuesta);
         res.send(respuesta);
     } else {
-        res.send({message: "Tenemos problemas en este momento..."});
+        res.send({ message: "Tenemos problemas en este momento..." });
     }
 })
+
+// SALAS //
+app.get('/Salas', async function (req, res) {
+    console.log(req.query)
+    const respuesta = await MySQL.realizarQuery(`SELECT * FROM SalasFutbolitos;`)
+    res.send(respuesta)
+})
+
+// NUEVA SALA //
+app.post('/NuevaSala', async function (req, res) {
+    console.log(req.body)
+    result = await MySQL.realizarQuery(`INSERT INTO SalasFutbolitos (Codigo) VALUES ('${req.body.Codigo}')`);
+    res.send(result)
+})
+
+
 app.get('/', (req, res) => {
-	console.log(`[REQUEST - ${req.method}] ${req.url}`);
+    console.log(`[REQUEST - ${req.method}] ${req.url}`);
 });
 
 app.post('/login', (req, res) => {
-	console.log(`[REQUEST - ${req.method}] ${req.url}`);
+    console.log(`[REQUEST - ${req.method}] ${req.url}`);
 });
 
 app.delete('/login', (req, res) => {
-	console.log(`[REQUEST - ${req.method}] ${req.url}`);
-	res.send(null);
+    console.log(`[REQUEST - ${req.method}] ${req.url}`);
+    res.send(null);
 });
 
 io.on("connection", (socket) => {
-	const req = socket.request;
+    const req = socket.request;
 
-	socket.on('joinRoom', data => {
-        
+    socket.on('joinRoom', data => {
         if (existeSala(data.room)) {
-            if (req.session.room != undefined && req.session.room.length > 0)
+            if (req.session.room && req.session.room.length > 0) {
                 socket.leave(req.session.room);
+            }
             req.session.room = data.room;
             socket.join(req.session.room);
             sesionActual.chatCode = data.room;
-            console.log("Entraste a ", data.room)
+            console.log("Entraste a ", data.room);
 
             io.to(req.session.room).emit('entroSala', { room: req.session.room, success: true });
-        }
-        else {
-            codigos.push(data.room)
+
+            const clients = io.sockets.adapter.rooms.get(req.session.room);
+            if (clients && clients.size === 2) {
+                io.to(req.session.room).emit('startGame');
+            }
+        } else {
+            codigos.push(data.room);
             req.session.room = data.room;
             socket.join(req.session.room);
             sesionActual.chatCode = req.session.room;
-            console.log("No existia la Sala. Se creo la sala ", sesionActual.chatCode)
+            console.log("No existía la Sala. Se creó la sala ", sesionActual.chatCode);
 
             io.to(req.session.room).emit('salaCreada', { room: req.session.room, success: true });
         }
-
     });
 
+    socket.on('pingAll', data => {
+        console.log("PING ALL: ", data);
+        io.emit('pingAll', { event: "Ping to all", message: data });
+    });
 
-	socket.on('pingAll', data => {
-		console.log("PING ALL: ", data);
-		io.emit('pingAll', { event: "Ping to all", message: data });
-	});
+    socket.on('sendMessage', data => {
+        io.to(req.session.room).emit('newMessage', { Fecha: data.Fecha, Contenido: data.Contenido, userEnvia: data.UserEnvia, userRecibe: data.UserRecibe });
+    });
 
-	socket.on('sendMessage', data => {
-        // console.log(data)
-		io.to(req.session.room).emit('newMessage', { Fecha: data.Fecha, Contenido: data.Contenido, userEnvia: data.UserEnvia, userRecibe: data.UserRecibe });
-	});
-
-	socket.on('disconnect', () => {
-		console.log("Disconnect");
-	})
+    socket.on('disconnect', () => {
+        console.log("Disconnect");
+    });
 });
 
 function existeSala(room) {
-    for (let index = 0; index < codigos.length; index++) {
-        if (room == codigos[index]) {
-            return true
-        }
-    }
-    return false
+    return codigos.includes(room);
 }
-
 //CHATS
-app.post('/TraerChat', async function(req, res) {
+app.post('/TraerChat', async function (req, res) {
     console.log(req.body);
     sesionActual.currentContact = req.body.UserElegido;
     const respuesta = await MySQL.realizarQuery(`
@@ -207,17 +218,17 @@ app.post('/TraerChat', async function(req, res) {
 });
 
 //USUARIOS
-app.get('/verificoUser', async function(req,res){
-    console.log(req.query) 
-    
+app.get('/verificoUser', async function (req, res) {
+    console.log(req.query)
+
     const respuesta = await MySQL.realizarQuery(`
     SELECT * FROM UserWpp;
     `)
     res.send(respuesta)
 })
 
-app.post('/Users', async function(req,res){
-    console.log(req.body) 
+app.post('/Users', async function (req, res) {
+    console.log(req.body)
     const respuesta = await MySQL.realizarQuery(`
     SELECT UserId FROM UserWpp WHERE UserName = '${req.body.UserName}' AND UserPassword = '${req.body.UserPassword}';
     `)
@@ -225,18 +236,18 @@ app.post('/Users', async function(req,res){
         sesionActual.userId = respuesta[0].UserId
         res.send(respuesta)
     } else {
-        res.send({message: "Registrse, Usuario no encontrado"})
+        res.send({ message: "Registrse, Usuario no encontrado" })
     }
 })
 
-app.post('/NuevoUser', async function(req,res) {
-    console.log(req.body) 
+app.post('/NuevoUser', async function (req, res) {
+    console.log(req.body)
     result = await MySQL.realizarQuery(`INSERT INTO UserWpp (UserName, UserPassword, Nombre, Apellido) VALUES ('${req.body.UserName}','${req.body.UserPassword}','${req.body.Nombre}', '${req.body.Apellido}')`);
     // res.send("ok")
 })
 
 //DIRECCION CONTACTO
-app.get('/ContactoXUser', async function(req, res) {
+app.get('/ContactoXUser', async function (req, res) {
     console.log(req.query);
     const respuesta = await MySQL.realizarQuery(`
         SELECT ContactoId FROM ContactosUserWpp WHERE UserId = '${sesionActual.userId}';
@@ -244,17 +255,17 @@ app.get('/ContactoXUser', async function(req, res) {
 
     if (respuesta.length > 0) {
         sesionActual.contactoId = respuesta.map(row => row.ContactoId); // Guardar los ContactoId en un array
-        console.log(sesionActual.userId )
+        console.log(sesionActual.userId)
         console.log(sesionActual.contactoId)
-        res.send({currentId: sesionActual.userId, contactos: sesionActual.contactoId});
+        res.send({ currentId: sesionActual.userId, contactos: sesionActual.contactoId });
     } else {
-        console.log(sesionActual.userId )
-        res.send({message: "No se encontraron contactos para este usuario"});
+        console.log(sesionActual.userId)
+        res.send({ message: "No se encontraron contactos para este usuario" });
     }
 });
 
 //CONTACTOS
-app.get('/Contactos', async function(req,res){
+app.get('/Contactos', async function (req, res) {
     const respuesta = await MySQL.realizarQuery(`
         SELECT * FROM ContactosWpp WHERE ContactoId IN (${sesionActual.contactoId.join(',')});
     `);
@@ -262,18 +273,18 @@ app.get('/Contactos', async function(req,res){
         console.log(respuesta);
         res.send(respuesta);
     } else {
-        res.send({message: "Agregue un Contacto"});
+        res.send({ message: "Agregue un Contacto" });
     }
 })
 
-app.post('/EnvioContacto', async function(req,res) {
-    console.log(req.body) 
+app.post('/EnvioContacto', async function (req, res) {
+    console.log(req.body)
     result = await MySQL.realizarQuery(`INSERT INTO ContactosWpp (nombre, apellido, numeroTelefono, contactName) VALUES ('${req.body.nombre}','${req.body.apellido}','${req.body.numeroTelefono}', '${req.body.contactName}')`);
     // res.send("ok")
 })
 
-app.get('/Chats', async function(req,res){
-    console.log(req.query) 
+app.get('/Chats', async function (req, res) {
+    console.log(req.query)
     const respuesta = await MySQL.realizarQuery(`
     SELECT * FROM ChatsWpp;
     `)
@@ -281,8 +292,8 @@ app.get('/Chats', async function(req,res){
 })
 
 //DIRECCION CHATS
-app.get('/DireccionChat', async function(req,res){
-    console.log(req.query) 
+app.get('/DireccionChat', async function (req, res) {
+    console.log(req.query)
     const respuesta = await MySQL.realizarQuery(`
     SELECT * FROM ChatsUserWpp;
     `)
@@ -290,15 +301,15 @@ app.get('/DireccionChat', async function(req,res){
 })
 
 //CHATS
-app.get('/Chats', async function(req,res){
-    console.log(req.query) 
+app.get('/Chats', async function (req, res) {
+    console.log(req.query)
     const respuesta = await MySQL.realizarQuery(`
     SELECT * FROM ChatsWpp;
     `)
     res.send(respuesta)
 })
 
-app.get('/ChatUsuarios', async function(req, res) {
+app.get('/ChatUsuarios', async function (req, res) {
     console.log(req.query);
 
     const userId1 = req.query.userId1;
@@ -315,26 +326,26 @@ app.get('/ChatUsuarios', async function(req, res) {
 });
 
 //MENSAJES
-app.get('/Mensajes', async function(req,res){
-    console.log(req.query) 
+app.get('/Mensajes', async function (req, res) {
+    console.log(req.query)
     const respuesta = await MySQL.realizarQuery(`SELECT * FROM MensajesWpp;`)
     res.send(respuesta)
 })
 
 
-app.get('/Mensajes', async function(req,res){
-    console.log(req.query) 
+app.get('/Mensajes', async function (req, res) {
+    console.log(req.query)
     const respuesta = await MySQL.realizarQuery(`
     SELECT * FROM MensajesWpp;
     `)
     res.send(respuesta)
 })
 
-app.post('/EnviarMensaje', async function(req,res) {
-        console.log(req.body) 
-        sesionActual.Fecha = req.body.Fecha
-        result = await MySQL.realizarQuery(`INSERT INTO MensajesWpp (Contenido, Fecha, UserEnvia, UserRecibe) VALUES ('${req.body.Contenido}','${req.body.Fecha}', '${req.body.UserEnvia}', '${req.body.UserRecibe}')`);
-        // res.send("ok")
-    })
+app.post('/EnviarMensaje', async function (req, res) {
+    console.log(req.body)
+    sesionActual.Fecha = req.body.Fecha
+    result = await MySQL.realizarQuery(`INSERT INTO MensajesWpp (Contenido, Fecha, UserEnvia, UserRecibe) VALUES ('${req.body.Contenido}','${req.body.Fecha}', '${req.body.UserEnvia}', '${req.body.UserRecibe}')`);
+    // res.send("ok")
+})
 
 
