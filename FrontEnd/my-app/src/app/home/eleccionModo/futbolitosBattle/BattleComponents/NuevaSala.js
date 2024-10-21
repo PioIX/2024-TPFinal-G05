@@ -14,7 +14,7 @@ export default function NuevaSala({onChange, codigoSala, onClick}) {
                 <div className={styles.container}>
                     <div className={styles.containerAdvise}>
                         <Texto variant="NavTitle" text = "Crear Sala"></Texto>
-                        <Texto variant="p" text = "Ingrese el coigo de sala deseado, o crea una sala"></Texto>
+                        <Texto variant="p" text = "Ingrese el codigo de sala deseado, o crea una sala"></Texto>
                         <div className={styles.interaccion}>
                             <input onChange={onChange} value={codigoSala} placeholder="Codigo" />
                             <button className={styles.btn} onClick={onClick}>Button</button>
