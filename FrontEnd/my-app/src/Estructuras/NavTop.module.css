@@ -15,7 +15,13 @@
     flex-direction: row;
     gap: 2em;
 }
-
+.prim {
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    align-items: center;
+    flex-wrap: nowrap;
+}
 .titulo {
     font-family: "Russo One", sans-serif;
   font-weight: 500;

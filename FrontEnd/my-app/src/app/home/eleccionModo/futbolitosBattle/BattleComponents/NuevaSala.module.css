@@ -10,7 +10,7 @@
 
 .container {
 
-    margin-top: 13%;
+    margin-top: 11%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,7 +27,15 @@
 
 
 }
+.divLogOut {
+  display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 10px;
 
+  }
 .interaccion {
     display: flex;
     flex-direction: column;

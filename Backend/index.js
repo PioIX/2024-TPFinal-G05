@@ -96,33 +96,33 @@ app.get('/Player', async function (req, res) {
 })
 
 // PLAYERS X USERS//
-// app.get('/PlayerXUser', async function (req, res) {
-//     console.log(req.query);
-//     const respuesta = await MySQL.realizarQuery(`
-//         SELECT PlayerId FROM PlayersUserFutbolitos WHERE UserId = '${sesionActual.UserId}';
-//     `);
-//     if (respuesta.length > 0) {
-//         sesionActual.PlayerId = respuesta.map(row => row.PlayerId);
-//         console.log(sesionActual.UserId)
-//         console.log(sesionActual.PlayerId)
-//         res.send({ currentId: sesionActual.UserId, contactos: sesionActual.PlayerId });
-//     } else {
-//         console.log(sesionActual.UserId)
-//         res.send({ message: "No se encontraron contactos para este usuario" });
-//     }
-// });
+app.get('/PlayerXUser', async function (req, res) {
+    console.log(req.query);
+    const respuesta = await MySQL.realizarQuery(`
+        SELECT PlayerId FROM PlayerUserFutbolitos WHERE UserId = '${sesionActual.UserId}';
+    `);
+    if (respuesta.length > 0) {
+        sesionActual.PlayerId = respuesta.map(row => row.PlayerId);
+        console.log(sesionActual.UserId)
+        console.log(sesionActual.PlayerId)
+        res.send({ currentId: sesionActual.UserId, contactos: sesionActual.PlayerId });
+    } else {
+        console.log(sesionActual.UserId)
+        res.send({ message: "No se encontraron contactos para este usuario" });
+    }
+});
 
-// app.get('/PlayerXUserDos', async function (req, res) {
-//     const respuesta = await MySQL.realizarQuery(`
-//         SELECT * FROM PlayerFutbolitos WHERE PlayerId IN (${sesionActual.PlayerId.join(',')});
-//     `);
-//     if (respuesta.length > 0) {
-//         console.log(respuesta);
-//         res.send(respuesta);
-//     } else {
-//         res.send({ message: "Tenemos problemas en este momento..." });
-//     }
-// })
+app.get('/PlayerXUserDos', async function (req, res) {
+    const respuesta = await MySQL.realizarQuery(`
+        SELECT * FROM PlayerFutbolitos WHERE PlayerId IN (${sesionActual.PlayerId.join(',')});
+    `);
+    if (respuesta.length > 0) {
+        console.log(respuesta);
+        res.send(respuesta);
+    } else {
+        res.send({ message: "Tenemos problemas en este momento..." });
+    }
+})
 
 // SALAS //
 app.get('/Salas', async function (req, res) {
@@ -199,153 +199,155 @@ io.on("connection", (socket) => {
 function existeSala(room) {
     return codigos.includes(room);
 }
-//CHATS
-app.post('/TraerChat', async function (req, res) {
-    console.log(req.body);
-    sesionActual.currentContact = req.body.UserElegido;
-    const respuesta = await MySQL.realizarQuery(`
-        SELECT cu1.ChatCode
-        FROM ChatsWpp cu1
-        JOIN ChatsWpp cu2 ON cu1.ChatCode = cu2.ChatCode
-        WHERE cu1.UserId = '${sesionActual.userId}' 
-        AND cu2.UserId = '${req.body.UserElegido}';
-    `);
-    if (respuesta.length > 0) {
-        res.send({ currentId: sesionActual.userId, codigo: respuesta[0].ChatCode });
-    } else {
-        res.send({ message: "No se encontró chat entre estos usuarios." });
-    }
-});
-
-//USUARIOS
-app.get('/verificoUser', async function (req, res) {
-    console.log(req.query)
-
-    const respuesta = await MySQL.realizarQuery(`
-    SELECT * FROM UserWpp;
-    `)
-    res.send(respuesta)
-})
-
-app.post('/Users', async function (req, res) {
-    console.log(req.body)
-    const respuesta = await MySQL.realizarQuery(`
-    SELECT UserId FROM UserWpp WHERE UserName = '${req.body.UserName}' AND UserPassword = '${req.body.UserPassword}';
-    `)
-    if (respuesta.length > 0) {
-        sesionActual.userId = respuesta[0].UserId
-        res.send(respuesta)
-    } else {
-        res.send({ message: "Registrse, Usuario no encontrado" })
-    }
-})
-
-app.post('/NuevoUser', async function (req, res) {
-    console.log(req.body)
-    result = await MySQL.realizarQuery(`INSERT INTO UserWpp (UserName, UserPassword, Nombre, Apellido) VALUES ('${req.body.UserName}','${req.body.UserPassword}','${req.body.Nombre}', '${req.body.Apellido}')`);
-    // res.send("ok")
-})
-
-//DIRECCION CONTACTO
-app.get('/ContactoXUser', async function (req, res) {
-    console.log(req.query);
-    const respuesta = await MySQL.realizarQuery(`
-        SELECT ContactoId FROM ContactosUserWpp WHERE UserId = '${sesionActual.userId}';
-    `);
-
-    if (respuesta.length > 0) {
-        sesionActual.contactoId = respuesta.map(row => row.ContactoId); // Guardar los ContactoId en un array
-        console.log(sesionActual.userId)
-        console.log(sesionActual.contactoId)
-        res.send({ currentId: sesionActual.userId, contactos: sesionActual.contactoId });
-    } else {
-        console.log(sesionActual.userId)
-        res.send({ message: "No se encontraron contactos para este usuario" });
-    }
-});
-
-//CONTACTOS
-app.get('/Contactos', async function (req, res) {
-    const respuesta = await MySQL.realizarQuery(`
-        SELECT * FROM ContactosWpp WHERE ContactoId IN (${sesionActual.contactoId.join(',')});
-    `);
-    if (respuesta.length > 0) {
-        console.log(respuesta);
-        res.send(respuesta);
-    } else {
-        res.send({ message: "Agregue un Contacto" });
-    }
-})
-
-app.post('/EnvioContacto', async function (req, res) {
-    console.log(req.body)
-    result = await MySQL.realizarQuery(`INSERT INTO ContactosWpp (nombre, apellido, numeroTelefono, contactName) VALUES ('${req.body.nombre}','${req.body.apellido}','${req.body.numeroTelefono}', '${req.body.contactName}')`);
-    // res.send("ok")
-})
-
-app.get('/Chats', async function (req, res) {
-    console.log(req.query)
-    const respuesta = await MySQL.realizarQuery(`
-    SELECT * FROM ChatsWpp;
-    `)
-    res.send(respuesta)
-})
-
-//DIRECCION CHATS
-app.get('/DireccionChat', async function (req, res) {
-    console.log(req.query)
-    const respuesta = await MySQL.realizarQuery(`
-    SELECT * FROM ChatsUserWpp;
-    `)
-    res.send(respuesta)
-})
-
-//CHATS
-app.get('/Chats', async function (req, res) {
-    console.log(req.query)
-    const respuesta = await MySQL.realizarQuery(`
-    SELECT * FROM ChatsWpp;
-    `)
-    res.send(respuesta)
-})
-
-app.get('/ChatUsuarios', async function (req, res) {
-    console.log(req.query);
-
-    const userId1 = req.query.userId1;
-    const userId2 = req.query.userId2;
-
-    const respuesta = await MySQL.realizarQuery(`
-        SELECT cu1.ChatCode
-        FROM ChatsUserWpp cu1
-        JOIN ChatsUserWpp cu2 ON cu1.ChatCode = cu2.ChatCode
-        WHERE cu1.UserId = ${userId1} AND cu2.UserId = ${userId2};
-    `);
-
-    res.send(respuesta);
-});
-
-//MENSAJES
-app.get('/Mensajes', async function (req, res) {
-    console.log(req.query)
-    const respuesta = await MySQL.realizarQuery(`SELECT * FROM MensajesWpp;`)
-    res.send(respuesta)
-})
 
 
-app.get('/Mensajes', async function (req, res) {
-    console.log(req.query)
-    const respuesta = await MySQL.realizarQuery(`
-    SELECT * FROM MensajesWpp;
-    `)
-    res.send(respuesta)
-})
+// //CHATS
+// app.post('/TraerChat', async function (req, res) {
+//     console.log(req.body);
+//     sesionActual.currentContact = req.body.UserElegido;
+//     const respuesta = await MySQL.realizarQuery(`
+//         SELECT cu1.ChatCode
+//         FROM ChatsWpp cu1
+//         JOIN ChatsWpp cu2 ON cu1.ChatCode = cu2.ChatCode
+//         WHERE cu1.UserId = '${sesionActual.userId}' 
+//         AND cu2.UserId = '${req.body.UserElegido}';
+//     `);
+//     if (respuesta.length > 0) {
+//         res.send({ currentId: sesionActual.userId, codigo: respuesta[0].ChatCode });
+//     } else {
+//         res.send({ message: "No se encontró chat entre estos usuarios." });
+//     }
+// });
 
-app.post('/EnviarMensaje', async function (req, res) {
-    console.log(req.body)
-    sesionActual.Fecha = req.body.Fecha
-    result = await MySQL.realizarQuery(`INSERT INTO MensajesWpp (Contenido, Fecha, UserEnvia, UserRecibe) VALUES ('${req.body.Contenido}','${req.body.Fecha}', '${req.body.UserEnvia}', '${req.body.UserRecibe}')`);
-    // res.send("ok")
-})
+// //USUARIOS
+// app.get('/verificoUser', async function (req, res) {
+//     console.log(req.query)
+
+//     const respuesta = await MySQL.realizarQuery(`
+//     SELECT * FROM UserWpp;
+//     `)
+//     res.send(respuesta)
+// })
+
+// app.post('/Users', async function (req, res) {
+//     console.log(req.body)
+//     const respuesta = await MySQL.realizarQuery(`
+//     SELECT UserId FROM UserWpp WHERE UserName = '${req.body.UserName}' AND UserPassword = '${req.body.UserPassword}';
+//     `)
+//     if (respuesta.length > 0) {
+//         sesionActual.UserId = respuesta[0].UserId
+//         res.send(respuesta)
+//     } else {
+//         res.send({ message: "Registrse, Usuario no encontrado" })
+//     }
+// })
+
+// app.post('/NuevoUser', async function (req, res) {
+//     console.log(req.body)
+//     result = await MySQL.realizarQuery(`INSERT INTO UserWpp (UserName, UserPassword, Nombre, Apellido) VALUES ('${req.body.UserName}','${req.body.UserPassword}','${req.body.Nombre}', '${req.body.Apellido}')`);
+//     // res.send("ok")
+// })
+
+// //DIRECCION CONTACTO
+// app.get('/ContactoXUser', async function (req, res) {
+//     console.log(req.query);
+//     const respuesta = await MySQL.realizarQuery(`
+//         SELECT ContactoId FROM ContactosUserWpp WHERE UserId = '${sesionActual.userId}';
+//     `);
+
+//     if (respuesta.length > 0) {
+//         sesionActual.contactoId = respuesta.map(row => row.ContactoId); // Guardar los ContactoId en un array
+//         console.log(sesionActual.userId)
+//         console.log(sesionActual.contactoId)
+//         res.send({ currentId: sesionActual.userId, contactos: sesionActual.contactoId });
+//     } else {
+//         console.log(sesionActual.userId)
+//         res.send({ message: "No se encontraron contactos para este usuario" });
+//     }
+// });
+
+// //CONTACTOS
+// app.get('/Contactos', async function (req, res) {
+//     const respuesta = await MySQL.realizarQuery(`
+//         SELECT * FROM ContactosWpp WHERE ContactoId IN (${sesionActual.contactoId.join(',')});
+//     `);
+//     if (respuesta.length > 0) {
+//         console.log(respuesta);
+//         res.send(respuesta);
+//     } else {
+//         res.send({ message: "Agregue un Contacto" });
+//     }
+// })
+
+// app.post('/EnvioContacto', async function (req, res) {
+//     console.log(req.body)
+//     result = await MySQL.realizarQuery(`INSERT INTO ContactosWpp (nombre, apellido, numeroTelefono, contactName) VALUES ('${req.body.nombre}','${req.body.apellido}','${req.body.numeroTelefono}', '${req.body.contactName}')`);
+//     // res.send("ok")
+// })
+
+// app.get('/Chats', async function (req, res) {
+//     console.log(req.query)
+//     const respuesta = await MySQL.realizarQuery(`
+//     SELECT * FROM ChatsWpp;
+//     `)
+//     res.send(respuesta)
+// })
+
+// //DIRECCION CHATS
+// app.get('/DireccionChat', async function (req, res) {
+//     console.log(req.query)
+//     const respuesta = await MySQL.realizarQuery(`
+//     SELECT * FROM ChatsUserWpp;
+//     `)
+//     res.send(respuesta)
+// })
+
+// //CHATS
+// app.get('/Chats', async function (req, res) {
+//     console.log(req.query)
+//     const respuesta = await MySQL.realizarQuery(`
+//     SELECT * FROM ChatsWpp;
+//     `)
+//     res.send(respuesta)
+// })
+
+// app.get('/ChatUsuarios', async function (req, res) {
+//     console.log(req.query);
+
+//     const userId1 = req.query.userId1;
+//     const userId2 = req.query.userId2;
+
+//     const respuesta = await MySQL.realizarQuery(`
+//         SELECT cu1.ChatCode
+//         FROM ChatsUserWpp cu1
+//         JOIN ChatsUserWpp cu2 ON cu1.ChatCode = cu2.ChatCode
+//         WHERE cu1.UserId = ${userId1} AND cu2.UserId = ${userId2};
+//     `);
+
+//     res.send(respuesta);
+// });
+
+// //MENSAJES
+// app.get('/Mensajes', async function (req, res) {
+//     console.log(req.query)
+//     const respuesta = await MySQL.realizarQuery(`SELECT * FROM MensajesWpp;`)
+//     res.send(respuesta)
+// })
+
+
+// app.get('/Mensajes', async function (req, res) {
+//     console.log(req.query)
+//     const respuesta = await MySQL.realizarQuery(`
+//     SELECT * FROM MensajesWpp;
+//     `)
+//     res.send(respuesta)
+// })
+
+// app.post('/EnviarMensaje', async function (req, res) {
+//     console.log(req.body)
+//     sesionActual.Fecha = req.body.Fecha
+//     result = await MySQL.realizarQuery(`INSERT INTO MensajesWpp (Contenido, Fecha, UserEnvia, UserRecibe) VALUES ('${req.body.Contenido}','${req.body.Fecha}', '${req.body.UserEnvia}', '${req.body.UserRecibe}')`);
+//     // res.send("ok")
+// })
 
 

@@ -13,9 +13,10 @@ export default function Card({
     control,
     defensa,
     isSmall = false, // Nueva prop para la variante
+    onClick
 }) {
     return (
-        <div className={clsx(styles.carta, { [styles.cartaSmall]: isSmall })}>
+        <div className={clsx(styles.carta, { [styles.cartaSmall]: isSmall })} onClick = {onClick}>
             <div className={clsx(styles.seccion1, { [styles.seccion1Small]: isSmall })}>
                 <div className={clsx(styles.seccion2, { [styles.seccion2Small]: isSmall })}>
                     <p className={clsx(styles.caracteristicaPrin, { [styles.caracteristicaPrinSmall]: isSmall })}>99</p> {/*LA MEDIA LA CALCULADOS CON LAS ESTADISTICAS*/}

@@ -70,7 +70,7 @@ export default function Cartas() {
             Imagen: Player.Imagen,
             Ataque: Player.Ataque,
             Control: Player.Control,
-            Defenza: Player.Defensa
+            Defensa: Player.Defensa
         }));
 
         setJugadoresUser(PlayerXUser)

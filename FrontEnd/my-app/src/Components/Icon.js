@@ -12,6 +12,7 @@ export default function Icon({onClick, srcImg, variant}) { //PEDIRLE A TINCHI LO
                         [styles.IconMenu]:true,
                         [styles.IconChat]: variant == "chat",
                         [styles.IconSection]: variant == "section",
+                        [styles.Nav]: variant == "Nav"
                     }
                 )}>
             <img src={srcImg} ></img>
