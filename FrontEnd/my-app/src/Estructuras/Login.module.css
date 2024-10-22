@@ -1,14 +1,78 @@
 .divLogin {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    background-color: rgb(255, 255, 255);
-
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 255, 242);
     height: 60vh;
     width: 60vw;
+    border-radius: 10px;
+    font-family: "Russo One", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    color: #ffcc00;
+    margin-top: 80px;
+}
+
+.containerDatos{
+    background: linear-gradient(180deg, #350b49, #46021f);
+    height: 58.5vh;
+    width: 59vw;
+    border-radius: 10px;
+}
+
+.h1{
+    font-size: 45px;
+    text-shadow:
+    0 0 3px #ffcc00,
+    0 0 7px #ffcc00;   
+}
+
+.h2{
+    font-size: 32px;
+}
+
+.p{
+    font-size: 25px;
+}
+
+.input{
+    font-family: "Russo One", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    background-color:#551872;
+    border-radius: 5px;
+    border: 3px solid #ffe600;
+    height: 20px;
+    width: 260px;
+    margin-left: 10px;
+}
+
+.inputGroup{
+    margin: 20px;
+}
+
+.button{
+    font-family: "Russo One", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 25px;
+    background: linear-gradient(180deg, #350b49, #46021f);
+    height: 80px;
+    width: 170px;
+    border-radius: 20px;
+    border: solid 4px #5ce1e6;
+    color: #ffcc00;
+    transition: transform 0.3s ease;
+}
+
+.button:hover {
+    color: aqua;
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
 .span:hover {
     color: aqua;
+    cursor: pointer;
 }

@@ -7,10 +7,10 @@ export default function Register({onClickCambio, OnClickRegistro, OnKeyDownRegis
         
     return (
         <div className={styles.divRegister}>
-            <div>
-                <Icon onClick={onClickCambio} srcImg="/Iconos/IconoVolver.svg" variant="section"></Icon>
-            </div>
             <div className={styles.containerDatos}>
+                {/*<div>
+                    <Icon onClick={onClickCambio} srcImg="/Iconos/IconoVolver.svg" variant="section"></Icon>
+                </div>*/}
                 <div>
                     <h2 className={styles.h2}>Register</h2>
                 </div>
@@ -34,7 +34,7 @@ export default function Register({onClickCambio, OnClickRegistro, OnKeyDownRegis
                         <input placeholder={userPasswordPlaceholderDos} id="Pasword" className={styles.input} vvalue={inputNewpassword} onChange={onChangeCuatro} onKeyDown={OnKeyDownRegistro} />
                     </div>
 
-                    <button className={styles.button} onClick={OnClickRegistro}>registrarse</button>
+                    <button className={styles.button} onClick={OnClickRegistro}>Registrarse</button>
                 </div>
             </div>
         </div>
