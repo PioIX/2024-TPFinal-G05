@@ -6,7 +6,7 @@ import Texto from "@/Components/Texto";
 
 
 
-export default function Login({inputUserPassword, inputUserName, mensajeDeError, onChangeInputUserName, onChangeInputPassword, userNamePlaceholder, userPasswordPlaceholder, onClickCambio, OnKeyDownIngreso, OnClickIngeso}) {    
+export default function Login({inputUserPassword, inputUserName, mensajeDeError, onChangeInputUserName, onChangeInputPassword, userNamePlaceholder, userPasswordPlaceholder, onClickCambio, OnKeyDownIngreso, OnClickIngreso}) {    
     return (
         <div className={styles.divLogin} >
             <div className={styles.containerDatos}>
@@ -14,7 +14,6 @@ export default function Login({inputUserPassword, inputUserName, mensajeDeError,
 
                     <h1 className={styles.h1}>Futbolitos</h1> {/* HACERLO COMPONENTE */}
                     <h2 className={styles.h2}>Login</h2>
-                    <p className={styles.h1}>Si no tienes cuenta, <span className={styles.span} onClick={onClickCambio}>Registrate</span></p>
                     {mensajeDeError && (
                         <Texto variant="error">No se encuentra el Usuario o la Contraseña</Texto>
                     )} {/* HACERLO COMPONENTE */}
@@ -30,7 +29,9 @@ export default function Login({inputUserPassword, inputUserName, mensajeDeError,
                         <label className={styles.label} htmlFor="password">Contraseña</label> {/* HACERLO COMPONENTE */}
                         <input placeholder={userPasswordPlaceholder} id="password" className={styles.input} type="password" value={inputUserPassword} onChange={onChangeInputPassword} onKeyDown={OnKeyDownIngreso} /> {/* HACERLO COMPONENTE */}
                     </div>
-                    <button className={styles.button} onClick={OnClickIngeso} >Ingresar</button> {/* HACERLO COMPONENTE */}
+
+                    <p className={styles.p}>Si no tienes cuenta, <span className={styles.span} onClick={onClickCambio}>REGISTRATE</span></p>
+                    <button className={styles.button} onClick={OnClickIngreso} >Ingresar</button> {/* HACERLO COMPONENTE */}
 
                 </div>
             </div>
