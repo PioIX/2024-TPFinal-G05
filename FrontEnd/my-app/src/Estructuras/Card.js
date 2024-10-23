@@ -38,12 +38,13 @@ export default function Card({
                         />
                     </div>
                 </div>
-                <div>
+                <div className={clsx(styles.imagenConDegrade)}>
                     <img
                         className={clsx(styles.img, { [styles.imgSmall]: isSmall })}
                         src={imagenJugador}
                         alt="imagenJugador"
                     />
+                    <div className={styles.degrade}></div>
                 </div>
             </div>
             <div className={clsx(styles.seccion2, { [styles.seccion2Small]: isSmall })}>

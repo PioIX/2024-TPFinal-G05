@@ -10,7 +10,7 @@ import { useState } from "react";
 import Paquete from "@/Estructuras/Paquete";
 
 export default function Home() {
-    const [muestroPaquete, setMuestroPaquete] = useState(false);
+    const [muestroPaquete, setMuestroPaquete] = useState(true);
 
     return (
         <section className={styles.main}>
@@ -21,7 +21,6 @@ export default function Home() {
                     <div>
                         <Texto text="Futbolitos" variant="title" />
                     </div>
-                    
                     <div>
                         <Link href="/home/guia">
                             <Button text="Guia" variant="normal" />
