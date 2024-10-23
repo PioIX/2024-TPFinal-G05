@@ -42,15 +42,16 @@ const io = require('socket.io')(server, {
 });
 
 const sessionMiddleware = session({
-    secret: "supersarasa",
+    secret: "123456",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true
 });
-
-app.use(sessionMiddleware);
+/*
 io.use((socket, next) => {
     sessionMiddleware(socket.request, {}, next);
-});
+});*/
+
+app.use(sessionMiddleware);
 
 let sesionActual = {
     UserId: 0,
@@ -74,9 +75,9 @@ app.post('/ExisteUsuario', async function (req, res) {
     console.log(req.body)
     const respuesta = await MySQL.realizarQuery(`SELECT UserId FROM UserFutbolitos WHERE UserName = '${req.body.UserName}' AND UserPassword = '${req.body.UserPassword}';`)
     if (respuesta.length > 0) {
-        sesionActual.UserId = respuesta[0].UserId // A REVISAR // 
-        console.log(respuesta)
-        res.send(respuesta) // REVISAR QUE ME MANDA //
+        req.session.userId = respuesta[0].UserId // A REVISAR // 
+        console.log("El user id es: ", respuesta)
+        res.send(respuesta) 
     } else {
         res.send({ message: "Registrse, Usuario no encontrado" })
     }
@@ -97,24 +98,29 @@ app.get('/Player', async function (req, res) {
 
 // PLAYERS X USERS//
 app.get('/PlayerXUser', async function (req, res) {
+    console.log("Soy el pedido PlayerXUser")
     console.log(req.query);
+    console.log(req.query.userID);
     const respuesta = await MySQL.realizarQuery(`
-        SELECT PlayerId FROM PlayerUserFutbolitos WHERE UserId = '${sesionActual.UserId}';
+        SELECT PlayerId FROM PlayerUserFutbolitos WHERE UserId = '${req.query.userID}';
     `);
+    console.log("aaaa",  respuesta)
     if (respuesta.length > 0) {
-        sesionActual.PlayerId = respuesta.map(row => row.PlayerId);
-        console.log(sesionActual.UserId)
-        console.log(sesionActual.PlayerId)
-        res.send({ currentId: sesionActual.UserId, contactos: sesionActual.PlayerId });
+        const conjuntoPlayers = respuesta.map(row => row.PlayerId);
+        console.log(conjuntoPlayers)
+        console.log(req.query.userID)
+        res.send({ players: conjuntoPlayers[0] });
     } else {
-        console.log(sesionActual.UserId)
+        console.log(req.query.userID)
         res.send({ message: "No se encontraron contactos para este usuario" });
     }
 });
 
 app.get('/PlayerXUserDos', async function (req, res) {
+    console.log(req.query);
+    console.log("hola", req.query.playerID);
     const respuesta = await MySQL.realizarQuery(`
-        SELECT * FROM PlayerFutbolitos WHERE PlayerId IN (${sesionActual.PlayerId.join(',')});
+        SELECT * FROM PlayerFutbolitos WHERE PlayerId = ${req.query.playerID} );
     `);
     if (respuesta.length > 0) {
         console.log(respuesta);
