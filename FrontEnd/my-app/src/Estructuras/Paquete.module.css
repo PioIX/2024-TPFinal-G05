@@ -1,3 +1,15 @@
 .Sobre {
     background-color: black;
+    height: 400px;
+    width: 300px;
 }
+
+/*.Sobre {
+    background-image: url("/images/fondoPagInicial.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+    max-height: 400px;
+    max-width: 300px;
+}/*

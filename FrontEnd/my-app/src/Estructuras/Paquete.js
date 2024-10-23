@@ -116,7 +116,7 @@ console.log(jugadoresUser)
                             nacionalidad={jugador.Nacionalidad}
                             imagenJugador={jugador.Imagen}
                             escudo={jugador.Equipo}
-                            nombreJugador={`${jugador.Nombre} ${jugador.Apellido}`} // Concatenar nombre y apellido
+                            nombreJugador={jugador.Apellido}// Concatenar nombre y apellido
                             ataque={jugador.Ataque}
                             control={jugador.Control}
                             defensa={jugador.Defensa}
