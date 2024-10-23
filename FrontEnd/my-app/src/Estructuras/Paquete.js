@@ -12,7 +12,9 @@ export default function Paquete() {
 
     // Función para obtener todos los jugadores
     async function PlayersTodos() {
-        const response = await fetch('http://localhost:4000/Player', {
+        const userID = localStorage.getItem("userID")
+        console.log(userID)
+        const response = await fetch(`http://localhost:4000/Player`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -39,15 +41,20 @@ export default function Paquete() {
 
     // Función para obtener jugadores del usuario
     async function PlayersDelUsuario() {
-        const response = await fetch('http://localhost:4000/PlayerXUser', {
+        const userID = localStorage.getItem("userID")
+        console.log(userID)
+        const response = await fetch(`http://localhost:4000/PlayerXUser?userID=${userID}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
         });
         const respuesta = await response.json();
+        console.log(respuesta)
+        // localStorage.setItem("playersID", respuesta.players)
+        // console.log()
 
-        const responseDos = await fetch('http://localhost:4000/PlayerXUserDos', {
+        const responseDos = await fetch(`http://localhost:4000/PlayerXUserDos?playerID=${respuesta.players}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -67,7 +74,7 @@ export default function Paquete() {
             Control: Player.Control,
             Defensa: Player.Defensa
         }));
-
+        console.log(PlayerXUser)
         setJugadoresUser(PlayerXUser);
     }
     console.log(jugadoresUser)

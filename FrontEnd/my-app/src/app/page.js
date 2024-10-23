@@ -80,7 +80,8 @@ export default function Home() {
             console.log("El Back devuelve ", result);
             if (result.length > 0) {
                 console.log("Inicio secion el usuario ", result)
-                window.location.href = './home';
+                localStorage.setItem("userID", result[0].UserId) // LO GUARDA EN EL LOCAL STORAJE
+                window.location.href = './home'; // CAMBIA A ROUTER
             } else {
                 console.log(result);
                 setMensajeDeError(!mensajeDeError)
