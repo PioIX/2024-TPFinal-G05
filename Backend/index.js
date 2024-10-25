@@ -129,6 +129,99 @@ app.get('/PlayerXUserDos', async function (req, res) {
         res.send({ message: "Tenemos problemas en este momento..." });
     }
 })
+///////////////////////////////////////////////////
+//LO QUE DIJO CHATI
+app.get('/PlayerXUserDetalles', async function (req, res) {
+    console.log("Soy el pedido PlayerXUserDetalles");
+    console.log(req.query);
+    
+    const userId = req.query.userID;
+
+    if (!userId) {
+        return res.status(400).send({ message: "UserID es requerido" });
+    }
+
+    try {
+        // Obtener los IDs de los jugadores para el usuario
+        const respuestaJugadores = await MySQL.realizarQuery(`
+            SELECT PlayerId FROM PlayerUserFutbolitos WHERE UserId = '${userId}';
+        `);
+        console.log("Respuesta de la consulta de jugadores:", respuestaJugadores);
+
+        if (respuestaJugadores.length > 0) {
+            const conjuntoPlayers = respuestaJugadores.map(row => row.PlayerId);
+            console.log("IDs de jugadores:", conjuntoPlayers);
+
+            // Obtener los detalles de cada jugador
+            const jugadoresDetallesPromises = conjuntoPlayers.map(playerId => 
+                MySQL.realizarQuery(`
+                    SELECT * FROM PlayerFutbolitos WHERE PlayerId = ${playerId};
+                `)
+            );
+
+            // Esperar a que todas las promesas se resuelvan
+            const jugadoresDetalles = await Promise.all(jugadoresDetallesPromises);
+            const jugadores = jugadoresDetalles.flat(); // Aplana el resultado
+
+            res.send(jugadores);
+        } else {
+            res.send({ message: "No se encontraron jugadores para este usuario" });
+        }
+    } catch (error) {
+        console.error("Error en la consulta:", error);
+        res.status(500).send({ message: "Error al realizar la consulta" });
+    }
+});
+////////////////////////////////////////////////////
+/*import { useEffect, useState } from "react";
+import styles from "./Paquete.module.css";
+import Card from "./Card";
+
+export default function Paquete() {
+    const [cincoJugadores, setCincoJugadores] = useState([]);
+
+    useEffect(() => {
+        const userId = localStorage.getItem("userID"); // Obtener el ID del usuario
+
+        const fetchJugadores = async () => {
+            try {
+                const response = await fetch(`http://localhost:4000/PlayerXUserDetalles?userID=${userId}`);
+                const data = await response.json();
+
+                if (Array.isArray(data) && data.length > 0) {
+                    setCincoJugadores(data);
+                    localStorage.setItem("jugadores", JSON.stringify(data)); // Guardar en localStorage
+                } else {
+                    console.log("No se encontraron jugadores o no son válidos");
+                }
+            } catch (error) {
+                console.error("Error al obtener los jugadores:", error);
+            }
+        };
+
+        fetchJugadores();
+    }, []);
+
+    return (
+        <div className={styles.ConjuntoCartas}>
+            {cincoJugadores.map((jugador) => (
+                <Card
+                    key={jugador.PlayerId}
+                    isSmall={true}
+                    posicion={jugador.Posicion}
+                    nacionalidad={jugador.Nacionalidad}
+                    imagenJugador={jugador.Imagen}
+                    escudo={jugador.Equipo}
+                    nombreJugador={`${jugador.Nombre} ${jugador.Apellido}`}
+                    ataque={jugador.Ataque}
+                    control={jugador.Control}
+                    defensa={jugador.Defensa}
+                />
+            ))}
+        </div>
+    );
+} */
+////////////////////////////////////////////////////////////////
 
 // SALAS //
 app.get('/Salas', async function (req, res) {

@@ -3,17 +3,16 @@
 import { useEffect, useState } from "react";
 import styles from "./Paquete.module.css";
 import Card from "./Card";
+import Button from "@/Components/Button";
 
-export default function Paquete() {
+export default function Paquete({onClickButton}) {
     const [abrio, setAbrio] = useState(true);
+    const [desvanecer, setDesvanecer] = useState(false);
     const [cincoJugadores, setCincoJugadores] = useState([]);
-    const [todosJugadores, setTodosJugadores] = useState([]);
     const [jugadoresUser, setJugadoresUser] = useState([]);
 
     // Función para obtener todos los jugadores
     async function PlayersTodos() {
-        const userID = localStorage.getItem("userID")
-        console.log(userID)
         const response = await fetch(`http://localhost:4000/Player`, {
             method: "GET",
             headers: {
@@ -35,14 +34,12 @@ export default function Paquete() {
             Defensa: Player.Defensa
         }));
 
-        setTodosJugadores(PlayerXUser);
-        AbroSobres(PlayerXUser); // Selecciona cinco jugadores al cargar
+        AbroSobres(PlayerXUser);
     }
 
     // Función para obtener jugadores del usuario
     async function PlayersDelUsuario() {
-        const userID = localStorage.getItem("userID")
-        console.log(userID)
+        const userID = localStorage.getItem("userID");
         const response = await fetch(`http://localhost:4000/PlayerXUser?userID=${userID}`, {
             method: "GET",
             headers: {
@@ -50,9 +47,6 @@ export default function Paquete() {
             },
         });
         const respuesta = await response.json();
-        console.log(respuesta)
-        // localStorage.setItem("playersID", respuesta.players)
-        // console.log()
 
         const responseDos = await fetch(`http://localhost:4000/PlayerXUserDos?playerID=${respuesta.players}`, {
             method: "GET",
@@ -74,23 +68,17 @@ export default function Paquete() {
             Control: Player.Control,
             Defensa: Player.Defensa
         }));
-        console.log(PlayerXUser)
         setJugadoresUser(PlayerXUser);
     }
-    console.log(jugadoresUser)
-    // Función para seleccionar cinco jugadores aleatorios que no estén en jugadoresUser
+
     function AbroSobres(jugadores) {
-        console.log(jugadoresUser)
-        const idsJugadoresUser = new Set(jugadoresUser.map(player => player.PlayerId)); // Crear un conjunto de IDs de jugadores del usuario
-        console.log(idsJugadoresUser)
-        const jugadoresDisponibles = jugadores.filter(player => !idsJugadoresUser.has(player.PlayerId)); // Filtrar jugadores disponibles
-        console.log(jugadoresDisponibles)
+        const idsJugadoresUser = new Set(jugadoresUser.map(player => player.PlayerId));
+        const jugadoresDisponibles = jugadores.filter(player => !idsJugadoresUser.has(player.PlayerId));
         if (jugadoresDisponibles.length < 5) {
-            alert("No hay suficientes jugadores disponibles."); // Alerta si no hay suficientes jugadores
+            alert("No hay suficientes jugadores disponibles.");
             return;
         }
 
-        // Función para barajar el array
         const barajar = (array) => {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -101,34 +89,54 @@ export default function Paquete() {
 
         const jugadoresAleatorios = barajar(jugadoresDisponibles).slice(0, 5);
         setCincoJugadores(jugadoresAleatorios);
-        setJugadoresUser(prev => [...prev, ...jugadoresAleatorios]); // Añadir jugadores seleccionados al array de jugadores del usuario
+        setJugadoresUser(prev => [...prev, ...jugadoresAleatorios]);
     }
-console.log(jugadoresUser)
+
     useEffect(() => {
         PlayersTodos();
         PlayersDelUsuario();
     }, []);
 
+    const handleClick = () => {
+        // Iniciar el proceso de desvanecimiento
+        setDesvanecer(true);
+
+        // Esperar el tiempo de transición y luego cambiar el estado
+        setTimeout(() => {
+            setAbrio(false); // Cambiar el estado aquí para ocultar la tarjeta
+            setDesvanecer(false); // Resetear el desvanecimiento
+        }, 500); // Este tiempo debe coincidir con la duración de la transición
+    };
+
     return (
-        <div>
-            {abrio ? (
-                <div className={styles.Sobre} onClick={() => setAbrio(false)}>ssss</div>
-            ) : (
-                <div className={styles.ConjuntoCartas}>
-                    {cincoJugadores.map((jugador) => (
-                        <Card
-                            key={jugador.PlayerId} // Asegúrate de agregar una clave única
-                            isSmall={true}
-                            posicion={jugador.Posicion}
-                            nacionalidad={jugador.Nacionalidad}
-                            imagenJugador={jugador.Imagen}
-                            escudo={jugador.Equipo}
-                            nombreJugador={jugador.Apellido}// Concatenar nombre y apellido
-                            ataque={jugador.Ataque}
-                            control={jugador.Control}
-                            defensa={jugador.Defensa}
-                        />
-                    ))}
+        <div className={styles.container}>
+            {abrio && (
+                <div
+                    className={`${styles.Sobre} ${desvanecer ? styles.hidden : ''}`}
+                    onClick={handleClick}
+                ></div>
+            )}
+            {!abrio && (
+                <div>
+                    <div className={styles.ConjuntoCartas}>
+                        {cincoJugadores.map((jugador) => (
+                            <Card
+                                key={jugador.PlayerId}
+                                isSmall={true}
+                                posicion={jugador.Posicion}
+                                nacionalidad={jugador.Nacionalidad}
+                                imagenJugador={jugador.Imagen}
+                                escudo={jugador.Equipo}
+                                nombreJugador={jugador.Apellido}
+                                ataque={jugador.Ataque}
+                                control={jugador.Control}
+                                defensa={jugador.Defensa}
+                            />
+                        ))}
+                    </div>
+                    <div>
+                        <Button onClick={onClickButton} variant = "jugar" text="Continuar"></Button>
+                    </div>
                 </div>
             )}
         </div>

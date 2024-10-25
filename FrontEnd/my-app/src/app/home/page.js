@@ -11,11 +11,14 @@ import Paquete from "@/Estructuras/Paquete";
 
 export default function Home() {
     const [muestroPaquete, setMuestroPaquete] = useState(true);
+    function cambio() {
+        setMuestroPaquete(false)
+    }
 
     return (
         <section className={styles.main}>
             {muestroPaquete ? (
-                <Paquete></Paquete>
+                <Paquete onClickButton={cambio}></Paquete>
             ) : (
                 <>
                     <div>
