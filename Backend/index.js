@@ -172,56 +172,30 @@ app.get('/PlayerXUserDetalles', async function (req, res) {
         res.status(500).send({ message: "Error al realizar la consulta" });
     }
 });
+
+app.post('/AbriSobre', async function (req, res) {
+    const { userId, playerIds } = req.body;
+    console.log(userId)
+    console.log(playerIds)
+
+    if (!userId || !Array.isArray(playerIds)) {
+        return res.status(400).send("UserId y playerIds son requeridos.");
+    }
+
+    try {
+        const insertPromises = playerIds.map(playerId => {
+            return MySQL.realizarQuery(`INSERT INTO PlayerUserFutbolitos (UserId, PlayerId) VALUES ('${userId}', '${playerId}')`);
+        });
+
+        const results = await Promise.all(insertPromises);
+        console.log(results)
+        res.send(results);
+    } catch (error) {
+        console.error("Error al insertar jugadores:", error);
+        res.status(500).send("Error al insertar jugadores.");
+    }
+});
 ////////////////////////////////////////////////////
-/*import { useEffect, useState } from "react";
-import styles from "./Paquete.module.css";
-import Card from "./Card";
-
-export default function Paquete() {
-    const [cincoJugadores, setCincoJugadores] = useState([]);
-
-    useEffect(() => {
-        const userId = localStorage.getItem("userID"); // Obtener el ID del usuario
-
-        const fetchJugadores = async () => {
-            try {
-                const response = await fetch(`http://localhost:4000/PlayerXUserDetalles?userID=${userId}`);
-                const data = await response.json();
-
-                if (Array.isArray(data) && data.length > 0) {
-                    setCincoJugadores(data);
-                    localStorage.setItem("jugadores", JSON.stringify(data)); // Guardar en localStorage
-                } else {
-                    console.log("No se encontraron jugadores o no son válidos");
-                }
-            } catch (error) {
-                console.error("Error al obtener los jugadores:", error);
-            }
-        };
-
-        fetchJugadores();
-    }, []);
-
-    return (
-        <div className={styles.ConjuntoCartas}>
-            {cincoJugadores.map((jugador) => (
-                <Card
-                    key={jugador.PlayerId}
-                    isSmall={true}
-                    posicion={jugador.Posicion}
-                    nacionalidad={jugador.Nacionalidad}
-                    imagenJugador={jugador.Imagen}
-                    escudo={jugador.Equipo}
-                    nombreJugador={`${jugador.Nombre} ${jugador.Apellido}`}
-                    ataque={jugador.Ataque}
-                    control={jugador.Control}
-                    defensa={jugador.Defensa}
-                />
-            ))}
-        </div>
-    );
-} */
-////////////////////////////////////////////////////////////////
 
 // SALAS //
 app.get('/Salas', async function (req, res) {

@@ -5,11 +5,12 @@ import styles from "./Paquete.module.css";
 import Card from "./Card";
 import Button from "@/Components/Button";
 
-export default function Paquete({onClickButton}) {
+export default function Paquete({ onClickButton }) {
     const [abrio, setAbrio] = useState(true);
     const [desvanecer, setDesvanecer] = useState(false);
     const [cincoJugadores, setCincoJugadores] = useState([]);
     const [jugadoresUser, setJugadoresUser] = useState([]);
+    const [jugadoresTodos, setJugadoresTodos] = useState([])
 
     // Función para obtener todos los jugadores
     async function PlayersTodos() {
@@ -33,30 +34,23 @@ export default function Paquete({onClickButton}) {
             Control: Player.Control,
             Defensa: Player.Defensa
         }));
-
-        AbroSobres(PlayerXUser);
+        
+        console.log(PlayerXUser); // Todos LOS JUGADORES
+        setJugadoresTodos(PlayerXUser)
+        return PlayerXUser;
     }
 
     // Función para obtener jugadores del usuario
     async function PlayersDelUsuario() {
         const userID = localStorage.getItem("userID");
-        const response = await fetch(`http://localhost:4000/PlayerXUser?userID=${userID}`, {
+        const response = await fetch(`http://localhost:4000/PlayerXUserDetalles?userID=${userID}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
         });
         const respuesta = await response.json();
-
-        const responseDos = await fetch(`http://localhost:4000/PlayerXUserDos?playerID=${respuesta.players}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        const respuestaDos = await responseDos.json();
-
-        const PlayerXUser = respuestaDos.map(Player => ({
+        const PlayerXUser = respuesta.map(Player => ({
             PlayerId: Player.PlayerId,
             Nombre: Player.Nombre,
             Apellido: Player.Apellido,
@@ -68,12 +62,19 @@ export default function Paquete({onClickButton}) {
             Control: Player.Control,
             Defensa: Player.Defensa
         }));
+        console.log(PlayerXUser)
         setJugadoresUser(PlayerXUser);
     }
 
-    function AbroSobres(jugadores) {
+    async function AbroSobres(jugadores) {
+        const userID = localStorage.getItem("userID");
+        console.log(jugadoresUser)
+        console.log(jugadoresUser.PlayerId)
         const idsJugadoresUser = new Set(jugadoresUser.map(player => player.PlayerId));
+        console.log(idsJugadoresUser);
         const jugadoresDisponibles = jugadores.filter(player => !idsJugadoresUser.has(player.PlayerId));
+        console.log("Jugadores Disponibles: ", jugadoresDisponibles);
+
         if (jugadoresDisponibles.length < 5) {
             alert("No hay suficientes jugadores disponibles.");
             return;
@@ -89,23 +90,34 @@ export default function Paquete({onClickButton}) {
 
         const jugadoresAleatorios = barajar(jugadoresDisponibles).slice(0, 5);
         setCincoJugadores(jugadoresAleatorios);
-        setJugadoresUser(prev => [...prev, ...jugadoresAleatorios]);
+
+        console.log("IDs de los jugadores aleatorios:", jugadoresAleatorios.map(player => player.PlayerId));
+
+        const response = await fetch('http://localhost:4000/AbriSobre', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                userId: userID, // Asegúrate de enviar el userId
+                playerIds: jugadoresAleatorios.map(player => player.PlayerId) // Extraer solo los IDs
+            }),
+        });
+        console.log("Guardé en la base de datos los jugadores: ", response);
     }
 
     useEffect(() => {
-        PlayersTodos();
-        PlayersDelUsuario();
+        PlayersDelUsuario()
+        PlayersTodos()
     }, []);
 
     const handleClick = () => {
-        // Iniciar el proceso de desvanecimiento
+        AbroSobres(jugadoresTodos)
         setDesvanecer(true);
-
-        // Esperar el tiempo de transición y luego cambiar el estado
         setTimeout(() => {
-            setAbrio(false); // Cambiar el estado aquí para ocultar la tarjeta
-            setDesvanecer(false); // Resetear el desvanecimiento
-        }, 500); // Este tiempo debe coincidir con la duración de la transición
+            setAbrio(false);
+            setDesvanecer(false);
+        }, 500);
     };
 
     return (
@@ -135,7 +147,7 @@ export default function Paquete({onClickButton}) {
                         ))}
                     </div>
                     <div>
-                        <Button onClick={onClickButton} variant = "jugar" text="Continuar"></Button>
+                        <Button onClick={onClickButton} variant="jugar" text="Continuar"></Button>
                     </div>
                 </div>
             )}
