@@ -131,7 +131,7 @@ export default function Home() {
                     mensajeDeError={mensajeDeError}
                     onClickCambio={toggleMode}
                     OnKeyDownIngreso={Ingresar}
-                    OnClickIngeso={ExisteUsuario}
+                    OnClickIngreso={ExisteUsuario}
                     onChangeInputUserName={e => setInputUserName(e.target.value)}
                     onChangeInputPassword={e => setInputUserPassword(e.target.value)}
                     userNamePlaceholder={userNamePlaceholder}

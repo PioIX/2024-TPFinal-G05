@@ -2,13 +2,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: black;
+    background: linear-gradient(270deg, rgb(16, 0, 42), #17000a);
+    background-color: rgb(16, 0, 42);
     padding: 0 3em 0 2em;
     margin: 0%;
-    height: 14vh;
+    height: 12.5vh;
     align-items: center;
     flex-wrap: nowrap;
-    margin: -1em;
+    margin: -0.5em;
+    border: solid 3px #0b000f ;
 }
 .botones {
     display: flex;
@@ -35,7 +37,7 @@
 }
 
 .Guia {
-    background-color: black;
+    background-color: #0b000f;
     font-family: "Russo One", sans-serif;
     font-weight: 500;
     font-style: normal;
@@ -44,14 +46,17 @@
     height: 60px;
     width: 150px;
     color: #ffcc00;
-    border: solid 0.1px #000000;
+    border: solid 0.1px #ffcc00;
     border-radius: 1em;
+    cursor: pointer;
 }
 
 .Guia:hover {
     transition: 0.5s;
-    border-bottom: 3px solid #350b49;
-    border-right: 3px solid #350b49;
+    box-shadow:
+    0 0 5px #ffcc00,
+    0 0 10px #ffcc00;
+    /* /////// */
     transform: scale(1.1);
 }
 
@@ -67,14 +72,16 @@
     color: #000000;
     border: solid 0.1px #000000;
     border-radius: 1em;
+    cursor: pointer;
 }
 
 .Jugar:hover {
     transition: 0.5s;
     background-color: #350b49;
     color: #ffcc00;
-    border-bottom: 3px solid #350b49;
-    border-right: 3px solid #350b49;
+    box-shadow:
+    0 0 5px #ffcc00,
+    0 0 10px #ffcc00;
     transform: scale(1.1);
 }
 
