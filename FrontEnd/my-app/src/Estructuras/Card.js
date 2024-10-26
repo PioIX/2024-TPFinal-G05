@@ -15,11 +15,12 @@ export default function Card({
     isSmall = false, // Nueva prop para la variante
     onClick
 }) {
+    const mediaGRL = Math.round(((ataque + control + defensa) / 3) + 7);
     return (
         <div className={clsx(styles.carta, { [styles.cartaSmall]: isSmall })} onClick = {onClick}>
             <div className={clsx(styles.seccion1, { [styles.seccion1Small]: isSmall })}>
                 <div className={clsx(styles.seccion2, { [styles.seccion2Small]: isSmall })}>
-                    <p className={clsx(styles.caracteristicaPrin, { [styles.caracteristicaPrinSmall]: isSmall })}>99</p> {/*LA MEDIA LA CALCULADOS CON LAS ESTADISTICAS*/}
+                    <p className={clsx(styles.caracteristicaPrin, { [styles.caracteristicaPrinSmall]: isSmall })}>{mediaGRL}</p> {/*LA MEDIA LA CALCULADOS CON LAS ESTADISTICAS*/}
                     <div className={styles.caracteristicas}>
                         <p className={clsx(styles.posicion, { [styles.posicionSmall]: isSmall })}>{posicion}</p>
                     </div>

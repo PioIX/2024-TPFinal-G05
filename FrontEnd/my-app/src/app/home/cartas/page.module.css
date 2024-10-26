@@ -1,6 +1,6 @@
 .main {
     display: grid;
-    grid-template-columns: 1fr 5fr; /* Dos columnas: la primera más pequeña */
+    grid-template-columns: 1fr 6fr; /* Dos columnas: la primera más pequeña */
     width: 100vw; 
     height: 87vh;  
 }
