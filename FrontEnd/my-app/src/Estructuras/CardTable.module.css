@@ -1,6 +1,9 @@
 .Desk {
-    background-color: rgb(66, 66, 66);
+    background: linear-gradient(270deg, rgb(16, 0, 42), #17000a);
     border: 1px solid white;
+    box-shadow:
+    0 0 5px #00ffff, 
+    0 0 10px #00ffff;
     border-radius: 25px;
     margin: 1.5em 1.5em 0 0;
     max-height: 92vh;
