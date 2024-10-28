@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import Card from "@/Estructuras/Card";
 import Button from "../../Components/Button";
 import Texto from "../../Components/Texto";
@@ -8,17 +7,58 @@ import Link from "next/link";
 import NavTop from "@/Estructuras/NavTop";
 import { useState } from "react";
 import Paquete from "@/Estructuras/Paquete";
+import { useEffect} from "react";
+
+async function PlayersDelUsuario() {
+    const response = await fetch('http://localhost:4000/PlayerXUser', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    const respuesta = await response.json()
+
+    console.log(respuesta)
+
+    const responseDos = await fetch('http://localhost:4000/PlayerXUserDos', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    const data = await responseDos.json()
+    return data.cartas
+}
 
 export default function Home() {
     const [muestroPaquete, setMuestroPaquete] = useState(true);
+    const [cargando, setCargando] = useState(true); // Estado de carga
+
+    useEffect(() => {
+        const verificarCartas = async () => {
+            const cartasGuardadas = await fetchCartas();
+            // Si el usuario ya tiene 5 cartas, ocultamos el paquete
+            if (cartasGuardadas.length >= 5) {
+                setMuestroPaquete(false);
+            }
+            setCargando(false); // Cambiar el estado a false una vez que la carga finaliza
+        };
+
+        verificarCartas();
+    }, []);
+
     function cambio() {
-        setMuestroPaquete(false)
+        setMuestroPaquete(false);
+    }
+
+    if (cargando) {
+        return <div>Cargando...</div>; // O algún otro componente de carga
     }
 
     return (
         <section className={styles.main}>
             {muestroPaquete ? (
-                <Paquete onClickButton={cambio}></Paquete>
+                <Paquete onClickButton={cambio} />
             ) : (
                 <>
                     <div>

@@ -6,7 +6,7 @@ export default function RootLayout({ children }) {
   return (
     <div>
       <div className={styles.divLogOut}>
-        <Link href="/."><Icon variant="Nav" srcImg="/images/LogOut.svg"></Icon></Link> {/* Dar estilos */}
+        <Link href="/home"><Icon variant="Nav" srcImg="/images/GoBack.svg"></Icon></Link> {/* Dar estilos */}
       </div>
       {children}
     </div>
