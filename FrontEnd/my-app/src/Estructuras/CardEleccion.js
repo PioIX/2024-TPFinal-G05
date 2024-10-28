@@ -3,9 +3,9 @@
 import Card from "./Card"
 import styles from "./CardEleccion.module.css"
 
-export default function CardEleccion({ Cadena }) {
+export default function CardEleccion({ Cadena, onPlayerSelect }) {
     const elijoJugador = (id) => {
-        console.log("Card ID: ", id);
+        onPlayerSelect(id); // Llama a la función de `futbolitosBattle`
     };
     return (
         <div className={styles.Desk}>
