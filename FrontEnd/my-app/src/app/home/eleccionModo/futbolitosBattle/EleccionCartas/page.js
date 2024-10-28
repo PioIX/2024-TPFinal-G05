@@ -9,7 +9,8 @@ import CardEleccion from "@/Estructuras/CardEleccion";
 
 export default function futbolitosBattle() {
     const [jugadoresUser, setJugadoresUser] = useState([])
-    const [bloqueado, setBloqueado] = useState(true)
+    const [bloqueado, setBloqueado] = useState(false)
+    const [mensajeDeEsperar, setMensajeDeEsperar] = useState(false)
 
     async function PlayersDelUsuario() {
         const userID = localStorage.getItem("userID");
@@ -37,11 +38,10 @@ export default function futbolitosBattle() {
     }
     console.log(jugadoresUser)
 
-    function hola(){
-        if (bloqueado) {
-            console.log("hola")
-            setBloqueado(false)
-        }
+    function elijoEquipo(){
+        console.log("logica de enviar jugadores")
+        
+
     }
 
     useEffect(() => {
@@ -58,8 +58,7 @@ export default function futbolitosBattle() {
                 <Texto variant="p" text="Selecciona tres jugadores para que formen parte de tu baraja"></Texto>
                 <Texto variant="p" text="¡Cuando tengas tu equipo seleciona Confirmar!"></Texto>
                 <div className={styles.InfoBotones}>
-                    <Button variant="normal" text = "Confirmar" ></Button>
-                    <button disabled = {bloqueado}></button>
+                    <Button variant="normal" text = "Confirmar" disabled = {bloqueado}></Button>
                 </div>
             </div>
             
