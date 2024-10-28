@@ -47,7 +47,7 @@ export default function Home() {
     }
 
     if (cargando) {
-        return <div>Cargando...</div>; // O algún otro componente de carga
+        return <div className={styles.divloader}><div className={styles.loader}></div></div>; // O algún otro componente de carga
     }
 
     return (
