@@ -9,34 +9,29 @@ import { useState } from "react";
 import Paquete from "@/Estructuras/Paquete";
 import { useEffect} from "react";
 
-async function PlayersDelUsuario() {
-    const response = await fetch('http://localhost:4000/PlayerXUser', {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-    const respuesta = await response.json()
 
-    console.log(respuesta)
-
-    const responseDos = await fetch('http://localhost:4000/PlayerXUserDos', {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-    })
-    const data = await responseDos.json()
-    return data.cartas
-}
 
 export default function Home() {
     const [muestroPaquete, setMuestroPaquete] = useState(true);
     const [cargando, setCargando] = useState(true); // Estado de carga
+    
+    async function PlayersDelUsuario() {
+        const userID = localStorage.getItem("userID");
+        const response = await fetch(`http://localhost:4000/PlayerXUserDetalles?userID=${userID}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const respuesta = await response.json();
+        console.log(respuesta);
+        return respuesta
+    }
+
 
     useEffect(() => {
         const verificarCartas = async () => {
-            const cartasGuardadas = await fetchCartas();
+            const cartasGuardadas = await PlayersDelUsuario();
             // Si el usuario ya tiene 5 cartas, ocultamos el paquete
             if (cartasGuardadas.length >= 5) {
                 setMuestroPaquete(false);
