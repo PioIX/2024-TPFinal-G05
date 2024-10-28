@@ -1,11 +1,24 @@
 .Desk {
-    background-color: rgb(66, 66, 66);
+    background: linear-gradient(270deg, rgb(16, 0, 42), #17000a);
     border: 1px solid white;
+    box-shadow:
+    0 0 5px #00ffff, 
+    0 0 10px #00ffff;
     border-radius: 25px;
-    margin: 1.5em 1.5em 0 0;
+    margin: 1em 1em 0.2em 0;
     max-height: 92vh;
     display: flex; /* Habilita flexbox */
-    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan */
-    padding: 10px; /* Espacio interno para que las tarjetas no toquen los bordes */
+    flex-wrap:wrap; /* Permite que las tarjetas se envuelvan */
+    gap: 1em; /* Controla el espacio entre columnas y filas */
+    row-gap: 1em; /* Reduce el espacio vertical entre filas */
+    padding-left: 55px; /* Espacio interno para que las tarjetas no toquen los bordes */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    overflow-y: scroll;
+    scrollbar-width: none; /* Oculta el scrollbar en Firefox */
 }
-    
+
+/* Oculta el scrollbar en Chrome, Safari y Edge */
+.Desk::-webkit-scrollbar {
+    display: none;
+}

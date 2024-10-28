@@ -9,29 +9,18 @@ import CardEleccion from "@/Estructuras/CardEleccion";
 
 export default function futbolitosBattle() {
     const [jugadoresUser, setJugadoresUser] = useState([])
+    const [bloqueado, setBloqueado] = useState(true)
 
     async function PlayersDelUsuario() {
-        const response = await fetch('http://localhost:4000/PlayerXUser', {
+        const userID = localStorage.getItem("userID");
+        const response = await fetch(`http://localhost:4000/PlayerXUserDetalles?userID=${userID}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
-        })
-        const respuesta = await response.json()
-
-        console.log(respuesta)
-
-        const responseDos = await fetch('http://localhost:4000/PlayerXUserDos', {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-        const respuestaDos = await responseDos.json()
-
-        console.log(respuestaDos)
-
-        const PlayerXUser = respuestaDos.map(Player => ({
+        });
+        const respuesta = await response.json();
+        const PlayerXUser = respuesta.map(Player => ({
             PlayerId: Player.PlayerId,
             Nombre: Player.Nombre,
             Apellido: Player.Apellido,
@@ -43,8 +32,16 @@ export default function futbolitosBattle() {
             Control: Player.Control,
             Defensa: Player.Defensa
         }));
+        console.log(PlayerXUser)
+        setJugadoresUser(PlayerXUser);
+    }
+    console.log(jugadoresUser)
 
-        setJugadoresUser(PlayerXUser)
+    function hola(){
+        if (bloqueado) {
+            console.log("hola")
+            setBloqueado(false)
+        }
     }
 
     useEffect(() => {
@@ -53,16 +50,21 @@ export default function futbolitosBattle() {
     return (
         <section className={styles.main}>
             <div className={styles.informacion}>
-                <Texto variant="title" text="Cartas"></Texto>
-                <Texto variant="p" text="En esta seccion podes ver todos los jugadores del juego y tambien que jugadores tenees actualmente."></Texto>
-                <Texto variant="p" text="¡Selecciona la opcion que queres mostrar!"></Texto>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <Texto variant="h2" text="Elegi tu equipo"></Texto>
+                <Texto variant="p" text="Selecciona tres jugadores para que formen parte de tu baraja"></Texto>
+                <Texto variant="p" text="¡Cuando tengas tu equipo seleciona Confirmar!"></Texto>
                 <div className={styles.InfoBotones}>
                     <Button variant="normal" text = "Confirmar" ></Button>
+                    <button disabled = {bloqueado}></button>
                 </div>
             </div>
             
             <CardEleccion
-               Cadena = {jugadoresUser}
+                Cadena={jugadoresUser}
             ></CardEleccion>
             
         </section>

@@ -19,7 +19,7 @@ export default function NuevaSala({ onChange, codigoSala, onClick }) {
                     <Texto variant="p" text="Ingrese el codigo de sala deseado, o crea una sala"></Texto>
                     <div className={styles.interaccion}>
                         <input className={styles.input} onChange={onChange} value={codigoSala} placeholder="Codigo" />
-                        <button className={styles.btn} onClick={onClick}>Submit</button>
+                        <button className={styles.btn} onClick={onClick}>Crear</button>
                     </div>
                 </div>
             </div>

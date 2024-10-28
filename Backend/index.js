@@ -162,6 +162,7 @@ app.get('/PlayerXUserDetalles', async function (req, res) {
             // Esperar a que todas las promesas se resuelvan
             const jugadoresDetalles = await Promise.all(jugadoresDetallesPromises);
             const jugadores = jugadoresDetalles.flat(); // Aplana el resultado
+            console.log("ggggggggg gggg ", jugadores)
 
             res.send(jugadores);
         } else {
@@ -230,28 +231,27 @@ io.on("connection", (socket) => {
 
     socket.on('joinRoom', data => {
         if (existeSala(data.room)) {
-            if (req.session.room && req.session.room.length > 0) {
-                socket.leave(req.session.room);
+            if (data.room && data.room.length > 0) {
+                socket.leave(data.room);
             }
-            req.session.room = data.room;
-            socket.join(req.session.room);
+            socket.join(data.room);
             sesionActual.chatCode = data.room;
             console.log("Entraste a ", data.room);
 
-            io.to(req.session.room).emit('entroSala', { room: req.session.room, success: true });
+            io.to(data.room).emit('entroSala', { room: data.room, success: true });
 
-            const clients = io.sockets.adapter.rooms.get(req.session.room);
+            const clients = io.sockets.adapter.rooms.get(data.room);
             if (clients && clients.size === 2) {
-                io.to(req.session.room).emit('startGame');
+                io.to(data.room).emit('startGame');
             }
         } else {
             codigos.push(data.room);
-            req.session.room = data.room;
-            socket.join(req.session.room);
-            sesionActual.chatCode = req.session.room;
+            // req.session.room = data.room;
+            socket.join(data.room);
+            sesionActual.chatCode = data.room;
             console.log("No existía la Sala. Se creó la sala ", sesionActual.chatCode);
 
-            io.to(req.session.room).emit('salaCreada', { room: req.session.room, success: true });
+            io.to(data.room).emit('salaCreada', { room: data.room, success: true });
         }
     });
 

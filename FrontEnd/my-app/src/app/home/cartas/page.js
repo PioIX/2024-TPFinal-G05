@@ -40,27 +40,15 @@ export default function Cartas() {
     }
 
     async function PlayersDelUsuario() {
-        const response = await fetch('http://localhost:4000/PlayerXUser', {
+        const userID = localStorage.getItem("userID");
+        const response = await fetch(`http://localhost:4000/PlayerXUserDetalles?userID=${userID}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
-        })
-        const respuesta = await response.json()
-
-        console.log(respuesta)
-
-        const responseDos = await fetch('http://localhost:4000/PlayerXUserDos', {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
-        const respuestaDos = await responseDos.json()
-
-        console.log(respuestaDos)
-
-        const PlayerXUser = respuestaDos.map(Player => ({
+        });
+        const respuesta = await response.json();
+        const PlayerXUser = respuesta.map(Player => ({
             PlayerId: Player.PlayerId,
             Nombre: Player.Nombre,
             Apellido: Player.Apellido,
@@ -72,8 +60,8 @@ export default function Cartas() {
             Control: Player.Control,
             Defensa: Player.Defensa
         }));
-
-        setJugadoresUser(PlayerXUser)
+        console.log(PlayerXUser)
+        setJugadoresUser(PlayerXUser);
     }
 
     useEffect(() => {
