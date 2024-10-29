@@ -3,6 +3,7 @@ import styles from "./page.module.css";
 import { useSocket } from "@/app/hooks/useSocket";
 import { useEffect, useState } from "react";
 import Card from "@/Estructuras/Card";
+import CardBattle from "@/Estructuras/CardBattle";
 
 export default function Juego({ EquipoDeTres }) {
     const { socket, isConnected } = useSocket();
@@ -46,7 +47,7 @@ export default function Juego({ EquipoDeTres }) {
             <div className={styles.Juego}>
                 <div>
                     {cartaSeleccionada && ( // Verifica si hay un jugador seleccionado
-                        <Card
+                        <CardBattle
                             isSmall={false} // Puedes cambiar esto según lo necesites
                             posicion={cartaSeleccionada.Posicion}
                             nacionalidad={cartaSeleccionada.Nacionalidad}
