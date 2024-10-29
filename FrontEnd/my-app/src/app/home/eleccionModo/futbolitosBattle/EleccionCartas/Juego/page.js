@@ -3,6 +3,7 @@ import styles from "./page.module.css";
 import { useSocket } from "@/app/hooks/useSocket";
 import { useEffect, useState } from "react";
 import Card from "@/Estructuras/Card";
+import CardBattle from "@/Estructuras/CardBattle";
 
 export default function Juego({ EquipoDeTres }) {
     const { socket, isConnected } = useSocket();
@@ -48,6 +49,7 @@ export default function Juego({ EquipoDeTres }) {
                     {cartaSeleccionada && ( 
                         <Card
                             isSmall={false} 
+
                             posicion={cartaSeleccionada.Posicion}
                             nacionalidad={cartaSeleccionada.Nacionalidad}
                             imagenJugador={cartaSeleccionada.Imagen}
