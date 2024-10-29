@@ -45,9 +45,9 @@ export default function Juego({ EquipoDeTres }) {
         <section className={styles.main}>
             <div className={styles.Juego}>
                 <div>
-                    {cartaSeleccionada && ( // Verifica si hay un jugador seleccionado
+                    {cartaSeleccionada && ( 
                         <Card
-                            isSmall={false} // Puedes cambiar esto según lo necesites
+                            isSmall={false} 
                             posicion={cartaSeleccionada.Posicion}
                             nacionalidad={cartaSeleccionada.Nacionalidad}
                             imagenJugador={cartaSeleccionada.Imagen}
@@ -63,7 +63,7 @@ export default function Juego({ EquipoDeTres }) {
             <div id="Cards" className={styles.Cards}>
                 {jugadores.map((jugador) => (
                     <Card
-                        key={jugador.Id} // Asegúrate de tener una clave única
+                        key={jugador.Id} 
                         isSmall={true}
                         posicion={jugador.Posicion}
                         nacionalidad={jugador.Nacionalidad}
@@ -73,7 +73,7 @@ export default function Juego({ EquipoDeTres }) {
                         ataque={jugador.Ataque}
                         control={jugador.Control}
                         defensa={jugador.Defensa}
-                        onClick={() => seleccionarJugador(jugador)} // Llama a seleccionarJugador
+                        onClick={cartaSeleccionada ? undefined : () => seleccionarJugador(jugador)} // Deshabilita el onClick si hay un jugador seleccionado //  setCartaSeleccionada(null);
                     />
                 ))}
             </div>
