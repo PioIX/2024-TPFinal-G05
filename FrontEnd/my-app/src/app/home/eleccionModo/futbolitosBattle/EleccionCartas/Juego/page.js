@@ -2,13 +2,14 @@
 import styles from "./page.module.css";
 import { useSocket } from "@/app/hooks/useSocket";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Card from "@/Estructuras/Card";
+import CardBattle from "@/Estructuras/CardBattle";
 
 export default function Juego({ EquipoDeTres }) {
     const { socket, isConnected } = useSocket();
     const [cambio, setCambio] = useState(true);
     const [jugadores, setJugadores] = useState([]);
+    const [cartaSeleccionada, setCartaSeleccionada] = useState(null); // Cambia a null por defecto
 
     const toggleMode = () => setCambio(!cambio);
 
@@ -18,7 +19,7 @@ export default function Juego({ EquipoDeTres }) {
 
     useEffect(() => {
         async function obtenerEquipo() {
-            const playersId = EquipoDeTres
+            const playersId = EquipoDeTres;
             try {
                 const response = await fetch(`http://localhost:4000/EquipoDefinido?playersId=${playersId}`, {
                     method: "GET",
@@ -35,13 +36,35 @@ export default function Juego({ EquipoDeTres }) {
         }
         obtenerEquipo();
     }, []);
-    console.log(jugadores)
+
+    function seleccionarJugador(jugador) {
+        console.log(jugador);
+        setCartaSeleccionada(jugador);
+    }
+
     return (
         <section className={styles.main}>
-            <div id="juego" className={styles.Juego}></div>
+            <div className={styles.Juego}>
+                <div>
+                    {cartaSeleccionada && ( // Verifica si hay un jugador seleccionado
+                        <CardBattle
+                            isSmall={false} // Puedes cambiar esto según lo necesites
+                            posicion={cartaSeleccionada.Posicion}
+                            nacionalidad={cartaSeleccionada.Nacionalidad}
+                            imagenJugador={cartaSeleccionada.Imagen}
+                            escudo={cartaSeleccionada.Equipo}
+                            nombreJugador={cartaSeleccionada.Apellido}
+                            ataque={cartaSeleccionada.Ataque}
+                            control={cartaSeleccionada.Control}
+                            defensa={cartaSeleccionada.Defensa}
+                        />
+                    )}
+                </div>
+            </div>
             <div id="Cards" className={styles.Cards}>
                 {jugadores.map((jugador) => (
                     <Card
+                        key={jugador.Id} // Asegúrate de tener una clave única
                         isSmall={true}
                         posicion={jugador.Posicion}
                         nacionalidad={jugador.Nacionalidad}
@@ -51,7 +74,7 @@ export default function Juego({ EquipoDeTres }) {
                         ataque={jugador.Ataque}
                         control={jugador.Control}
                         defensa={jugador.Defensa}
-                        onClick={console.log("Haz click")}
+                        onClick={() => seleccionarJugador(jugador)} // Llama a seleccionarJugador
                     />
                 ))}
             </div>
