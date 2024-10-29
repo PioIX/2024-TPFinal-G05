@@ -5,8 +5,10 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { Socket } from "socket.io-client";
 import Esperando from "./BattleComponents/Esperando";
 import NuevaSala from "./BattleComponents/NuevaSala";
+import { useRouter } from "next/navigation";
 
 export default function futbolitosBattle() {
+    const router = useRouter();
     const { socket, isConnected } = useSocket();
 
     const [cambio, setCambio] = useState(true);
@@ -27,7 +29,7 @@ export default function futbolitosBattle() {
     
         socket.on('startGame', () => {
             console.log("se conectaron los dos."); 
-            window.location.href = '/home/eleccionModo/futbolitosBattle/EleccionCartas'; // TE LLEVARIA A OTRA PAGINA // hacerlo con router
+            router.push('/home/eleccionModo/futbolitosBattle/EleccionCartas');
         });
     
         return () => {

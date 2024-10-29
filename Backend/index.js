@@ -77,7 +77,7 @@ app.post('/ExisteUsuario', async function (req, res) {
     if (respuesta.length > 0) {
         req.session.userId = respuesta[0].UserId // A REVISAR // 
         console.log("El user id es: ", respuesta)
-        res.send(respuesta) 
+        res.send(respuesta)
     } else {
         res.send({ message: "Registrse, Usuario no encontrado" })
     }
@@ -97,44 +97,10 @@ app.get('/Player', async function (req, res) {
 })
 
 // PLAYERS X USERS//
-app.get('/PlayerXUser', async function (req, res) {
-    console.log("Soy el pedido PlayerXUser")
-    console.log(req.query);
-    console.log(req.query.userID);
-    const respuesta = await MySQL.realizarQuery(`
-        SELECT PlayerId FROM PlayerUserFutbolitos WHERE UserId = '${req.query.userID}';
-    `);
-    console.log("aaaa",  respuesta)
-    if (respuesta.length > 0) {
-        const conjuntoPlayers = respuesta.map(row => row.PlayerId);
-        console.log(conjuntoPlayers)
-        console.log(req.query.userID)
-        res.send({ players: conjuntoPlayers[0] });
-    } else {
-        console.log(req.query.userID)
-        res.send({ message: "No se encontraron contactos para este usuario" });
-    }
-});
-
-app.get('/PlayerXUserDos', async function (req, res) {
-    console.log(req.query);
-    console.log("hola", req.query.playerID);
-    const respuesta = await MySQL.realizarQuery(`
-        SELECT * FROM PlayerFutbolitos WHERE PlayerId = ${req.query.playerID} );
-    `);
-    if (respuesta.length > 0) {
-        console.log(respuesta);
-        res.send(respuesta);
-    } else {
-        res.send({ message: "Tenemos problemas en este momento..." });
-    }
-})
-///////////////////////////////////////////////////
-//LO QUE DIJO CHATI
 app.get('/PlayerXUserDetalles', async function (req, res) {
-    console.log("Soy el pedido PlayerXUserDetalles");
-    console.log(req.query);
-    
+    // console.log("Soy el pedido PlayerXUserDetalles");
+    // console.log(req.query);
+
     const userId = req.query.userID;
 
     if (!userId) {
@@ -142,27 +108,22 @@ app.get('/PlayerXUserDetalles', async function (req, res) {
     }
 
     try {
-        // Obtener los IDs de los jugadores para el usuario
         const respuestaJugadores = await MySQL.realizarQuery(`
             SELECT PlayerId FROM PlayerUserFutbolitos WHERE UserId = '${userId}';
         `);
-        console.log("Respuesta de la consulta de jugadores:", respuestaJugadores);
+        // console.log("Respuesta de la consulta de jugadores:", respuestaJugadores);
 
         if (respuestaJugadores.length > 0) {
             const conjuntoPlayers = respuestaJugadores.map(row => row.PlayerId);
-            console.log("IDs de jugadores:", conjuntoPlayers);
-
-            // Obtener los detalles de cada jugador
-            const jugadoresDetallesPromises = conjuntoPlayers.map(playerId => 
+            // console.log("IDs de jugadores:", conjuntoPlayers);
+            const jugadoresDetallesPromises = conjuntoPlayers.map(playerId =>
                 MySQL.realizarQuery(`
                     SELECT * FROM PlayerFutbolitos WHERE PlayerId = ${playerId};
                 `)
             );
-
-            // Esperar a que todas las promesas se resuelvan
             const jugadoresDetalles = await Promise.all(jugadoresDetallesPromises);
-            const jugadores = jugadoresDetalles.flat(); // Aplana el resultado
-            console.log("ggggggggg gggg ", jugadores)
+            const jugadores = jugadoresDetalles.flat(); 
+            // console.log("ggggggggg gggg ", jugadores)
 
             res.send(jugadores);
         } else {
@@ -174,6 +135,7 @@ app.get('/PlayerXUserDetalles', async function (req, res) {
     }
 });
 
+// ABRIR SOBRE //
 app.post('/AbriSobre', async function (req, res) {
     const { userId, playerIds } = req.body;
     console.log(userId)
@@ -196,7 +158,6 @@ app.post('/AbriSobre', async function (req, res) {
         res.status(500).send("Error al insertar jugadores.");
     }
 });
-////////////////////////////////////////////////////
 
 // SALAS //
 app.get('/Salas', async function (req, res) {
@@ -212,6 +173,22 @@ app.post('/NuevaSala', async function (req, res) {
     res.send(result)
 })
 
+// ADMINISTRACION DE EQUIPO || BATTLE //
+app.get('/EquipoDefinido', async function (req, res) {
+    const playersId = req.query.playersId; // Obtén el ID de los jugadores desde la consulta
+    console.log(req.query);
+    console.log("El equipo es: ", playersId)
+
+    try {
+        // Realiza la consulta en la base de datos para obtener los jugadores por ID
+        const respuesta = await MySQL.realizarQuery(`SELECT * FROM PlayerFutbolitos WHERE PlayerId IN (${playersId});`);
+        // console.log(respuesta);
+        res.json(respuesta); // Envía la respuesta en formato JSON
+    } catch (error) {
+        console.error("Error en la consulta:", error);
+        res.status(500).send("Error al obtener los jugadores.");
+    }
+});
 
 app.get('/', (req, res) => {
     console.log(`[REQUEST - ${req.method}] ${req.url}`);
@@ -282,7 +259,7 @@ function existeSala(room) {
 //         SELECT cu1.ChatCode
 //         FROM ChatsWpp cu1
 //         JOIN ChatsWpp cu2 ON cu1.ChatCode = cu2.ChatCode
-//         WHERE cu1.UserId = '${sesionActual.userId}' 
+//         WHERE cu1.UserId = '${sesionActual.userId}'
 //         AND cu2.UserId = '${req.body.UserElegido}';
 //     `);
 //     if (respuesta.length > 0) {

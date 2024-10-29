@@ -5,7 +5,7 @@ import styles from "./CardEleccion.module.css"
 
 export default function CardEleccion({ Cadena, onPlayerSelect }) {
     const elijoJugador = (id) => {
-        onPlayerSelect(id); // Llama a la función de `futbolitosBattle`
+        onPlayerSelect(id); 
     };
     return (
         <div className={styles.Desk}>

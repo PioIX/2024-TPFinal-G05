@@ -3,16 +3,15 @@ import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Texto from "@/Components/Texto";
 import Button from "@/Components/Button";
-import CardTable from "@/Estructuras/CardTable";
 import CardEleccion from "@/Estructuras/CardEleccion";
-
+import Esperando from "../BattleComponents/Esperando";
+import Juego from "./Juego/page";
 
 export default function futbolitosBattle() {
-	const [cambio, setCambio] = useState(true);
+	const [cambio, setCambio] = useState(true); // CAMBIARLO CUANDO TERMINO
 	const toggleMode = () => setCambio(!cambio);
 	const [jugadoresUser, setJugadoresUser] = useState([])
 	const [bloqueado, setBloqueado] = useState(false)
-	const [mensajeDeEsperar, setMensajeDeEsperar] = useState(false)
 	const [equipo, setEquipo] = useState([])
 
 	async function PlayersDelUsuario() {
@@ -49,9 +48,11 @@ export default function futbolitosBattle() {
 		}
 		console.log("Equipo: ", equipo);
 	};
-	function confirmarEquipo() {
+
+	async function confirmarEquipo() {
 		if (equipo.length !== 3) { return alert("Debes seleccionar tres jugadores para confirmar el equipo"); }
 		console.log(equipo)
+		toggleMode();
 		setBloqueado(true);
 	}
 
@@ -81,7 +82,8 @@ export default function futbolitosBattle() {
 					/>
 				</div>
 			) : (
-				<Esperando codigoDeLaSala={codigoActual} />
+				// <Esperando />
+				<Juego EquipoDeTres = {equipo}></Juego>
 			)}
 
 		</section>
