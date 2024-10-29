@@ -13,11 +13,13 @@ export default function CardBattle({
     control,
     defensa,
     isSmall = false, // Nueva prop para la variante
-    onClick
+    onClickAtaque,
+    onClickControl,
+    onClickDefensa
 }) {
     const mediaGRL = Math.round(((ataque + control + defensa) / 3) + 7);
     return (
-        <div className={clsx(styles.carta, { [styles.cartaSmall]: isSmall })} onClick = {onClick}>
+        <div className={clsx(styles.carta, { [styles.cartaSmall]: isSmall })} >
             <div className={clsx(styles.seccion1, { [styles.seccion1Small]: isSmall })}>
                 <div className={clsx(styles.seccion2, { [styles.seccion2Small]: isSmall })}>
                     <p className={clsx(styles.caracteristicaPrin, { [styles.caracteristicaPrinSmall]: isSmall })}>{mediaGRL}</p> {/*LA MEDIA LA CALCULADOS CON LAS ESTADISTICAS*/}
@@ -53,13 +55,13 @@ export default function CardBattle({
                     <h1 className={clsx(styles.titulo, { [styles.tituloSmall]: isSmall })}>{nombreJugador}</h1>
                 </div>
                 <div className={clsx(styles.seccion3, { [styles.seccion3Small]: isSmall })}>
-                    <div className={clsx(styles.imgstatA, { [styles.imgstatASmall]: isSmall })} onClick={onClick}>
+                    <div className={clsx(styles.imgstatA, { [styles.imgstatASmall]: isSmall })} onClick={onClickAtaque}>
                         <p className={clsx(styles.p, { [styles.pSmall]: isSmall })}>{ataque}</p>
                     </div>
-                    <div className={clsx(styles.imgstatC, { [styles.imgstatCSmall]: isSmall })} onClick={onClick}>
+                    <div className={clsx(styles.imgstatC, { [styles.imgstatCSmall]: isSmall })} onClick={onClickControl}>
                         <p className={clsx(styles.p, { [styles.pSmall]: isSmall })}>{control}</p>
                     </div>
-                    <div className={clsx(styles.imgstatD, { [styles.imgstatDSmall]: isSmall })} onClick={onClick}>
+                    <div className={clsx(styles.imgstatD, { [styles.imgstatDSmall]: isSmall })} onClick={onClickDefensa}>
                         <p className={clsx(styles.p, { [styles.pSmall]: isSmall })}>{defensa}</p>
                     </div>
                 </div>

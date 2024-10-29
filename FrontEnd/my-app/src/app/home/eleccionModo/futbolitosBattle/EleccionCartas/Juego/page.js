@@ -46,10 +46,9 @@ export default function Juego({ EquipoDeTres }) {
         <section className={styles.main}>
             <div className={styles.Juego}>
                 <div>
-                    {cartaSeleccionada && ( 
-                        <Card
-                            isSmall={false} 
-
+                    {cartaSeleccionada && (
+                        <CardBattle
+                            isSmall={false}
                             posicion={cartaSeleccionada.Posicion}
                             nacionalidad={cartaSeleccionada.Nacionalidad}
                             imagenJugador={cartaSeleccionada.Imagen}
@@ -58,14 +57,35 @@ export default function Juego({ EquipoDeTres }) {
                             ataque={cartaSeleccionada.Ataque}
                             control={cartaSeleccionada.Control}
                             defensa={cartaSeleccionada.Defensa}
+                            onClickAtaque={() => console.log(cartaSeleccionada.Ataque)}
+                            onClickControl={() => console.log(cartaSeleccionada.Control)}
+                            onClickDefensa={() => console.log(cartaSeleccionada.Defensa)}
                         />
                     )}
+                </div>
+                <div>
+                    {/* {cartaSeleccionada && (
+                        <CardBattle
+                            isSmall={false}
+                            posicion={cartaSeleccionada.Posicion}
+                            nacionalidad={cartaSeleccionada.Nacionalidad}
+                            imagenJugador={cartaSeleccionada.Imagen}
+                            escudo={cartaSeleccionada.Equipo}
+                            nombreJugador={cartaSeleccionada.Apellido}
+                            ataque={cartaSeleccionada.Ataque}
+                            control={cartaSeleccionada.Control}
+                            defensa={cartaSeleccionada.Defensa}
+                            onClickAtaque={() => console.log(cartaSeleccionada.Ataque)}
+                            onClickControl={() => console.log(cartaSeleccionada.Control)}
+                            onClickDefensa={() => console.log(cartaSeleccionada.Defensa)}
+                        />
+                    )} */}
                 </div>
             </div>
             <div id="Cards" className={styles.Cards}>
                 {jugadores.map((jugador) => (
                     <Card
-                        key={jugador.Id} 
+                        key={jugador.Id}
                         isSmall={true}
                         posicion={jugador.Posicion}
                         nacionalidad={jugador.Nacionalidad}
