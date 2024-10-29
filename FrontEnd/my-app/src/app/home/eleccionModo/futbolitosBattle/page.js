@@ -43,7 +43,7 @@ export default function futbolitosBattle() {
             setCodigoActual(codigo)
             socket.emit('joinRoom', { room: codigo });
         }
-        // socket.emit('joinRoom', {room: codigoSala, unirme: true, id: UsuarioId});
+        localStorage.setItem("codigoSalaBattle", codigo) // LO GUARDA EN EL LOCAL STORAJE
     }
 
     async function traigoSalasCreadas() {
