@@ -238,7 +238,8 @@ io.on("connection", (socket) => {
     });
 
     socket.on('sendMessage', data => {
-        io.to(req.session.room).emit('newMessage', { Fecha: data.Fecha, Contenido: data.Contenido, userEnvia: data.UserEnvia, userRecibe: data.UserRecibe });
+        io.to(data.room).emit('newMessage', {data: data.jugador });
+        console.log(data)
     });
 
     socket.on('disconnect', () => {

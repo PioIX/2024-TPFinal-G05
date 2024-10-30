@@ -15,9 +15,13 @@ export default function Juego({ EquipoDeTres }) {
 
     useEffect(() => {
         if (!socket || !isConnected) return;
+        socket.on('newMessage', data => {
+            console.log("ASDASDAS",data.jugador);
+        });
+
     }, [socket, isConnected]);
 
-    useEffect(() => {
+    useEffect(() => { 
         async function obtenerEquipo() {
             const playersId = EquipoDeTres;
             try {
@@ -40,6 +44,7 @@ export default function Juego({ EquipoDeTres }) {
     function seleccionarJugador(jugador) {
         console.log(jugador);
         setCartaSeleccionada(jugador);
+        socket.emit('sendMessage', { data: jugador});
     }
 
     return (
