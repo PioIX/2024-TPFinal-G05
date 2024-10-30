@@ -11,7 +11,7 @@
     text-align: center;
     font-family: "Russo One", sans-serif;
     flex-direction: column;
-    filter: drop-shadow(1px 1px 10px #ea00ff)
+    filter: drop-shadow(1px 1px 10px #ea00ff);
 }
 
 .cartaSmall {
@@ -84,111 +84,82 @@
     margin-left: 0px; /* 10% menos de 0px */
 }
 
-.imgstatA {
-    height: 70px; /* Ajustado a 50% */
-    width: 70px; /* Ajustado a 50% */
-    background-image: url("/images/statsAtaque.png");
-    background-size: cover;
-    background-position: center;
-    font-size: 25px;
-    color: #ffffff;
-    text-shadow:
-        0 0 5px #000000,
-        0 0 10px #0091ff;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-.imgstatC {
-    height: 70px; /* Ajustado a 50% */
-    width: 70px; /* Ajustado a 50% */
-    background-image: url("/images/statsControl.png");
-    background-size: cover;
-    background-position: center;
-    font-size: 25px;
-    margin-left: 20px;
-    margin-right: 20px;
-    color: #ffffff;
-    text-shadow:
-        0 0 5px #000000,
-        0 0 10px #0091ff;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
+/* Estilos para las estadísticas */
+.imgstatA,
+.imgstatC,
 .imgstatD {
     height: 70px; /* Ajustado a 50% */
     width: 70px; /* Ajustado a 50% */
-    background-image: url("/images/statsDefensa.png");
     background-size: cover;
     background-position: center;
     font-size: 25px;
     color: #ffffff;
-    text-shadow:
-        0 0 5px #000000,
-        0 0 10px #0091ff;
-    transition: transform 0.3s ease;
+    text-shadow: 0 0 5px #000000, 0 0 10px #0091ff;
     cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease; /* Transiciones para escala y filtro */
 }
 
-
-
-.imgstatASmall {
-    height: 25px; /* 10% menos de 28px */
-    width: 25px; /* 10% menos de 28px */
+.imgstatA {
     background-image: url("/images/statsAtaque.png");
-    background-size: cover;
-    background-position: center;
-    font-size: 11px; /* 10% menos de 12px */
-    color: #ffffff;
-    text-shadow:
-        0 0 5px #000000,
-        0 0 10px #0091ff;
 }
 
-.imgstatCSmall {
-    height: 25px; /* 10% menos de 28px */
-    width: 25px; /* 10% menos de 28px */
+.imgstatC {
     background-image: url("/images/statsControl.png");
-    background-size: cover;
-    background-position: center;
-    font-size: 11px; /* 10% menos de 12px */
-    margin-left: 10px;
-    margin-right: 10px;
-    color: #ffffff;
-    text-shadow:
-        0 0 5px #000000,
-        0 0 10px #0091ff;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
+.imgstatD {
+    background-image: url("/images/statsDefensa.png");
+}
+
+/* Estilos para la versión pequeña */
+.imgstatASmall,
+.imgstatCSmall,
 .imgstatDSmall {
     height: 25px; /* 10% menos de 28px */
     width: 25px; /* 10% menos de 28px */
-    background-image: url("/images/statsDefensa.png");
     background-size: cover;
     background-position: center;
     font-size: 11px; /* 10% menos de 12px */
     color: #ffffff;
-    text-shadow:
-        0 0 5px #000000,
-        0 0 10px #0091ff;
+    text-shadow: 0 0 5px #000000, 0 0 10px #0091ff;
 }
 
-.imgstatA:hover{
+.imgstatA:hover,
+.imgstatC:hover,
+.imgstatD:hover {
     transform: scale(1.4);
-    filter: drop-shadow(1px 1px 10px #000000)
+    filter: drop-shadow(1px 1px 10px #000000);
 }
 
-.imgstatC:hover{
-    transform: scale(1.4);
-    filter: drop-shadow(1px 1px 10px #000000)
+/* Clase para el estado activo */
+.activeStat {
+    filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8)); /* Sombreado diferente */
+    transform: scale(1.1); /* Aumentar un poco el tamaño */
+    position: relative; /* Para que se pueda mover al centro */
+    z-index: 1; /* Asegurarse que esté en el frente */
 }
 
-.imgstatD:hover{
-    transform: scale(1.4);
-    filter: drop-shadow(1px 1px 10px #000000)
+/* Ocultar estadísticas no seleccionadas */
+.hidden {
+    display: none; /* Ocultar la estadística */
 }
 
+/* Ajustes para centrar la estadística seleccionada */
+.imgstatA {
+    margin-right: 20px; /* Espaciado normal */
+}
+
+.imgstatC {
+    /* Control en el centro, sin margen */
+}
+
+.imgstatD {
+    margin-left: 20px; /* Espaciado normal */
+}
+
+/* Estilos para la característica principal */
 .caracteristicaPrin {
     margin-top: 10px; /* Ajustado a 50% */
     margin-bottom: 1px;
@@ -199,25 +170,22 @@
     font-size: 18px; /* 10% menos de 20px */
 }
 
+/* Estilos para el título */
 .titulo {
     font-size: 36px;
     color: #ffffff;
-    text-shadow:
-        0 0 5px #000000,
-        0 0 10px #0091ff;
+    text-shadow: 0 0 5px #000000, 0 0 10px #0091ff;
     letter-spacing: 3px; /* Ajustado a 67% */
     margin-block-start: 0em;
     margin-block-end: 0em;
     margin-top: 10px; /* Ajustado a 50% */
     margin-bottom: 15px; /* Ajustado a 67% */
 }
-    
+
 .tituloSmall {
     font-size: 13px; /* 10% menos de 14px */
     color: #ffffff;
-    text-shadow:
-        0 0 5px #000000,
-        0 0 10px #0091ff;
+    text-shadow: 0 0 5px #000000, 0 0 10px #0091ff;
     letter-spacing: 1.8px; /* 10% menos de 2px */
     margin-block-start: 0em;
     margin-block-end: 0em;
@@ -225,6 +193,7 @@
     margin-bottom: 7px; /* 10% menos de 8px */
 }
 
+/* Estilo para la posición */
 .posicion {
     color: white;
     font-size: 40px; /* Ajustado a 50% */
@@ -237,10 +206,12 @@
     font-size: 14px; /* 10% menos de 16px */
 }
 
+/* Margen para las características */
 .caracteristicas {
     margin-top: 5px; /* Ajustado a 50% */
 }
 
+/* Imagen con degradado */
 .imagenConDegrade {
     position: relative;
     overflow: hidden; /* Para ocultar el degradado que se extiende más allá de la imagen */

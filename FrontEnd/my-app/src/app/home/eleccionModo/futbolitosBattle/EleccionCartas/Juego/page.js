@@ -47,6 +47,8 @@ export default function Juego({ EquipoDeTres }) {
         socket.emit('sendMessage', { data: jugador});
     }
 
+    
+
     return (
         <section className={styles.main}>
             <div className={styles.Juego}>
