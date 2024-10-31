@@ -7,16 +7,26 @@ import CardBattle from "@/Estructuras/CardBattle";
 
 export default function Juego({ EquipoDeTres }) {
     const { socket, isConnected } = useSocket();
+    const [codigo, setCodigo] = useState();
     const [cambio, setCambio] = useState(true);
     const [jugadores, setJugadores] = useState([]);
     const [cartaSeleccionada, setCartaSeleccionada] = useState(null); // Cambia a null por defecto
-
+    const [estadisticaOponente, setEstadisticaOponente] = useState()
+    const [estadisticaPropia, setEstadisticaPropia] = useState()
+    setCodigo(localStorage.getItem("codigoSalaBattle"))
     const toggleMode = () => setCambio(!cambio);
 
     useEffect(() => {
         if (!socket || !isConnected) return;
-        socket.on('newMessage', data => {
-            console.log("ASDASDAS",data.jugador);
+
+		if (isConnected) {
+            socket.emit('joinRoom', { room: codigo });
+            console.log(codigo)
+        }
+
+        socket.on('EnvioEstadistica', data => {
+            console.log(data.room, data.Estadistica)
+            setEstadisticaOponente(data.Estadistica)
         });
 
     }, [socket, isConnected]);
@@ -44,7 +54,12 @@ export default function Juego({ EquipoDeTres }) {
     function seleccionarJugador(jugador) {
         console.log(jugador);
         setCartaSeleccionada(jugador);
-        socket.emit('sendMessage', { data: jugador});
+    }
+
+    function EnvioEstadisticaElegida (estadistica){
+        console.log(estadistica)
+        socket.emit('Estadistica', { room: codigo, estadistica: estadistica });
+        setEstadisticaPropia(estadistica)
     }
 
     
@@ -65,7 +80,7 @@ export default function Juego({ EquipoDeTres }) {
                             control={cartaSeleccionada.Control}
                             defensa={cartaSeleccionada.Defensa}
                             onClickAtaque={() => console.log(cartaSeleccionada.Ataque)}
-                            onClickControl={() => console.log(cartaSeleccionada.Control)}
+                            onClickControl={EnvioEstadisticaElegida(cartaSeleccionada.Control)}
                             onClickDefensa={() => console.log(cartaSeleccionada.Defensa)}
                         />
                     )}

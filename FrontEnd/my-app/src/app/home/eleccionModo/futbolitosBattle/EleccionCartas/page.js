@@ -61,8 +61,8 @@ export default function futbolitosBattle() {
 	useEffect(() => {
         if (!socket || !isConnected) return;
         PlayersDelUsuario();
-		const codigo = localStorage.getItem("codigoSalaBattle");
 
+		const codigo = localStorage.getItem("codigoSalaBattle");
 		if (isConnected) {
             socket.emit('joinRoom', { room: codigo });
         }

@@ -237,8 +237,8 @@ io.on("connection", (socket) => {
         io.emit('pingAll', { event: "Ping to all", message: data });
     });
 
-    socket.on('sendMessage', data => {
-        io.to(data.room).emit('newMessage', {data: data.jugador });
+    socket.on('EnvioEstadistica', data => {
+        io.to(data.room).emit('Estadistica', { Estadistica: data.estadistica });
         console.log(data)
     });
 
