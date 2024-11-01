@@ -14,6 +14,9 @@ export default function CardBattle({
     control,
     defensa,
     isSmall = false, // Nueva prop para la variante
+    onClickControl,
+    onClickDefensa,
+    onClickAtaque
 }) {
     const mediaGRL = Math.round(((ataque + control + defensa) / 3) + 7);
     
@@ -66,7 +69,7 @@ export default function CardBattle({
                             [styles.hidden]: activeStat && activeStat !== 'ataque',
                             [styles.imgstatASmall]: isSmall 
                         })}
-                        onClick={() => handleStatClick('ataque')}
+                        onClick={onClickAtaque} onClickCapture={() => handleStatClick('ataque')}
                     >
                         <p className={clsx(styles.p, { [styles.pSmall]: isSmall })}>{ataque}</p>
                     </div>
@@ -76,17 +79,18 @@ export default function CardBattle({
                             [styles.hidden]: activeStat && activeStat !== 'control',
                             [styles.imgstatCSmall]: isSmall 
                         })}
-                        onClick={() => handleStatClick('control')}
+                        onClick={onClickControl} onClickCapture={() => handleStatClick('control')}
                     >
                         <p className={clsx(styles.p, { [styles.pSmall]: isSmall })}>{control}</p>
                     </div>
+
                     <div
                         className={clsx(styles.imgstatD, { 
                             [styles.activeStat]: activeStat === 'defensa', 
                             [styles.hidden]: activeStat && activeStat !== 'defensa',
                             [styles.imgstatDSmall]: isSmall 
                         })}
-                        onClick={() => handleStatClick('defensa')}
+                        onClick={onClickDefensa} onClickCapture={() => handleStatClick('defensa')}
                     >
                         <p className={clsx(styles.p, { [styles.pSmall]: isSmall })}>{defensa}</p>
                     </div>
