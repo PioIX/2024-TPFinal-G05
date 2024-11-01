@@ -76,8 +76,8 @@
 }
 
 .imgcaractSmall {
-    height: 18px; /* 10% menos de 20px */
-    width: 18px; /* 10% menos de 20px */
+    height: 16px; /* 10% menos de 20px */
+    width: 24px; /* 10% menos de 20px */
 }
 
 .p {
