@@ -1,35 +1,76 @@
-.body{
+.body {
     background-image: url("/images/fondoPagInicial.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat; 
     background-attachment: fixed;
-}
-.div{
-    color: #ffcc00;
     font-family: "Russo One", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    max-height: 83vh;
-    width: auto;
-    overflow-y: scroll;
-    scrollbar-width: none;
+}
+
+.main {
+    display: flex;
+    flex-direction: column; /* Coloca elementos en columna */
+    align-items: center; /* Centra los elementos horizontalmente */
+    height: 100vh; /* Usa toda la altura de la ventana */
+    justify-content: flex-start; /* Comienza desde arriba */
+    padding: 20px;
+    overflow: hidden; /* Oculta el scroll */
+}
+
+.titulo {
+    text-align: center;
+    font-size: 70px;
+    text-shadow: 0 0 3px #ffcc001f, 0 0 5px #ffcc003b;
+    letter-spacing: 3px;
+    margin-bottom: 10px; /* Espacio debajo del título */
+    font-family: "Russo One", sans-serif;
+    color: #ffcc00;
+}
+
+.modos {
+    display: flex; /* Disposición en fila */
+    justify-content: space-between; /* Espacio entre los elementos */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    font-family: "Russo One", sans-serif;
+    color: #ffcc00de;
+    font-size: 17px;
+}
+
+.modo {
+    width: 45%; /* Cada modo ocupa el 45% del ancho */
     padding: 10px;
 }
-.h1{
+
+.h2 {
     text-align: center;
-    color: #ffcc00 ;
-    font-size: 70px;
-    text-shadow:
-    0 0 3px #ffcc00,
-    0 0 5px #ffcc00;
-    letter-spacing: 3px;
+}
+.divisor {
+    width: 2px; /* Ancho de la línea divisoria */
+    background-color: #00ccffe1; /* Color de la línea */
+    height: 90%; /* Ajusta la altura automáticamente */
+    margin-top: 20px; /* Espacio a los lados de la línea */
+    box-shadow:
+    0 0 5px #00ffff, 
+    0 0 10px #00ffff;
 }
 
-.texto{
-    font-size: 25px;
+.li {
+    list-style: none; /* Elimina el estilo predeterminado */
+    position: relative; /* Necesario para posicionar el pseudo-elemento */
+    padding-left: 20px; /* Espacio para el punto */
 }
 
-.Desk::-webkit-scrollbar {
-    display: none;
+.li::before {
+    content: ''; /* Crea un contenido vacío */
+    position: absolute; /* Posición absoluta para el punto */
+    left: 0; /* Alineado a la izquierda */
+    top: 50%; /* Centrado verticalmente */
+    transform: translateY(-50%); /* Ajuste vertical */
+    width: 5px; /* Ancho del punto */
+    height: 5px; /* Alto del punto */
+    background-color: #00ffff; /* Cambia el color del punto aquí */
+    box-shadow:
+    0 0 5px #00ffff, 
+    0 0 10px #00ffff;
+    border-radius: 50%; /* Hace el punto redondo */
 }
