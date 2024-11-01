@@ -19,11 +19,6 @@ export default function Juego({ EquipoDeTres }) {
     useEffect(() => {
         if (!socket || !isConnected) return;
 
-		if (isConnected) {
-            socket.emit('joinRoom', { room: codigo });
-            console.log(codigo)
-        }
-
         socket.on('EnvioEstadistica', data => {
             console.log(data.room, data.Estadistica)
             setEstadisticaOponente(data.Estadistica)
@@ -49,6 +44,10 @@ export default function Juego({ EquipoDeTres }) {
             }
         }
         obtenerEquipo();
+        if (isConnected) {
+            socket.emit('joinRoom', { room: codigo });
+            console.log(codigo)
+        }
     }, []);
 
     function seleccionarJugador(jugador) {

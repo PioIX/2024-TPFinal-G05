@@ -1,14 +1,85 @@
-.body{
+/* page.module.css */
+
+.body {
+
+    background-image: url("/images/fondoPagInicial.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    background:linear-gradient(180deg, #350b49, #46021f);
-    display: grid;
-    grid-template-columns: 300px, 600px;
+    margin: 0;
 }
 
-.main{
-    border: solid lightblue 4px ;
-    height: 100%;
-    width: 90%;
+.main {
+    background-color: black;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
+
+.divLogOut {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+/* Dropdown container styles */
+.container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse; /* Coloca el botón encima */
+    align-items: left;
+    transition: transform 0.5s ease; /* Animación de deslizamiento suave */
+    transform: translateY(0);
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+}
+.buttonContainer {
+    display: flex;
+}
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 5%;
+    background-color: #000000;
+    color: white;
+    border: none;
+    outline: none;
+    z-index: 2;
+    transition: background-color 2.5s ease;
+    margin: 0;
+}
+
+.button:hover {
+    background-color: #646464;
+}
+
+.dropdownContent {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    display: none; /* Oculto inicialmente */
+    transform: translateY(0);
+    margin: 0;
+}
+
+.show .dropdownContent {
+    display: block; /* Mostrar contenido del desplegable */
+}
+
+.show {
+    transform: translateY(0); /* Mueve el botón hacia arriba */
+}
+

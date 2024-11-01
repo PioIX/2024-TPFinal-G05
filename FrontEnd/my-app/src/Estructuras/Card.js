@@ -27,7 +27,7 @@ export default function Card({
                     <div className={styles.caracteristicas}>
                         <img
                             className={clsx(styles.imgcaract, { [styles.imgcaractSmall]: isSmall })}
-                            src={`/Nacionalidades/${nacionalidad}`}
+                            src={`./Nacionalidades/${nacionalidad}`}
                             alt="."
                         />
                     </div>
