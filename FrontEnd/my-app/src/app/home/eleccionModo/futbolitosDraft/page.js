@@ -7,7 +7,7 @@ export default function FutbolitosDraft() {
     const [isContentVisible, setIsContentVisible] = useState(true); // Estado para controlar el contenido de la página
 
     const toggleDropdown = () => {
-        setContentVisible(false); // Oculta el contenido de la página
+        setIsContentVisible(false); // Oculta el contenido de la página
         setIsDropdownVisible(true); // Muestra el div
     };
 

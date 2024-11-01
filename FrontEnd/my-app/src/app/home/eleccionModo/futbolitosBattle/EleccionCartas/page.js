@@ -9,7 +9,7 @@ import Juego from "./Juego/page";
 import { useSocket } from "@/app/hooks/useSocket";
 
 export default function futbolitosBattle() {
-	const { socket, isConnected } = useSocket();
+	// const { socket, isConnected } = useSocket();
 	const [cambio, setCambio] = useState(true); 
 	const toggleMode = () => setCambio(!cambio);
 	const [jugadoresUser, setJugadoresUser] = useState([])
@@ -58,16 +58,20 @@ export default function futbolitosBattle() {
 		setBloqueado(true);
 	}
 
-	useEffect(() => {
-        if (!socket || !isConnected) return;
-        PlayersDelUsuario();
+	// useEffect(() => {
+    //     if (!socket || !isConnected) return;
+    //     PlayersDelUsuario();
 
-		const codigo = localStorage.getItem("codigoSalaBattle");
-		if (isConnected) {
-            socket.emit('joinRoom', { room: codigo });
-        }
+	// 	const codigo = localStorage.getItem("codigoSalaBattle");
+	// 	if (isConnected) {
+    //         socket.emit('joinRoom', { room: codigo });
+    //     }
     
-    }, [socket, isConnected]);          //// UNIRSE ALA SALA --> VER CUANDO ES CONVENIENTE
+    // }, [socket, isConnected]);  
+
+	useEffect(()=> {
+		PlayersDelUsuario();
+	}, [])       //// UNIRSE ALA SALA --> VER CUANDO ES CONVENIENTE
 
 	return (
 		<section className={styles.main}>
