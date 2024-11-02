@@ -17,12 +17,13 @@
 }
 
 .Juego {
-    /* margin: -1em 0 0 0 ; */
-
+    display: flex;
     width: 80%;
-    height:100%;
-
+    height: 100%;
     background-color: black;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .Cards {
@@ -38,4 +39,9 @@
     height:100%;
 
     background-color: rgb(255, 255, 255);
+}
+
+.carta {
+    width: fit-content;
+    height: fit-content;
 }

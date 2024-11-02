@@ -14,7 +14,7 @@ export default function Juego({ EquipoDeTres }) {
     const [cartaSeleccionada, setCartaSeleccionada] = useState(null); 
 
     const [mostraCartaOponente, setMostrarCartaOponente] = useState(false);
-    const [cartaOponente, setCartaOponente] = useState();
+    const [cartaOponente, setCartaOponente] = useState({});
 
     const [estadisticaOponente, setEstadisticaOponente] = useState()
     const [estadisticaPropia, setEstadisticaPropia] = useState()
@@ -27,7 +27,7 @@ export default function Juego({ EquipoDeTres }) {
             console.log(data.room, data.Estadistica, data.userId)
             console.log(data.a)
             if (data.userId != userId) {
-
+                setCartaOponente(data.cartaOponente)
                 setEstadisticaOponente(data.Estadistica)
                 setMostrarCartaOponente(true)
             }
@@ -71,14 +71,14 @@ export default function Juego({ EquipoDeTres }) {
 
     function EnvioEstadisticaElegida (estadistica){
         console.log(estadistica)
-        socket.emit('EnvioEstadistica', { room: codigo, estadistica: estadistica, userId: userId, a:cartaSeleccionada});
+        socket.emit('EnvioEstadistica', { room: codigo, estadistica: estadistica, userId: userId, cartaOponente: cartaSeleccionada});
         setEstadisticaPropia(estadistica)
     }
 
     return (
         <section className={styles.main}>
             <div className={styles.Juego}>
-                <div>
+                <div className={styles.carta}>
                     {cartaSeleccionada && (
                         <CardBattle
                             isSmall={false}
@@ -96,21 +96,18 @@ export default function Juego({ EquipoDeTres }) {
                         />
                     )}
                 </div>
-                <div>
+                <div className={styles.carta}>
                     {mostraCartaOponente && (
                         <CardBattle
                             isSmall={false}
-                            posicion={cartaSeleccionada.Posicion}
-                            nacionalidad={cartaSeleccionada.Nacionalidad}
-                            imagenJugador={cartaSeleccionada.Imagen}
-                            escudo={cartaSeleccionada.Equipo}
-                            nombreJugador={cartaSeleccionada.Apellido}
-                            ataque={cartaSeleccionada.Ataque}
-                            control={cartaSeleccionada.Control}
-                            defensa={cartaSeleccionada.Defensa}
-                            onClickAtaque={() => console.log(cartaSeleccionada.Ataque)}
-                            onClickControl={() => console.log(cartaSeleccionada.Control)}
-                            onClickDefensa={() => console.log(cartaSeleccionada.Defensa)}
+                            posicion={cartaOponente.Posicion}
+                            nacionalidad={cartaOponente.Nacionalidad}
+                            imagenJugador={cartaOponente.Imagen}
+                            escudo={cartaOponente.Equipo}
+                            nombreJugador={cartaOponente.Apellido}
+                            ataque={cartaOponente.Ataque}
+                            control={cartaOponente.Control}
+                            defensa={cartaOponente.Defensa}
                         />
                     )}
                 </div>

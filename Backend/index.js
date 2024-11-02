@@ -238,7 +238,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on('EnvioEstadistica', data => {
-        io.to(data.room).emit('Estadistica', { room: data.room, Estadistica: data.estadistica });
+        io.to(data.room).emit('Estadistica', { room: data.room, Estadistica: data.estadistica, cartaOponente: data.cartaOponente, userId: data.userId });
         console.log(data)
     });
 
