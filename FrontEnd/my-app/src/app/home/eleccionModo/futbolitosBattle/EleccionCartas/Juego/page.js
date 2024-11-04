@@ -13,6 +13,8 @@ export default function Juego({ EquipoDeTres }) {
     const userId = localStorage.getItem("userID");
 
     const [jugadores, setJugadores] = useState([]);
+    const [muestroEquipo, setMuestroEquipo] = useState(true)
+
     const [puntaje, setPuntaje] = useState(false)
     const [puntosMios, setPuntosMios] = useState(0)
     const [puntosOponente, setPuntosOponente] = useState(0)
@@ -67,10 +69,26 @@ export default function Juego({ EquipoDeTres }) {
             }
             setTimeout(() => {
                 ganador()
-              }, 2000);
+            }, 2000);
         }
     }, [yoElijo, eligioOponente])
-    
+
+    useEffect(() => {
+        if (puntosMios || puntosOponente == 2)
+            if (puntosMios > puntosOponente) {
+                console.log("Gane la partida")
+            } else if (puntosOponente > puntosMios) {
+                console.log("Perdi la partida")
+            } else if (puntosOponente == puntosMios) {
+                console.log("Empatamos la partida")
+            } else {
+                return
+            }
+        // setTimeout(() => {
+        //     console.log("Fin")
+        // }, 2000);
+    }, [puntaje])
+
     function ganador() {
         if (estadisticaPropia > estadisticaOponente) {
             setPuntosMios(puntosMios + 1)
@@ -84,8 +102,6 @@ export default function Juego({ EquipoDeTres }) {
             setPuntaje(true)
             setEligioOponente(false)
             setYoElijo(false)
-
-            alert("Ganaste")
         } else if (estadisticaPropia < estadisticaOponente) {
             setPuntosOponente(puntosOponente + 1)
 
@@ -98,8 +114,6 @@ export default function Juego({ EquipoDeTres }) {
             setPuntaje(true)
             setEligioOponente(false)
             setYoElijo(false)
-
-            alert("Perdiste")
         } else if (estadisticaPropia == estadisticaOponente) {
             setPuntosMios(puntosMios + 1)
             setPuntosOponente(puntosOponente + 1)
@@ -113,10 +127,7 @@ export default function Juego({ EquipoDeTres }) {
             setPuntaje(true)
             setEligioOponente(false)
             setYoElijo(false)
-
-            alert("Empate")
         }
-        finDePartidas()
     }
 
     async function obtenerEquipo() {
@@ -137,12 +148,18 @@ export default function Juego({ EquipoDeTres }) {
     }
 
     function seleccionarJugador(jugador) {
+        const indice = jugadores.indexOf(jugador);
         console.log(jugador);
         setPuntaje(false)
         setCartaSeleccionada(jugador);
         if (isConnected) {
             socket.emit('joinRoom', { room: codigo });
             console.log(codigo)
+        }
+        if (indice !== -1) { 
+            jugadores.splice(indice, 1); 
+        } else {
+            console.log("El elemento no se encuentra en el array.");
         }
     }
 
@@ -151,27 +168,17 @@ export default function Juego({ EquipoDeTres }) {
         setYoElijo(true)
         socket.emit('EnvioEstadistica', { room: codigo, estadistica: estadistica, tipo: tipo, userId: userId, cartaOponente: cartaSeleccionada, elijo: true });
         setEstadisticaPropia(estadistica)
-    }
-
-    function finDePartidas() {
-        if ((puntosMios + puntosOponente) == 3)
-            if (puntosMios > puntosOponente) {
-                console.log("Gane la partida")
-            } else if (puntosOponente > puntosMios) {
-                console.log("Perdi la partida")
-            } else if (puntosOponente == puntosMios) {
-                console.log("Empate")
-            }
+        
     }
 
     return (
         <section className={styles.main}>
             <div className={styles.Juego}>
                 {puntaje && (
-                    <div className = {styles.TableroPuntaje}>
-                        <Texto variant = "h2" text = {puntosMios}></Texto>
-                        <Texto variant = "h2" text = ":"></Texto>
-                        <Texto variant = "h2" text = {puntosOponente}></Texto>
+                    <div className={styles.TableroPuntaje}>
+                        <Texto variant="h2" text={puntosMios}></Texto>
+                        <Texto variant="h2" text=":"></Texto>
+                        <Texto variant="h2" text={puntosOponente}></Texto>
                     </div>
                 )}
                 <div className={styles.carta}>
@@ -231,9 +238,10 @@ export default function Juego({ EquipoDeTres }) {
                     )}
                 </div>
             </div>
-            <div id="Cards" className={styles.Cards}>
+            {muestroEquipo && (
+                <div id="Cards" className={styles.Cards}>
                 {jugadores.map((jugador) => (
-                    <Card   
+                    <Card
                         key={jugador.Id}
                         isSmall={true}
                         posicion={jugador.Posicion}
@@ -248,6 +256,7 @@ export default function Juego({ EquipoDeTres }) {
                     />
                 ))}
             </div>
+            )}
         </section>
     );
 }
