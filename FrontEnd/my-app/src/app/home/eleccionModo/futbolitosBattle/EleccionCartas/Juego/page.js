@@ -4,6 +4,7 @@ import { useSocket } from "@/app/hooks/useSocket";
 import { useEffect, useState } from "react";
 import Card from "@/Estructuras/Card";
 import CardBattle from "@/Estructuras/CardBattle";
+import Texto from "@/Components/Texto";
 
 export default function Juego({ EquipoDeTres }) {
     const { socket, isConnected } = useSocket();
@@ -12,11 +13,16 @@ export default function Juego({ EquipoDeTres }) {
     const userId = localStorage.getItem("userID");
 
     const [jugadores, setJugadores] = useState([]);
+    const [puntaje, setPuntaje] = useState(false)
+    const [puntosMios, setPuntosMios] = useState(0)
+    const [puntosOponente, setPuntosOponente] = useState(0)
+    console.log(puntosMios)
+    console.log(puntosOponente)
 
     const [cartaSeleccionada, setCartaSeleccionada] = useState(null);
     const [yoElijo, setYoElijo] = useState(false)
 
-    const [mostraCartaOponente, setMostrarCartaOponente] = useState(false);
+    // const [mostraCartaOponente, setMostrarCartaOponente] = useState(false);
     const [tipoEstadisticaOponente, setTipoEstadisticaOponente] = useState()
     const [cartaOponente, setCartaOponente] = useState({});
     const [userOponente, setUserOponente] = useState()
@@ -31,6 +37,7 @@ export default function Juego({ EquipoDeTres }) {
 
     useEffect(() => {
         if (!socket || !isConnected) return;
+        obtenerEquipo();
         socket.on('Estadistica', data => {
             console.log(data.room, data.Estadistica, data.userId, data.tipo)
             if (data.userId != userId && data.elijo === true) {
@@ -58,31 +65,80 @@ export default function Juego({ EquipoDeTres }) {
                 setTipoDefensa(false);
                 setTipoControl(true);
             }
+            setTimeout(() => {
+                ganador()
+              }, 2000);
         }
     }, [yoElijo, eligioOponente])
+    
+    function ganador() {
+        if (estadisticaPropia > estadisticaOponente) {
+            setPuntosMios(puntosMios + 1)
 
-    useEffect(() => {
-        async function obtenerEquipo() {
-            const playersId = EquipoDeTres;
-            try {
-                const response = await fetch(`http://localhost:4000/EquipoDefinido?playersId=${playersId}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
-                const respuesta = await response.json();
-                setJugadores(respuesta);
-                console.log("Jugadores obtenidos:", respuesta);
-            } catch (error) {
-                console.error("Error al obtener el equipo:", error);
-            }
+            setCartaSeleccionada(null)
+            setTipoAtaque(false)
+            setTipoControl(false)
+            setTipoDefensa(false)
+            setEstadisticaOponente(null)
+            setCartaOponente(null)
+            setPuntaje(true)
+            setEligioOponente(false)
+            setYoElijo(false)
+
+            alert("Ganaste")
+        } else if (estadisticaPropia < estadisticaOponente) {
+            setPuntosOponente(puntosOponente + 1)
+
+            setCartaSeleccionada(null)
+            setTipoAtaque(false)
+            setTipoControl(false)
+            setTipoDefensa(false)
+            setEstadisticaOponente(null)
+            setCartaOponente(null)
+            setPuntaje(true)
+            setEligioOponente(false)
+            setYoElijo(false)
+
+            alert("Perdiste")
+        } else if (estadisticaPropia == estadisticaOponente) {
+            setPuntosMios(puntosMios + 1)
+            setPuntosOponente(puntosOponente + 1)
+
+            setCartaSeleccionada(null)
+            setTipoAtaque(false)
+            setTipoControl(false)
+            setTipoDefensa(false)
+            setEstadisticaOponente(null)
+            setCartaOponente(null)
+            setPuntaje(true)
+            setEligioOponente(false)
+            setYoElijo(false)
+
+            alert("Empate")
         }
-        obtenerEquipo();
-    }, []);
+        finDePartidas()
+    }
+
+    async function obtenerEquipo() {
+        const playersId = EquipoDeTres;
+        try {
+            const response = await fetch(`http://localhost:4000/EquipoDefinido?playersId=${playersId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            const respuesta = await response.json();
+            setJugadores(respuesta);
+            console.log("Jugadores obtenidos:", respuesta);
+        } catch (error) {
+            console.error("Error al obtener el equipo:", error);
+        }
+    }
 
     function seleccionarJugador(jugador) {
         console.log(jugador);
+        setPuntaje(false)
         setCartaSeleccionada(jugador);
         if (isConnected) {
             socket.emit('joinRoom', { room: codigo });
@@ -97,9 +153,27 @@ export default function Juego({ EquipoDeTres }) {
         setEstadisticaPropia(estadistica)
     }
 
+    function finDePartidas() {
+        if ((puntosMios + puntosOponente) == 3)
+            if (puntosMios > puntosOponente) {
+                console.log("Gane la partida")
+            } else if (puntosOponente > puntosMios) {
+                console.log("Perdi la partida")
+            } else if (puntosOponente == puntosMios) {
+                console.log("Empate")
+            }
+    }
+
     return (
         <section className={styles.main}>
             <div className={styles.Juego}>
+                {puntaje && (
+                    <div className = {styles.TableroPuntaje}>
+                        <Texto variant = "h2" text = {puntosMios}></Texto>
+                        <Texto variant = "h2" text = ":"></Texto>
+                        <Texto variant = "h2" text = {puntosOponente}></Texto>
+                    </div>
+                )}
                 <div className={styles.carta}>
                     {cartaSeleccionada && (
                         <CardBattle
@@ -119,7 +193,6 @@ export default function Juego({ EquipoDeTres }) {
                     )}
                 </div>
                 <div className={styles.carta}>
-
                     {tipoAtaque && (
                         <CardBattle
                             isSmall={false}
@@ -160,7 +233,7 @@ export default function Juego({ EquipoDeTres }) {
             </div>
             <div id="Cards" className={styles.Cards}>
                 {jugadores.map((jugador) => (
-                    <Card
+                    <Card   
                         key={jugador.Id}
                         isSmall={true}
                         posicion={jugador.Posicion}

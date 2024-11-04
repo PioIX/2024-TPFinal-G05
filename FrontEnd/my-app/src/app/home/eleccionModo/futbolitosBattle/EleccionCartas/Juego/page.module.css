@@ -45,3 +45,14 @@
     width: fit-content;
     height: fit-content;
 }
+
+.TableroPuntaje {
+    display: flex;
+    width: 80%;
+    height: 100%;
+    background-color: black;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+}
