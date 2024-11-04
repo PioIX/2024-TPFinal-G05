@@ -17,7 +17,7 @@
 
 .carta:hover{
     transform: scale(1.1);
-    filter: drop-shadow(1px 1px 10px #1500ff)
+    filter: drop-shadow(1px 1px 10px #ff00ff)
 }
 
 .cartaSmall {

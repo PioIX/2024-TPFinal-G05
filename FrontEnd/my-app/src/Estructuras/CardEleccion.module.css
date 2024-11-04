@@ -22,3 +22,7 @@
 .Desk::-webkit-scrollbar {
     display: none;
 }
+
+.active {
+    filter: drop-shadow(0 0 10px #ff00ff)
+}

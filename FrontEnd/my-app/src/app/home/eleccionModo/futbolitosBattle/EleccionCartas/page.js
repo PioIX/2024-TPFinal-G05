@@ -92,6 +92,7 @@ export default function futbolitosBattle() {
 					<CardEleccion
 						Cadena={jugadoresUser}
 						onPlayerSelect={elijoEquipo}
+						equipo = {equipo}
 					/>
 				</div>
 			) : (
