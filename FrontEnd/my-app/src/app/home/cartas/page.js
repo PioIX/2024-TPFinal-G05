@@ -45,7 +45,7 @@ export default function Cartas() {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-            },
+            },  
         });
         const respuesta = await response.json();
         const PlayerXUser = respuesta.map(Player => ({
