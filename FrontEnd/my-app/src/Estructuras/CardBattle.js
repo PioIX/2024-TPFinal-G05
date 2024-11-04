@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 import styles from "./CardBattle.module.css";
 
@@ -16,7 +16,8 @@ export default function CardBattle({
     isSmall = false, // Nueva prop para la variante
     onClickControl,
     onClickDefensa,
-    onClickAtaque
+    onClickAtaque,
+    onChangeEstadistica
 }) {
     const mediaGRL = Math.round(((ataque + control + defensa) / 3) + 7);
     
@@ -26,6 +27,9 @@ export default function CardBattle({
         setActiveStat(stat);
     };
 
+    useEffect(() => {
+        setActiveStat(onChangeEstadistica);
+    },[onChangeEstadistica])
     return (
         <div className={clsx(styles.carta, { [styles.cartaSmall]: isSmall })}>
             <div className={clsx(styles.seccion1, { [styles.seccion1Small]: isSmall })}>
@@ -65,32 +69,32 @@ export default function CardBattle({
                 <div className={clsx(styles.seccion3, { [styles.seccion3Small]: isSmall })}>
                     <div
                         className={clsx(styles.imgstatA, { 
-                            [styles.activeStat]: activeStat === 'ataque', 
-                            [styles.hidden]: activeStat && activeStat !== 'ataque',
+                            [styles.activeStat]: activeStat === 'Ataque', 
+                            [styles.hidden]: activeStat && activeStat !== 'Ataque',
                             [styles.imgstatASmall]: isSmall 
                         })}
-                        onClick={onClickAtaque} onClickCapture={() => handleStatClick('ataque')}
+                        onClick={onClickAtaque} onClickCapture={() => handleStatClick('Ataque')} 
                     >
                         <p className={clsx(styles.p, { [styles.pSmall]: isSmall })}>{ataque}</p>
                     </div>
                     <div
                         className={clsx(styles.imgstatC, { 
-                            [styles.activeStat]: activeStat === 'control', 
-                            [styles.hidden]: activeStat && activeStat !== 'control',
+                            [styles.activeStat]: activeStat === 'Control', 
+                            [styles.hidden]: activeStat && activeStat !== 'Control',
                             [styles.imgstatCSmall]: isSmall 
                         })}
-                        onClick={onClickControl} onClickCapture={() => handleStatClick('control')}
+                        onClick={onClickControl} onClickCapture={() => handleStatClick('Control')} 
                     >
                         <p className={clsx(styles.p, { [styles.pSmall]: isSmall })}>{control}</p>
                     </div>
 
                     <div
                         className={clsx(styles.imgstatD, { 
-                            [styles.activeStat]: activeStat === 'defensa', 
-                            [styles.hidden]: activeStat && activeStat !== 'defensa',
+                            [styles.activeStat]: activeStat === 'Defensa', 
+                            [styles.hidden]: activeStat && activeStat !== 'Defensa',
                             [styles.imgstatDSmall]: isSmall 
                         })}
-                        onClick={onClickDefensa} onClickCapture={() => handleStatClick('defensa')}
+                        onClick={onClickDefensa} onClickCapture={() => handleStatClick('Defensa')} 
                     >
                         <p className={clsx(styles.p, { [styles.pSmall]: isSmall })}>{defensa}</p>
                     </div>

@@ -72,8 +72,11 @@ app.get('/Usuario', async function (req, res) {
     res.send(respuesta)
 })
 app.post('/ExisteUsuario', async function (req, res) {
+
     console.log(req.body)
+    
     const respuesta = await MySQL.realizarQuery(`SELECT UserId FROM UserFutbolitos WHERE UserName = '${req.body.UserName}' AND UserPassword = '${req.body.UserPassword}';`)
+    
     if (respuesta.length > 0) {
         req.session.userId = respuesta[0].UserId // A REVISAR // 
         console.log("El user id es: ", respuesta)
@@ -81,6 +84,7 @@ app.post('/ExisteUsuario', async function (req, res) {
     } else {
         res.send({ message: "Registrse, Usuario no encontrado" })
     }
+
 })
 // REGISTER //
 app.post('/NuevoUser', async function (req, res) {
@@ -238,7 +242,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on('EnvioEstadistica', data => {
-        io.to(data.room).emit('Estadistica', { room: data.room, Estadistica: data.estadistica, cartaOponente: data.cartaOponente, userId: data.userId });
+        io.to(data.room).emit('Estadistica', { room: data.room, Estadistica: data.estadistica, cartaOponente: data.cartaOponente, userId: data.userId, tipo: data.tipo, elijo: data.elijo});
         console.log(data)
     });
 

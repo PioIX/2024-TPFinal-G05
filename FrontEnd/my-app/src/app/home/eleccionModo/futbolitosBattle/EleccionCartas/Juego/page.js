@@ -7,35 +7,61 @@ import CardBattle from "@/Estructuras/CardBattle";
 
 export default function Juego({ EquipoDeTres }) {
     const { socket, isConnected } = useSocket();
+
     const codigo = localStorage.getItem("codigoSalaBattle");
     const userId = localStorage.getItem("userID");
+
     const [jugadores, setJugadores] = useState([]);
 
-    const [cartaSeleccionada, setCartaSeleccionada] = useState(null); 
+    const [cartaSeleccionada, setCartaSeleccionada] = useState(null);
+    const [yoElijo, setYoElijo] = useState(false)
 
     const [mostraCartaOponente, setMostrarCartaOponente] = useState(false);
+    const [tipoEstadisticaOponente, setTipoEstadisticaOponente] = useState()
     const [cartaOponente, setCartaOponente] = useState({});
+    const [userOponente, setUserOponente] = useState()
+    const [eligioOponente, setEligioOponente] = useState(false)
+
+    const [tipoDefensa, setTipoDefensa] = useState(false);
+    const [tipoAtaque, setTipoAtaque] = useState(false);
+    const [tipoControl, setTipoControl] = useState(false);
 
     const [estadisticaOponente, setEstadisticaOponente] = useState()
     const [estadisticaPropia, setEstadisticaPropia] = useState()
 
-
     useEffect(() => {
         if (!socket || !isConnected) return;
-
         socket.on('Estadistica', data => {
-            console.log(data.room, data.Estadistica, data.userId)
-            console.log(data.a)
-            if (data.userId != userId) {
+            console.log(data.room, data.Estadistica, data.userId, data.tipo)
+            if (data.userId != userId && data.elijo === true) {
                 setCartaOponente(data.cartaOponente)
+                setTipoEstadisticaOponente(data.tipo)
                 setEstadisticaOponente(data.Estadistica)
-                setMostrarCartaOponente(true)
+                setUserOponente(data.userId)
+                setEligioOponente(data.elijo)
             }
         });
-
     }, [socket, isConnected]);
 
-    useEffect(() => { 
+    useEffect(() => {
+        if (eligioOponente && yoElijo) {
+            if (tipoEstadisticaOponente === "Ataque") {
+                setTipoAtaque(true);
+                setTipoDefensa(false);
+                setTipoControl(false);
+            } else if (tipoEstadisticaOponente === "Defensa") {
+                setTipoAtaque(false);
+                setTipoDefensa(true);
+                setTipoControl(false);
+            } else if (tipoEstadisticaOponente === "Control") {
+                setTipoAtaque(false);
+                setTipoDefensa(false);
+                setTipoControl(true);
+            }
+        }
+    }, [yoElijo, eligioOponente])
+
+    useEffect(() => {
         async function obtenerEquipo() {
             const playersId = EquipoDeTres;
             try {
@@ -53,11 +79,6 @@ export default function Juego({ EquipoDeTres }) {
             }
         }
         obtenerEquipo();
-        // if (isConnected) {
-        //     socket.emit('joinRoom', { room: codigo });
-        //     console.log(codigo)
-        // }
-
     }, []);
 
     function seleccionarJugador(jugador) {
@@ -69,9 +90,10 @@ export default function Juego({ EquipoDeTres }) {
         }
     }
 
-    function EnvioEstadisticaElegida (estadistica){
+    function EnvioEstadisticaElegida(estadistica, tipo) {
         console.log(estadistica)
-        socket.emit('EnvioEstadistica', { room: codigo, estadistica: estadistica, userId: userId, cartaOponente: cartaSeleccionada});
+        setYoElijo(true)
+        socket.emit('EnvioEstadistica', { room: codigo, estadistica: estadistica, tipo: tipo, userId: userId, cartaOponente: cartaSeleccionada, elijo: true });
         setEstadisticaPropia(estadistica)
     }
 
@@ -90,14 +112,15 @@ export default function Juego({ EquipoDeTres }) {
                             ataque={cartaSeleccionada.Ataque}
                             control={cartaSeleccionada.Control}
                             defensa={cartaSeleccionada.Defensa}
-                            onClickAtaque={() => EnvioEstadisticaElegida(cartaSeleccionada.Ataque)}
-                            onClickControl={() => EnvioEstadisticaElegida(cartaSeleccionada.Control)}
-                            onClickDefensa={() => EnvioEstadisticaElegida(cartaSeleccionada.Defensa)}
+                            onClickAtaque={() => EnvioEstadisticaElegida(cartaSeleccionada.Ataque, "Ataque")}
+                            onClickControl={() => EnvioEstadisticaElegida(cartaSeleccionada.Control, "Control")}
+                            onClickDefensa={() => EnvioEstadisticaElegida(cartaSeleccionada.Defensa, "Defensa")}
                         />
                     )}
                 </div>
                 <div className={styles.carta}>
-                    {mostraCartaOponente && (
+
+                    {tipoAtaque && (
                         <CardBattle
                             isSmall={false}
                             posicion={cartaOponente.Posicion}
@@ -105,9 +128,32 @@ export default function Juego({ EquipoDeTres }) {
                             imagenJugador={cartaOponente.Imagen}
                             escudo={cartaOponente.Equipo}
                             nombreJugador={cartaOponente.Apellido}
+                            onChangeEstadistica={tipoEstadisticaOponente}
                             ataque={cartaOponente.Ataque}
-                            control={cartaOponente.Control}
+                        />
+                    )}
+                    {tipoControl && (
+                        <CardBattle
+                            isSmall={false}
+                            posicion={cartaOponente.Posicion}
+                            nacionalidad={cartaOponente.Nacionalidad}
+                            imagenJugador={cartaOponente.Imagen}
+                            escudo={cartaOponente.Equipo}
+                            nombreJugador={cartaOponente.Apellido}
+                            control={estadisticaOponente}
+                            onChangeEstadistica={tipoEstadisticaOponente}
+                        />
+                    )}
+                    {tipoDefensa && (
+                        <CardBattle
+                            isSmall={false}
+                            posicion={cartaOponente.Posicion}
+                            nacionalidad={cartaOponente.Nacionalidad}
+                            imagenJugador={cartaOponente.Imagen}
+                            escudo={cartaOponente.Equipo}
+                            nombreJugador={cartaOponente.Apellido}
                             defensa={cartaOponente.Defensa}
+                            onChangeEstadistica={tipoEstadisticaOponente}
                         />
                     )}
                 </div>

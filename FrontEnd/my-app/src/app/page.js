@@ -97,12 +97,14 @@ export default function Home() {
         if (inputNewpassword === "") { setUserPasswordPlaceholderDos("Campo Obligatorio"); }
 
         if (inputNewpassword !== "" && inputNewUserName !== "" && inputNewName !== "" && inputNewApellido !== "") {
+
             const data = {
                 UserName: inputNewUserName,
                 UserPassword: inputNewpassword,
                 Nombre: inputNewName,
                 Apellido: inputNewApellido,
             }
+
             const response = await fetch('http://localhost:4000/NuevoUser', {
                 method: "POST",
                 headers: {
@@ -110,6 +112,7 @@ export default function Home() {
                 },
                 body: JSON.stringify(data),
             })
+            
             setUserNamePlaceholderDos("");
             setUserPasswordPlaceholderDos("");
             setUserApellidoPlaceholder("")
