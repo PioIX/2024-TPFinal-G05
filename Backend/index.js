@@ -251,6 +251,12 @@ function existeSala(room) {
 }
 
 
+
+app.get('/Ranking', async function (req, res) {
+    console.log(req.query)
+    const respuesta = await MySQL.realizarQuery(`SELECT * FROM Ranking;`)
+    res.send(respuesta)
+})
 // //CHATS
 // app.post('/TraerChat', async function (req, res) {
 //     console.log(req.body);

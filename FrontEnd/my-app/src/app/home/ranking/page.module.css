@@ -7,3 +7,30 @@
     max-height: 100vh;
     max-width: 100vw;
 }
+.table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #4E237C;
+  }
+  
+
+
+  
+.titleRow {
+    background-color: #853BB4;
+  }
+  
+.tr:hover {
+    background-color: #7537A1;
+  }
+  
+.revenue {
+    text-align: right;
+  }
+  
+  @media screen and (max-width: 768px) {
+.table {
+      width: 100%;
+    }
+  }
