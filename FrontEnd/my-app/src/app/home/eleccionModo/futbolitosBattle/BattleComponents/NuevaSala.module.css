@@ -102,8 +102,16 @@
   }
   
 .input{
+  width: 11em;
+  height: 2em;
+  text-align: center;
   background-color:#350b49;
-  color:#170022;
   border:#ffcc00 solid 2px ;
   border-radius: 5px;
+  font-size: bold;
+}
+.input:focus {
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  text-align: center;
 }

@@ -9,7 +9,7 @@ import { Socket } from "socket.io-client";
 import Link from "next/link";
 import Icon from "@/Components/Icon";
 
-export default function NuevaSala({ onChange, codigoSala, onClick }) {
+export default function NuevaSala({ onChange, codigoSala, onClick, CrearOEntrar }) {
 
     return (
         <section className={styles.pagina}>
@@ -19,7 +19,7 @@ export default function NuevaSala({ onChange, codigoSala, onClick }) {
                     <Texto variant="p" text="Ingrese el codigo de sala deseado, o crea una sala"></Texto>
                     <div className={styles.interaccion}>
                         <input className={styles.input} onChange={onChange} value={codigoSala} placeholder="Codigo" />
-                        <button className={styles.btn} onClick={onClick}>Crear</button>
+                        <button className={styles.btn} onClick={onClick}>{CrearOEntrar}</button>
                     </div>
                 </div>
             </div>

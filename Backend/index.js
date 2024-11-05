@@ -259,10 +259,44 @@ function existeSala(room) {
 
 app.get('/Ranking', async function (req, res) {
     console.log(req.query)
-    const respuesta = await MySQL.realizarQuery(`SELECT * FROM Ranking;`)
+    const respuesta = await MySQL.realizarQuery(`SELECT * FROM RankingFutbolitos;`)
     res.send(respuesta)
+
 })
-// //CHATS
+
+app.post('/EnvioPuntaje', async function (req, res) {
+    const { userId, nuevosPuntos } = req.body;
+    console.log("Datos recibidos:", req.body);
+    
+    let resultado = "";
+    if (nuevosPuntos === 3) {
+        resultado = "PartidasGanadas";
+    } else if (nuevosPuntos === 0) {
+        resultado = "PartidasPerdidas";
+    } else if (nuevosPuntos === 1) {
+        resultado = "PartidasEmpatadas";
+    } else {
+        return res.status(400).send({ message: "Puntos no válidos" }); // Añadir respuesta en caso de que los puntos no sean válidos
+    }
+
+    try {
+        const checkExists = await MySQL.realizarQuery(`SELECT * FROM RankingFutbolitos WHERE UserId = ${userId};`);
+        if (checkExists.length > 0) {
+            // Si el registro existe, actualizamos los puntos con una solicitud PUT
+            const updatePoints = await MySQL.realizarQuery(`UPDATE RankingFutbolitos SET Puntos = Puntos + ${nuevosPuntos}, ${resultado} = ${resultado} + 1 WHERE UserId = ${userId};`);
+            res.send({ message: "Puntos actualizados correctamente", data: updatePoints });
+        } else {
+            // Si el registro no existe, creamos uno nuevo con una solicitud POST
+            const createRecord = await MySQL.realizarQuery(`INSERT INTO RankingFutbolitos (UserId, Puntos, ${resultado}) VALUES (${userId}, ${nuevosPuntos}, 1);`);
+            res.send({ message: "Registro creado y Puntos inicial asignado", data: createRecord });
+        }
+    } catch (error) {
+        console.error("Error en el procesamiento del Puntos:", error);
+        res.status(500).send({ message: "Error al procesar los puntos", error });
+    }
+});
+
+//CHATS
 // app.post('/TraerChat', async function (req, res) {
 //     console.log(req.body);
 //     sesionActual.currentContact = req.body.UserElegido;

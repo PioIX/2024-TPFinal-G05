@@ -18,13 +18,10 @@ export default function Juego({ EquipoDeTres }) {
     const [puntaje, setPuntaje] = useState(false)
     const [puntosMios, setPuntosMios] = useState(0)
     const [puntosOponente, setPuntosOponente] = useState(0)
-    console.log(puntosMios)
-    console.log(puntosOponente)
 
     const [cartaSeleccionada, setCartaSeleccionada] = useState(null);
     const [yoElijo, setYoElijo] = useState(false)
 
-    // const [mostraCartaOponente, setMostrarCartaOponente] = useState(false);
     const [tipoEstadisticaOponente, setTipoEstadisticaOponente] = useState()
     const [cartaOponente, setCartaOponente] = useState({});
     const [userOponente, setUserOponente] = useState()
@@ -74,60 +71,86 @@ export default function Juego({ EquipoDeTres }) {
     }, [yoElijo, eligioOponente])
 
     useEffect(() => {
-        if (puntosMios || puntosOponente == 2)
+        // Verificar si alguno de los jugadores ha alcanzado 2 puntos
+        if (puntosMios === 2 || puntosOponente === 2) {
             if (puntosMios > puntosOponente) {
-                console.log("Gane la partida")
+                console.log("Gané la partida");
+                actualizarPuntaje(userId, 3);
+                // actualizarPuntaje(userOponente, 0);
             } else if (puntosOponente > puntosMios) {
-                console.log("Perdi la partida")
-            } else if (puntosOponente == puntosMios) {
-                console.log("Empatamos la partida")
-            } else {
-                return
+                console.log("Perdí la partida");
+                actualizarPuntaje(userId, 0);
+                // actualizarPuntaje(userOponente, 3);
+            } else if (puntosOponente === puntosMios) {
+                console.log("Empatamos la partida");
+                actualizarPuntaje(userId, 1);
+                // actualizarPuntaje(userOponente, 1);
             }
-        // setTimeout(() => {
-        //     console.log("Fin")
-        // }, 2000);
-    }, [puntaje])
+    
+            // Reiniciar los puntos para evitar múltiples actualizaciones
+            // setPuntosMios(0);
+            // setPuntosOponente(0);
+        }
+    }, [puntosMios, puntosOponente]);
+    
+
+    async function actualizarPuntaje(userId, nuevosPuntos) {
+        const data = {
+            userId: userId,
+            nuevosPuntos: nuevosPuntos,
+        };
+    
+        try {
+            const response = await fetch('http://localhost:4000/EnvioPuntaje', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+    
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status} ${response.statusText}`);
+            }
+    
+            const result = await response.json();
+            console.log("Puntaje actualizado:", result);
+        } catch (error) {
+            console.error("Error al actualizar el puntaje:", error);
+            // Aquí podrías mostrar un mensaje de error al usuario.
+        }
+    }
+    
+    
+
 
     function ganador() {
         if (estadisticaPropia > estadisticaOponente) {
             setPuntosMios(puntosMios + 1)
 
-            setCartaSeleccionada(null)
-            setTipoAtaque(false)
-            setTipoControl(false)
-            setTipoDefensa(false)
-            setEstadisticaOponente(null)
-            setCartaOponente(null)
-            setPuntaje(true)
-            setEligioOponente(false)
-            setYoElijo(false)
+            resetAll()
         } else if (estadisticaPropia < estadisticaOponente) {
             setPuntosOponente(puntosOponente + 1)
 
-            setCartaSeleccionada(null)
-            setTipoAtaque(false)
-            setTipoControl(false)
-            setTipoDefensa(false)
-            setEstadisticaOponente(null)
-            setCartaOponente(null)
-            setPuntaje(true)
-            setEligioOponente(false)
-            setYoElijo(false)
+            resetAll()
         } else if (estadisticaPropia == estadisticaOponente) {
             setPuntosMios(puntosMios + 1)
             setPuntosOponente(puntosOponente + 1)
 
-            setCartaSeleccionada(null)
-            setTipoAtaque(false)
-            setTipoControl(false)
-            setTipoDefensa(false)
-            setEstadisticaOponente(null)
-            setCartaOponente(null)
-            setPuntaje(true)
-            setEligioOponente(false)
-            setYoElijo(false)
+            resetAll()
         }
+    }
+
+    function resetAll() {
+        setCartaSeleccionada(null)
+        setTipoAtaque(false)
+        setTipoControl(false)
+        setTipoDefensa(false)
+        setEstadisticaOponente(null)
+        setCartaOponente(null)
+        setPuntaje(true)
+        setEligioOponente(false)
+        setYoElijo(false)
     }
 
     async function obtenerEquipo() {
@@ -156,8 +179,8 @@ export default function Juego({ EquipoDeTres }) {
             socket.emit('joinRoom', { room: codigo });
             console.log(codigo)
         }
-        if (indice !== -1) { 
-            jugadores.splice(indice, 1); 
+        if (indice !== -1) {
+            jugadores.splice(indice, 1);
         } else {
             console.log("El elemento no se encuentra en el array.");
         }
@@ -168,7 +191,7 @@ export default function Juego({ EquipoDeTres }) {
         setYoElijo(true)
         socket.emit('EnvioEstadistica', { room: codigo, estadistica: estadistica, tipo: tipo, userId: userId, cartaOponente: cartaSeleccionada, elijo: true });
         setEstadisticaPropia(estadistica)
-        
+
     }
 
     return (
@@ -240,22 +263,22 @@ export default function Juego({ EquipoDeTres }) {
             </div>
             {muestroEquipo && (
                 <div id="Cards" className={styles.Cards}>
-                {jugadores.map((jugador) => (
-                    <Card
-                        key={jugador.Id}
-                        isSmall={true}
-                        posicion={jugador.Posicion}
-                        nacionalidad={jugador.Nacionalidad}
-                        imagenJugador={jugador.Imagen}
-                        escudo={jugador.Equipo}
-                        nombreJugador={jugador.Apellido}
-                        ataque={jugador.Ataque}
-                        control={jugador.Control}
-                        defensa={jugador.Defensa}
-                        onClick={cartaSeleccionada ? undefined : () => seleccionarJugador(jugador)} // Deshabilita el onClick si hay un jugador seleccionado //  setCartaSeleccionada(null);
-                    />
-                ))}
-            </div>
+                    {jugadores.map((jugador) => (
+                        <Card
+                            key={jugador.Id}
+                            isSmall={true}
+                            posicion={jugador.Posicion}
+                            nacionalidad={jugador.Nacionalidad}
+                            imagenJugador={jugador.Imagen}
+                            escudo={jugador.Equipo}
+                            nombreJugador={jugador.Apellido}
+                            ataque={jugador.Ataque}
+                            control={jugador.Control}
+                            defensa={jugador.Defensa}
+                            onClick={cartaSeleccionada ? undefined : () => seleccionarJugador(jugador)} // Deshabilita el onClick si hay un jugador seleccionado //  setCartaSeleccionada(null);
+                        />
+                    ))}
+                </div>
             )}
         </section>
     );

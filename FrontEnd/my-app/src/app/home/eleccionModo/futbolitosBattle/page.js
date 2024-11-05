@@ -108,6 +108,7 @@ export default function futbolitosBattle() {
                 onChange={(e) => setCodigoSala(e.target.value)}
                 codigoSala={codigoSala}
                 onClick={CrearSala}
+                CrearOEntrar = {codigoSala ? "Entrar" : "Crear"}
             ></NuevaSala>
             ) : (
                 <Esperando codigoDeLaSala = {codigoActual}></Esperando>
