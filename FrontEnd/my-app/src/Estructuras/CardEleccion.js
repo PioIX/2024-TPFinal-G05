@@ -6,10 +6,14 @@ import styles from "./CardEleccion.module.css";
 
 export default function CardEleccion({ Cadena, onPlayerSelect, equipo }) {
     const [jugadorActivo, setJugadorActivo] = useState(null); // Estado para el jugador activo
+    const [jugadorEquipo, setJugadorEquipo] = useState(null); // Estado para el jugador activo
+
 
     const elijoJugador = (id) => {
-        setJugadorActivo(equipo); // Actualiza el estado del jugador activo
+        console.log(equipo)
         onPlayerSelect(id); // Llama a la función de selección del jugador
+        setJugadorActivo(id)
+        setJugadorEquipo(equipo)
     };
 
     return (
@@ -27,7 +31,7 @@ export default function CardEleccion({ Cadena, onPlayerSelect, equipo }) {
                     control={jugador.Control}
                     defensa={jugador.Defensa}
                     onClick={() => elijoJugador(jugador.PlayerId)}
-                    className={jugadorActivo === jugador.PlayerId ? styles.active : ''} // Añade clase activa
+                    className={jugadorActivo === jugadorEquipo ? styles.active : ''} // Añade clase activa
                 />
             ))}
         </div>
