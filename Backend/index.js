@@ -207,6 +207,9 @@ app.delete('/login', (req, res) => {
     res.send(null);
 });
 
+
+
+
 io.on("connection", (socket) => {
     const req = socket.request;
 
@@ -219,7 +222,7 @@ io.on("connection", (socket) => {
             sesionActual.chatCode = data.room;
             console.log("Entraste a ", data.room);
 
-            io.to(data.room).emit('entroSala', { room: data.room, success: true });
+            // io.to(data.room).emit('entroSala', { room: data.room, success: true });
 
             const clients = io.sockets.adapter.rooms.get(data.room);
             if (clients && clients.size === 2) {
@@ -249,6 +252,12 @@ io.on("connection", (socket) => {
     socket.on('disconnect', () => {
         console.log("Disconnect");
     });
+
+    socket.on('mensaje', data =>{
+        console.log(data.ranking, data.codigo)
+        io.to(data.codigo).emit('mensajeDos', {mesajeFeli: data.ranking, codigo: data.codigo});
+    })
+
 });
 
 function existeSala(room) {

@@ -153,7 +153,7 @@ export default function Juego({ EquipoDeTres }) {
             console.error("Error al obtener el equipo:", error);
         }
     }
-
+    
     function seleccionarJugador(jugador) {
         const indice = jugadores.indexOf(jugador);
         setPuntaje(false);
