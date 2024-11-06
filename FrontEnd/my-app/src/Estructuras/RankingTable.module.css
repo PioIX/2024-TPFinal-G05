@@ -1,0 +1,41 @@
+/* RankingTable.module.css */
+
+.container {
+    margin: 20px;
+    padding: 20px;
+}
+
+.table {
+    width: 80%; /* Ajusta el valor para achicar o ampliar el ancho */
+    margin: 0 auto; /* Centra la tabla */
+    border-collapse: collapse;
+}
+
+.th, .td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.th {
+    background-color: #ffcc00; /* Amarillo fluorescente */
+    font-weight: bold;
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+
+.tr {
+    background-color: rgb(0, 0, 0); /* Mantiene las filas blancas */
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.tr:hover {
+    background-color: rgb(0, 0, 0); /* Evita el cambio de color al pasar el mouse */
+}
+
+.td {
+    color: white;  /* Texto blanco */
+    font-weight: bold;  /* Texto en negrita */
+}
