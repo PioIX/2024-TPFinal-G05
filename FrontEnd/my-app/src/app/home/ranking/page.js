@@ -30,11 +30,12 @@ export default function Ranking() {
     
     // Ordenar los usuarios por puntos de mayor a menor
     const sortedRankingUser = [...rankingUser].sort((a, b) => b.puntosUsuario - a.puntosUsuario);
+    
 
     return (
         <>
             <h1 className={styles.titulo}>Ranking</h1>
-            <RankingTable cadenaUsuarios={sortedRankingUser} />
+            <RankingTable cadenaUsuarios = {sortedRankingUser} />
         </>
     );
 }
