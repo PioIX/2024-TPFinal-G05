@@ -4,17 +4,17 @@ import Button from "../../Components/Button";
 import Texto from "../../Components/Texto";
 import styles from "./page.module.css"
 import Link from "next/link";
-import NavTop from "@/Estructuras/NavTop";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Paquete from "@/Estructuras/Paquete";
-import { useEffect} from "react";
-
-
+import { useRouter } from "next/navigation";
 
 export default function Home() {
     const [muestroPaquete, setMuestroPaquete] = useState(true);
     const [cargando, setCargando] = useState(true); // Estado de carga
-    
+    const [primerPaquete, setPrimerPaquete] = useState(true);
+    const [segundoPaquete, setSegundoPaquete] = useState(false);
+    const router = useRouter();
+
     async function PlayersDelUsuario() {
         const userID = localStorage.getItem("userID");
         const response = await fetch(`http://localhost:4000/PlayerXUserDetalles?userID=${userID}`, {
@@ -25,15 +25,14 @@ export default function Home() {
         });
         const respuesta = await response.json();
         console.log(respuesta);
-        return respuesta
+        return respuesta;
     }
-
 
     useEffect(() => {
         const verificarCartas = async () => {
             const cartasGuardadas = await PlayersDelUsuario();
             // Si el usuario ya tiene 5 cartas, ocultamos el paquete
-            if (cartasGuardadas.length >= 5) {
+            if (cartasGuardadas.length >= 10) {
                 setMuestroPaquete(false);
             }
             setCargando(false); // Cambiar el estado a false una vez que la carga finaliza
@@ -42,9 +41,17 @@ export default function Home() {
         verificarCartas();
     }, []);
 
-    function cambio() {
-        setMuestroPaquete(false);
-    }
+    const abrirPaquete = () => {
+        if (primerPaquete) {
+            setPrimerPaquete(false); // Oculta el primer paquete
+            setSegundoPaquete(true); // Muestra el segundo paquete
+        } else {
+            setMuestroPaquete(false); // Oculta ambos paquetes
+            setTimeout(() => {
+                router.push('/home'); // Redirige a home después de abrir el segundo paquete
+            }, 500); // Ajusta el tiempo según la duración de tu animación
+        }
+    };
 
     if (cargando) {
         return <div className={styles.divloader}><div className={styles.loader}></div></div>; // O algún otro componente de carga
@@ -53,7 +60,14 @@ export default function Home() {
     return (
         <section className={styles.main}>
             {muestroPaquete ? (
-                <Paquete onClickButton={cambio} />
+                <>
+                    {primerPaquete && (
+                        <Paquete onClickButton={abrirPaquete} />
+                    )}
+                    {segundoPaquete && (
+                        <Paquete onClickButton={abrirPaquete} />
+                    )}
+                </>
             ) : (
                 <>
                     <div>
