@@ -9,33 +9,42 @@
     width: 80%; /* Ajusta el valor para achicar o ampliar el ancho */
     margin: 0 auto; /* Centra la tabla */
     border-collapse: collapse;
+    box-shadow: 0 0 10px rgb(19, 0, 190);
+    
 }
 
 .th, .td {
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 2px solid #ff0090;
+    box-shadow: 0 0 15px #003cff;
     text-align: center;
 }
 
 .th {
-    background-color: #ffcc00; /* Amarillo fluorescente */
+    background-color: rgba(0, 17, 255, 0.575); /* Amarillo fluorescente */
     font-weight: bold;
     padding: 12px;
-    border: 1px solid #ddd;
     text-align: center;
+    color: rgb(255, 230, 0);  /* Texto blanco */
+    text-shadow:
+    0 0 1px #ffcc00,
+    0 0 3px #ffcc00;
 }
 
 
 .tr {
     background-color: rgb(0, 0, 0); /* Mantiene las filas blancas */
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(0, 17, 255, 0.26)
 }
 
 .tr:hover {
-    background-color: rgb(0, 0, 0); /* Evita el cambio de color al pasar el mouse */
+    background-color: rgba(255, 0, 149, 0.582);
 }
 
 .td {
-    color: white;  /* Texto blanco */
+    color: rgb(255, 230, 0);  /* Texto blanco */
     font-weight: bold;  /* Texto en negrita */
+    text-shadow:
+    0 0 1px #ffcc00,
+    0 0 3px #ffcc00;
 }
