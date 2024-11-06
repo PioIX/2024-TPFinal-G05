@@ -41,7 +41,7 @@ export default function RankingTable({ cadenaUsuarios }) {
             <table className={styles.table}>
                 <thead>
                     <tr className={styles.tr}>
-                        <th className={styles.th}>UserId</th>
+                        <th className={styles.th}>UserName</th>
                         <th className={styles.th}>Puntos</th>
                         <th className={styles.th}>Gana</th>
                         <th className={styles.th}>Pierde</th>
@@ -52,7 +52,7 @@ export default function RankingTable({ cadenaUsuarios }) {
                     {usersData.length > 0
                         ? usersData.map((usuario, index) => (
                             <tr className={styles.tr} key={index}>
-                                <td className={styles.td}>{usuario.idUsuario}</td>
+                                <td className={styles.td}>{usuario.userName}</td>
                                 <td className={styles.td}>{usuario.puntosUsuario}</td>
                                 <td className={styles.td}>{usuario.ganaUsuario}</td>
                                 <td className={styles.td}>{usuario.pierdeUsuario}</td>
@@ -61,7 +61,7 @@ export default function RankingTable({ cadenaUsuarios }) {
                         ))
                         : cadenaUsuarios.map((usuario, index) => (
                             <tr className={styles.tr} key={index}>
-                                <td className={styles.td}>{usuario.idUsuario}</td>
+                                <td className={styles.td}>{usuario.UserName}</td>
                                 <td className={styles.td}>{usuario.puntosUsuario}</td>
                                 <td className={styles.td}>{usuario.ganaUsuario}</td>
                                 <td className={styles.td}>{usuario.pierdeUsuario}</td>

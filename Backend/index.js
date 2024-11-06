@@ -259,7 +259,13 @@ function existeSala(room) {
 
 app.get('/Ranking', async function (req, res) {
     console.log(req.query)
-    const respuesta = await MySQL.realizarQuery(`SELECT * FROM RankingFutbolitos;`)
+    const respuesta = await MySQL.realizarQuery(`SELECT userName, Puntos, PartidasGanadas, PartidasPerdidas, PartidasEmpatadas, RatioPartida, IdSumo FROM RankingFutbolitos
+    INNER JOIN UserFutbolitos
+    ON  
+    RankingFutbolitos.UserId = UserFutbolitos.UserId
+    ;`)
+    
+    console.log(respuesta)
     res.send(respuesta)
 
 })

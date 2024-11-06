@@ -15,7 +15,7 @@ export default function Ranking() {
         });
         const respuesta = await response.json();
         const rankingXplayer = respuesta.map(rankingUsuario => ({
-            idUsuario: rankingUsuario.UserId,
+            UserName: rankingUsuario.userName,  
             puntosUsuario: rankingUsuario.Puntos,
             ganaUsuario: rankingUsuario.PartidasGanadas,
             pierdeUsuario: rankingUsuario.PartidasPerdidas,
