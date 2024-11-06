@@ -34,7 +34,7 @@ export default function RankingTable({ cadenaUsuarios }) {
 
     useEffect(() => {
         UsernameXuseId();
-    }, [cadenaUsuarios]); // Ejecuta la función solo una vez al montar el componente
+    }, []); // Ejecuta la función solo una vez al montar el componente
 
     return (
         <div className={styles.container}>
