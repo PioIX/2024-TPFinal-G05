@@ -1,5 +1,5 @@
 "use client"
-
+import styles from "./RankingTable.module.css"
 export default function RankingTable({cadenaUsuarios}){
     return(
         <div>
