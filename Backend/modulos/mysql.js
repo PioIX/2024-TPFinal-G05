@@ -6,7 +6,7 @@ const mySql = require("mysql2/promise");
  */
 const SQL_CONFIGURATION_DATA =
 {
-	host: "181.47.29.35", 
+	host: "10.1.5.205", 
 	//host: "181.47.29.35"
 	// host: "10.1.5.205"
 	user: "2024-5AINF-G05",
