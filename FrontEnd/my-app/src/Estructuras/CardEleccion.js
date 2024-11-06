@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react"; // Asegúrate de importar useState
+import { useEffect, useState } from "react"; // Asegúrate de importar useState
 import Card from "./Card";
 import styles from "./CardEleccion.module.css";
 
@@ -10,10 +10,10 @@ export default function CardEleccion({ Cadena, onPlayerSelect, equipo }) {
 
 
     const elijoJugador = (id) => {
-        console.log(equipo)
         onPlayerSelect(id); // Llama a la función de selección del jugador
         setJugadorActivo(id)
         setJugadorEquipo(equipo)
+        console.log(equipo)
     };
 
     return (
@@ -21,6 +21,7 @@ export default function CardEleccion({ Cadena, onPlayerSelect, equipo }) {
             {Cadena.map((jugador) => (
                 <Card
                     key={jugador.PlayerId} // Añade una key única para cada Card
+                    PlayerId = {jugador.PlayerId}
                     isSmall={true}
                     posicion={jugador.Posicion}
                     nacionalidad={jugador.Nacionalidad}
@@ -31,7 +32,8 @@ export default function CardEleccion({ Cadena, onPlayerSelect, equipo }) {
                     control={jugador.Control}
                     defensa={jugador.Defensa}
                     onClick={() => elijoJugador(jugador.PlayerId)}
-                    className={jugadorActivo === jugadorEquipo ? styles.active : ''} // Añade clase activa
+                    jugadorActivo = {jugadorActivo}
+                    className={ styles.active} // Añade clase activa
                 />
             ))}
         </div>

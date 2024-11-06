@@ -1,9 +1,11 @@
 "use client";
 import clsx from "clsx";
 import styles from "./Card.module.css";
+import { useEffect, useState } from "react";
 
 export default function Card({
     media,
+    PlayerId,
     posicion,
     nacionalidad,
     imagenJugador,
@@ -15,10 +17,24 @@ export default function Card({
     isSmall = false, // Nueva prop para la variante
     onClick,
     className,
+    jugadorActivo
 }) {
     const mediaGRL = Math.round(((ataque + control + defensa) / 3) + 7);
+    const [active, setActive ] = useState(false)
+
+    useEffect(()=>{
+        console.log("Dentro de la carta: ", {jugadorActivo}, {PlayerId})
+
+        if (PlayerId == jugadorActivo) {
+            setActive(true)
+        } 
+        // else {
+        //     setActive(false)
+        // }
+        
+    }, [jugadorActivo])
     return (
-        <div className={`${className} ${clsx(styles.carta, { [styles.cartaSmall]: isSmall })}`} onClick = {onClick}>
+        <div className={active ? `${className} ${clsx(styles.carta, { [styles.cartaSmall]: isSmall })}`: `${clsx(styles.carta, { [styles.cartaSmall]: isSmall })}`} onClick = {onClick}>
             <div className={clsx(styles.seccion1, { [styles.seccion1Small]: isSmall })}>
                 <div className={clsx(styles.seccion2, { [styles.seccion2Small]: isSmall })}>
                     <p className={clsx(styles.caracteristicaPrin, { [styles.caracteristicaPrinSmall]: isSmall })}>{mediaGRL}</p> {/*LA MEDIA LA CALCULADOS CON LAS ESTADISTICAS*/}
