@@ -1,9 +1,11 @@
 "use client"
-import RankingTable from "@/Estructuras/RankingTable"
 import { useEffect, useState } from "react";
+import RankingTable from "@/Estructuras/RankingTable";
+import styles from "./page.module.css";
 
 export default function Ranking() {
-    const [rankingUser, setRankingUser] = useState()
+    const [rankingUser, setRankingUser] = useState([]);
+    
     async function rankingUsuario() {
         const response = await fetch(`http://localhost:4000/Ranking`, {
             method: "GET",
@@ -11,30 +13,28 @@ export default function Ranking() {
                 "Content-Type": "application/json",
             },
         });
-        console.log(response)
         const respuesta = await response.json();
-        console.log(respuesta)
         const rankingXplayer = respuesta.map(rankingUsuario => ({
-            idUsuario: rankingUsuario.IdUsuario,
-            username: rankingUsuario.Username,
+            idUsuario: rankingUsuario.UserId,
             puntosUsuario: rankingUsuario.Puntos,
-            ganaUsuario: rankingUsuario.partidasGanadas,
-            pierdeUsuario: rankingUsuario.partidasPerdidas,
-            empataUsuario: rankingUsuario.PartidasEmpatas,
+            ganaUsuario: rankingUsuario.PartidasGanadas,
+            pierdeUsuario: rankingUsuario.PartidasPerdidas,
+            empataUsuario: rankingUsuario.PartidasEmpatadas,
         }));
-        console.log(rankingXplayer)
         setRankingUser(rankingXplayer);
     }
+
     useEffect(() => {
-        rankingUsuario()
-    },)
+        rankingUsuario();
+    }, []);
+    
+    // Ordenar los usuarios por puntos de mayor a menor
+    const sortedRankingUser = [...rankingUser].sort((a, b) => b.puntosUsuario - a.puntosUsuario);
+
     return (
         <>
-            <h1>Ranking</h1>
-            {/* <RankingTable cadenaUsuarios={rankingUser} /> */}
-
+            <h1 className={styles.titulo}>Ranking</h1>
+            <RankingTable cadenaUsuarios={sortedRankingUser} />
         </>
-    )
-
+    );
 }
-

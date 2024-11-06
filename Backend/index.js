@@ -296,6 +296,13 @@ app.post('/EnvioPuntaje', async function (req, res) {
     }
 });
 
+app.get('/UserName', async function (req, res) {
+    console.log(req.query)
+    const respuesta = await MySQL.realizarQuery(`SELECT UserName FROM UserFutbolitos WHERE UserId = ;`)
+    res.send(respuesta)
+
+})
+
 //CHATS
 // app.post('/TraerChat', async function (req, res) {
 //     console.log(req.body);
