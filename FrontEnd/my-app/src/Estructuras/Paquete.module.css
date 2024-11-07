@@ -41,3 +41,8 @@
     z-index: 1000;
     /* Asegúrate de que esté por encima de otros elementos */
 }
+
+.puntopunto {
+    display: flex;
+    justify-content: center;
+}

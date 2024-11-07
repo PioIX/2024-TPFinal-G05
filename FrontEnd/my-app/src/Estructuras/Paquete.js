@@ -146,7 +146,7 @@ export default function Paquete({ onClickButton }) {
                             />
                         ))}
                     </div>
-                    <div>
+                    <div className={styles.puntopunto}>
                         <Button onClick={onClickButton} variant="jugar" text="Continuar"></Button>
                     </div>
                 </div>

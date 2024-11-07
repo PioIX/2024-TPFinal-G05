@@ -5,12 +5,17 @@ import styles from "./MensajeFin.module.css"
 import Paquete from "@/Estructuras/Paquete";
 import { useEffect, useState } from "react";
 import Button from "@/Components/Button";
+import { useRouter } from "next/navigation";
 
 export default function MensajeFin({ resultado }) {
+    const router = useRouter();
     const [mensajeGanaste, setMensajeGanaste] = useState(false);
     const [mensajePerdiste, setMensajePerdiste] = useState(false);
     const [mensajeEmpataste, setMensajeEmpataste] = useState(false);
+
     const [mostrarSobre, setMostrarSobre] = useState(false)
+    const [mostrarSobreDos, setMostrarSobreDos] = useState(false)
+    const [mostrarSobreTres, setMostrarSobreTres] = useState(false)
 
     useEffect(() => {
         if (resultado === "Ganaste") {
@@ -22,6 +27,15 @@ export default function MensajeFin({ resultado }) {
         }
     })
 
+    function abroElOtroSobre(){
+        setMostrarSobreTres(true)
+        setMostrarSobreDos(true)
+    }
+
+    function continuar () {
+        router.push('/home');
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.cuadro}>
@@ -32,7 +46,7 @@ export default function MensajeFin({ resultado }) {
                             <Texto variant="p" text="Bien ahi, te ganaste dos sobres para que completes la coleccion"></Texto>
                         </div>
                         <div>
-                            <Button onClick={() => setMostrarSobre(true)}></Button>
+                            <Button onClick={() => setMostrarSobreDos(true)} text = "Reclamar"></Button>
                         </div>
                     </>
                 )}
@@ -49,7 +63,7 @@ export default function MensajeFin({ resultado }) {
                         </div>
 
                         <div>
-                            <Button onClick={() => setMostrarSobre(true)}></Button>
+                            <Button onClick={() => setMostrarSobre(true)} text = "Reclamar"></Button>
                         </div>
                     </>
                 )}
@@ -65,12 +79,20 @@ export default function MensajeFin({ resultado }) {
                             </div>
                         </div>
                         <div>
-                            <Button onClick={() => setMostrarSobre(true)}></Button>
+                            <Button onClick={() => setMostrarSobre(true)} text = "Reclamar"></Button>
                         </div>
                     </>
                 )}
                 {mostrarSobre && (
                     <Paquete onClickButton={continuar} />
+                )}
+                {mostrarSobreDos && (
+                    <>
+                        <Paquete onClickButton={() => setMostrarSobreTres(true)} />
+                        {mostrarSobreTres && (
+                            <Paquete onClickButton={continuar} />
+                        )}
+                    </>
                 )}
             </div>
         </div >
