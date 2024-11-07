@@ -12,12 +12,12 @@
     font-family: "Russo One", sans-serif;
     flex-direction: column;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
 }
 
 .carta:hover{
-    transform: scale(1.1);
-    filter: drop-shadow(1px 1px 10px #ff00ff)
+    transform: scale(1.2);
+
 }
 
 .cartaSmall {
@@ -78,6 +78,17 @@
 .imgcaractSmall {
     height: 16px; /* 10% menos de 20px */
     width: 24px; /* 10% menos de 20px */
+}
+
+.imgcaractEquipos {
+    height: 50px; /* Ajustado a 50% */
+    width: 50px; /* Ajustado a 50% */
+}
+
+.imgcaractEquiposSmall {
+    height: 24px; /* 10% menos de 20px */
+    width: 24px; /* 10% menos de 20px */
+    margin-right: 1px;
 }
 
 .p {
@@ -232,12 +243,12 @@
 .degrade {
     justify-content: center;
     margin-left: 3.9px;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 40%; /* Ajusta según lo necesites */
+    height: 60%; /* Ajusta según lo necesites */
     width: 96%;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 60%, rgba(255, 0, 208, 0.9) 90%); /* Aumentar la opacidad */
     border-radius: 5px;
