@@ -50,8 +50,8 @@ export default function Card({
                     </div>
                     <div className={styles.caracteristicas}>
                         <img
-                            className={clsx(styles.imgcaract, { [styles.imgcaractSmall]: isSmall })}
-                            src={`/Escudos/${escudo}`}
+                            className={clsx(styles.imgcaractEquipos, { [styles.imgcaractEquiposSmall]: isSmall })}
+                            src={`/Equipos/${escudo}.png`}
                             alt="."
                         />
                     </div>

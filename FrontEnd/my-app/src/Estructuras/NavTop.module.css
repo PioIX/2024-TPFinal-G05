@@ -2,15 +2,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background: linear-gradient(270deg, rgb(16, 0, 42), #17000a);
+    background: linear-gradient(270deg,  #83003788, rgb(16, 0, 42));
     background-color: rgb(16, 0, 42);
     padding: 0 3em 0 2em;
     margin: 0%;
     height: 12.5vh;
     align-items: center;
     flex-wrap: nowrap;
-    margin: -0.5em;
-    border: solid 3px #0b000f ;
+    margin: -0.2em;
+    border: solid 3px #bb00ff3b ;
 }
 .botones {
     display: flex;

@@ -48,7 +48,7 @@ export default function CardBattle({
                     <div className={styles.caracteristicas}>
                         <img
                             className={clsx(styles.imgcaract, { [styles.imgcaractSmall]: isSmall })}
-                            src={`/Escudos/${escudo}`}
+                            src={`/Escudos/${escudo}.png`}
                             alt="."
                         />
                     </div>
