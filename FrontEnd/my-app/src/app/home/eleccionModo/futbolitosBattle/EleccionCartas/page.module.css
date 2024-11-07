@@ -18,3 +18,8 @@
     display: flex;
     /* flex-direction: row; */
 }
+
+.Error {
+    display: flex;
+    flex-direction: row;
+}

@@ -27,9 +27,10 @@ export default function MensajeFin({ resultado }) {
         }
     })
 
-    function abroElOtroSobre(){
+    function abroElOtroSobre(){ 
+        setMensajeEmpataste(false)
+        setMostrarSobreDos(false)
         setMostrarSobreTres(true)
-        setMostrarSobreDos(true)
     }
 
     function continuar () {
@@ -88,7 +89,7 @@ export default function MensajeFin({ resultado }) {
                 )}
                 {mostrarSobreDos && (
                     <>
-                        <Paquete onClickButton={() => setMostrarSobreTres(true)} />
+                        <Paquete onClickButton={abroElOtroSobre} />
                         {mostrarSobreTres && (
                             <Paquete onClickButton={continuar} />
                         )}

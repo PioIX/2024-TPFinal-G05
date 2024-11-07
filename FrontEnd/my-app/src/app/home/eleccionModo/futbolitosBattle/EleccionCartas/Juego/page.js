@@ -35,6 +35,9 @@ export default function Juego({ EquipoDeTres }) {
         if (!socket || !isConnected) return;
         obtenerEquipo();
         socket.on('Estadistica', data => {
+            if (data.userId === userId && data.elijo === true) {
+                setYoElijo(true)
+            }
             if (data.userId !== userId && data.elijo === true) {
                 setCartaOponente(data.cartaOponente);
                 setTipoEstadisticaOponente(data.tipo);
@@ -60,11 +63,13 @@ export default function Juego({ EquipoDeTres }) {
                 setTipoDefensa(false);
                 setTipoControl(true);
             }
+    
+            // Espera 2 segundos antes de determinar el ganador
             setTimeout(() => {
                 ganador();
             }, 2000);
         }
-    }, [yoElijo, eligioOponente]);
+    }, [yoElijo, eligioOponente, tipoEstadisticaOponente]);
 
     useEffect(() => {
         if (puntosMios === 2 || puntosOponente === 2) {
@@ -214,7 +219,9 @@ export default function Juego({ EquipoDeTres }) {
                                     escudo={cartaOponente.Equipo}
                                     nombreJugador={cartaOponente.Apellido}
                                     onChangeEstadistica={tipoEstadisticaOponente}
+                                    defensa={cartaOponente.Defensa}
                                     ataque={cartaOponente.Ataque}
+                                    control={cartaOponente.Control}
                                 />
                             )}
                             {tipoControl && (
@@ -225,7 +232,9 @@ export default function Juego({ EquipoDeTres }) {
                                     imagenJugador={cartaOponente.Imagen}
                                     escudo={cartaOponente.Equipo}
                                     nombreJugador={cartaOponente.Apellido}
-                                    control={estadisticaOponente}
+                                    defensa={cartaOponente.Defensa}
+                                    ataque={cartaOponente.Ataque}
+                                    control={cartaOponente.Control}
                                     onChangeEstadistica={tipoEstadisticaOponente}
                                 />
                             )}
@@ -238,6 +247,8 @@ export default function Juego({ EquipoDeTres }) {
                                     escudo={cartaOponente.Equipo}
                                     nombreJugador={cartaOponente.Apellido}
                                     defensa={cartaOponente.Defensa}
+                                    ataque={cartaOponente.Ataque}
+                                    control={cartaOponente.Control}
                                     onChangeEstadistica={tipoEstadisticaOponente}
                                 />
                             )}

@@ -7,6 +7,7 @@ import CardEleccion from "@/Estructuras/CardEleccion";
 import Esperando from "../BattleComponents/Esperando";
 import Juego from "./Juego/page";
 import { useSocket } from "@/app/hooks/useSocket";
+import Icon from "@/Components/Icon";
 
 export default function futbolitosBattle() {
 	// const { socket, isConnected } = useSocket();
@@ -15,6 +16,8 @@ export default function futbolitosBattle() {
 	const [jugadoresUser, setJugadoresUser] = useState([])
 	const [bloqueado, setBloqueado] = useState(false)
 	const [equipo, setEquipo] = useState([])
+
+	const [mensajeError, setMensajeError] = useState(false)
 
 	async function PlayersDelUsuario() {
 		const userID = localStorage.getItem("userID");
@@ -52,7 +55,7 @@ export default function futbolitosBattle() {
 	};
 
 	async function confirmarEquipo() {
-		if (equipo.length !== 3) { return alert("Debes seleccionar tres jugadores para confirmar el equipo"); }
+		if (equipo.length !== 3) { return setMensajeError(true) }
 		console.log(equipo)
 		toggleMode();
 		setBloqueado(true);
@@ -88,6 +91,15 @@ export default function futbolitosBattle() {
 						<div className={styles.InfoBotones}>
 							<Button variant="normal" text="Confirmar" onClick={confirmarEquipo} disabled={bloqueado} />
 						</div>
+						{mensajeError && (
+							<>
+								<div className={styles.Error}>
+									<img src="/images/IconError.svg" width="100px" height="100px"></img>
+									<Texto variant="pChico" text="Debes seleccionar tres jugadores para confirmar el equipo" />
+								</div>
+							</>
+
+						)}
 					</div>
 					<CardEleccion
 						Cadena={jugadoresUser}

@@ -52,6 +52,14 @@
   
   font-size: x-large;
 }
+.pChico {
+  font-family: "Russo One", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: #ffcc00;
+  
+  font-size:large;
+}
 
 .NavTitle {
   font-family: "Russo One", sans-serif;
