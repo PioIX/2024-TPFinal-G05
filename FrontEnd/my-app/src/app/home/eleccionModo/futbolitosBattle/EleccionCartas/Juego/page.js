@@ -63,7 +63,7 @@ export default function Juego({ EquipoDeTres }) {
                 setTipoDefensa(false);
                 setTipoControl(true);
             }
-    
+
             // Espera 2 segundos antes de determinar el ganador
             setTimeout(() => {
                 ganador();
@@ -158,7 +158,7 @@ export default function Juego({ EquipoDeTres }) {
             console.error("Error al obtener el equipo:", error);
         }
     }
-    
+
     function seleccionarJugador(jugador) {
         const indice = jugadores.indexOf(jugador);
         setPuntaje(false);
@@ -184,30 +184,32 @@ export default function Juego({ EquipoDeTres }) {
             ) : (
                 <>
                     <div className={styles.Juego}>
-                        {puntaje && (
-                            <div className={styles.TableroPuntaje}>
-                                <Texto variant="h2" text={puntosMios}></Texto>
-                                <Texto variant="h2" text=":"></Texto>
-                                <Texto variant="h2" text={puntosOponente}></Texto>
-                            </div>
-                        )}
-                        <div className={styles.carta}>
-                            {cartaSeleccionada && (
-                                <CardBattle
-                                    isSmall={false}
-                                    posicion={cartaSeleccionada.Posicion}
-                                    nacionalidad={cartaSeleccionada.Nacionalidad}
-                                    imagenJugador={cartaSeleccionada.Imagen}
-                                    escudo={cartaSeleccionada.Equipo}
-                                    nombreJugador={cartaSeleccionada.Apellido}
-                                    ataque={cartaSeleccionada.Ataque}
-                                    control={cartaSeleccionada.Control}
-                                    defensa={cartaSeleccionada.Defensa}
-                                    onClickAtaque={() => EnvioEstadisticaElegida(cartaSeleccionada.Ataque, "Ataque")}
-                                    onClickControl={() => EnvioEstadisticaElegida(cartaSeleccionada.Control, "Control")}
-                                    onClickDefensa={() => EnvioEstadisticaElegida(cartaSeleccionada.Defensa, "Defensa")}
-                                />
+                        <div className={styles.fondo}>
+                            {puntaje && (
+                                <div className={styles.TableroPuntaje}>
+                                    <Texto variant="h2" text={puntosMios}></Texto>
+                                    <Texto variant="h2" text=":"></Texto>
+                                    <Texto variant="h2" text={puntosOponente}></Texto>
+                                </div>
                             )}
+                            <div className={styles.carta}>
+                                {cartaSeleccionada && (
+                                    <CardBattle
+                                        isSmall={false}
+                                        posicion={cartaSeleccionada.Posicion}
+                                        nacionalidad={cartaSeleccionada.Nacionalidad}
+                                        imagenJugador={cartaSeleccionada.Imagen}
+                                        escudo={cartaSeleccionada.Equipo}
+                                        nombreJugador={cartaSeleccionada.Apellido}
+                                        ataque={cartaSeleccionada.Ataque}
+                                        control={cartaSeleccionada.Control}
+                                        defensa={cartaSeleccionada.Defensa}
+                                        onClickAtaque={() => EnvioEstadisticaElegida(cartaSeleccionada.Ataque, "Ataque")}
+                                        onClickControl={() => EnvioEstadisticaElegida(cartaSeleccionada.Control, "Control")}
+                                        onClickDefensa={() => EnvioEstadisticaElegida(cartaSeleccionada.Defensa, "Defensa")}
+                                    />
+                                )}
+                            </div>
                         </div>
                         <div className={styles.carta}>
                             {tipoAtaque && (
