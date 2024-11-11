@@ -1,3 +1,15 @@
+.Esperando {
+    margin-top: 2em;    
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: nowrap;
+  }
+
 .main {
     display: grid;
     grid-template-columns: 1fr 5fr; /* Dos columnas: la primera más pequeña */
@@ -20,6 +32,19 @@
 }
 
 .Error {
+    height: 80px;
+    width: auto;
     display: flex;
     flex-direction: row;
 }
+
+.divLogOut {
+    position: fixed; /* O absolute, según necesites */
+    top: 25px; /* Ajusta la distancia desde la parte superior */
+    left: 90px; /* Ajusta la distancia desde el lado izquierdo */
+    z-index: 1000; /* Asegúrate de que esté encima de otros elementos */
+  }
+
+  .MensajeEstado {
+    color: azure;
+  }
