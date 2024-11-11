@@ -23,7 +23,7 @@ export default function Card({
     const [active, setActive ] = useState(false)
 
     useEffect(()=>{
-        console.log("Dentro de la carta: ", {jugadorActivo}, {PlayerId})
+        // console.log("Dentro de la carta: ", {jugadorActivo}, {PlayerId})
 
         if (PlayerId == jugadorActivo) {
             setActive(true)

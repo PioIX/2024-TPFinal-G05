@@ -33,7 +33,13 @@ export default function Juego({ EquipoDeTres }) {
 
     useEffect(() => {
         if (!socket || !isConnected) return;
+        
         obtenerEquipo();
+
+        if (isConnected) {
+            socket.emit('joinRoom', { room: codigo });
+        }
+
         socket.on('Estadistica', data => {
             if (data.userId === userId && data.elijo === true) {
                 setYoElijo(true)
@@ -163,9 +169,6 @@ export default function Juego({ EquipoDeTres }) {
         const indice = jugadores.indexOf(jugador);
         setPuntaje(false);
         setCartaSeleccionada(jugador);
-        if (isConnected) {
-            socket.emit('joinRoom', { room: codigo });
-        }
         if (indice !== -1) {
             jugadores.splice(indice, 1);
         }
