@@ -1,26 +1,33 @@
+.Esperando {    
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: nowrap;
+}
 
 .pagina {
   height: 100%;
   margin: 0;
+  gap: 150px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
   align-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
 
-  margin-top: 17%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   gap: 2em;
-
-  height: 50%;
-  width: 50%;
-
-
 }
 
 
