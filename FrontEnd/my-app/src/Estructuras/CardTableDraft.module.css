@@ -1,0 +1,11 @@
+.Vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.Horizontal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
