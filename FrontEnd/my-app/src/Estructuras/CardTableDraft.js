@@ -1,29 +1,39 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Card from "./Card"
 import styles from "./CardTableDraft.module.css"
+import EleccionDraft from "./EleccionDraft"
 
 export default function CardTableDraft({
-    JugadorUno,
-    JugadorDos,
-    JugadorTres,
-    JugadorCuatro,
-    JugadorCinco,
-    JugadorSeis,
-    JugadorSiete,
-    JugadorOcho,
-    JugadorNueve,
-    JugadorDiez,
-    JugadorOnce,
+
 }) {
-    const [JugadorUnoEstado, setJugadorUnoEstado] = useState(true)
+    const [JugadorUnoEstado, setJugadorUnoEstado] = useState(false)
+    const [JugadorUno, setJugadorUno] = useState([])
+
+    // useEffect(() => {
+    //     setJugadorUnoEstado(true)
+    // }, [JugadorUno]);
+
+    function elijoJugador(jugador) {
+        console.log(jugador)
+        setJugadorUno(jugador)
+        setJugadorUnoEstado(true)
+    }
+
+
     return (
         <>
             <div className={styles.Vertical}>
                 <div className={styles.Horizontal}>
                     <div className={styles.Jugador}>
-                        <div>aaaaaa</div>
+                        <EleccionDraft inClock={elijoJugador}>
+                            {!JugadorUnoEstado && !JugadorUno && (
+                                <>
+                                    <p>AAAAAAAAAAAAAAA</p>  {/* Hacer Componente */}
+                                </>
+                            )}
+                        </EleccionDraft>
                         {JugadorUnoEstado && JugadorUno && (
                             <>
                                 <Card

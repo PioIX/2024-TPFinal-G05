@@ -9,6 +9,7 @@ import EleccionDraft from "@/Estructuras/EleccionDraft";
 export default function FutbolitosDraft() {
     const [isVisible, setIsVisible] = useState(false);
     const [todosJugadores, setTodosJugadores] = useState([])
+    const [jugadorUno, setJugadorUno] = useState([])
     const toggleDropdown = () => {setIsVisible(!isVisible);};
 
     async function PlayersTodos() {
@@ -41,11 +42,10 @@ export default function FutbolitosDraft() {
     useEffect(() => {
         PlayersTodos();
     }, []);
-
     return (
         <section>
-            {/* <EleccionDraft></EleccionDraft> */}
-            <CardTableDraft JugadorUno={todosJugadores[0]}></CardTableDraft>
+            
+            <CardTableDraft ></CardTableDraft>
             <div>
                 {isVisible && (
                     <div>aaaaaaaaaaa</div>

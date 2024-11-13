@@ -5,13 +5,14 @@ import styles from "./EleccionDraft.module.css";
 import Card from "./Card";
 import Button from "@/Components/Button";
 
-export default function EleccionDraft({ onClickButton }) {
-    const [jugadoresId, setJugadoresId] = useState ([])
+export default function EleccionDraft({ onClickButton, inClock }) {
+    const [jugadoresId, setJugadoresId] = useState([])
     const [abrio, setAbrio] = useState(false);
     const [desvanecer, setDesvanecer] = useState(false);
     const [cincoJugadores, setCincoJugadores] = useState([]);
     const [jugadoresUser, setJugadoresUser] = useState([]);
     const [jugadoresTodos, setJugadoresTodos] = useState([])
+    const [otraFuncion, setOtraFuncion] = useState(false)
 
     async function PlayersTodos() {
         const response = await fetch(`http://localhost:4000/Player`, {
@@ -34,15 +35,15 @@ export default function EleccionDraft({ onClickButton }) {
             Control: Player.Control,
             Defensa: Player.Defensa
         }));
-        
-        console.log(PlayerXUser); 
+
+        console.log(PlayerXUser);
         setJugadoresTodos(PlayerXUser)
         return PlayerXUser;
     }
 
     async function AbroSobres(jugadores) {
         console.log("Jugadores disponibles: ", jugadores);
-    
+
         if (jugadores.length < 5) {
             alert("No hay suficientes jugadores disponibles.");
             return;
@@ -50,18 +51,18 @@ export default function EleccionDraft({ onClickButton }) {
         const barajar = (array) => {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]]; 
+                [array[i], array[j]] = [array[j], array[i]];
             }
             return array;
         };
-    
+
         const jugadoresAleatorios = barajar(jugadores).slice(0, 5);
-        setCincoJugadores(jugadoresAleatorios); 
-    
+        setCincoJugadores(jugadoresAleatorios);
+
         console.log("IDs de los jugadores aleatorios:", jugadoresAleatorios.map(player => player.PlayerId));
     }
     console.log(cincoJugadores)
-    
+
     useEffect(() => {
         PlayersTodos()
     }, []);
@@ -74,9 +75,25 @@ export default function EleccionDraft({ onClickButton }) {
             // setDesvanecer(false);
         }, 500);
     };
+    function seleccionarJugador(jugador) {
+        inClock(jugador)
+        setOtraFuncion(true)
+        setAbrio(false)
+
+    }
 
     return (
-        <div  onClick={handleClick}>
+        <>  
+            {otraFuncion && (
+                <div>
+                    OOOOOOOOOOOOOOOO
+                </div>
+            )}
+            {!abrio && (
+                <div onClick={handleClick} >
+                    aaaaaaaa
+                </div>
+            )}
             {abrio && (
                 <div>
                     <div className={styles.ConjuntoCartas}>
@@ -92,7 +109,7 @@ export default function EleccionDraft({ onClickButton }) {
                                 ataque={jugador.Ataque}
                                 control={jugador.Control}
                                 defensa={jugador.Defensa}
-                                onClick={() => setJugadoresId(jugador.PlayerId)}
+                                onClick={() => seleccionarJugador(jugador)}
                             />
                         ))}
                     </div>
@@ -100,7 +117,8 @@ export default function EleccionDraft({ onClickButton }) {
                         <Button onClick={onClickButton} variant="jugar" text="Continuar"></Button>
                     </div>
                 </div>
-            )}
-        </div>
+            )
+            }
+        </>
     );
 }
