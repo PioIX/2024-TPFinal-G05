@@ -14,28 +14,33 @@ export default function CardEleccion({ Cadena, onPlayerSelect, equipo }) {
         setJugadorActivo(id)
         setJugadorEquipo(equipo)
         console.log(equipo)
-    };
+        if (equipo.includes(id)) { // es aca
+            setJugadorActivo(id)
+        } else (
+            setJugadorActivo(null)
+        )
+    }
 
-    return (
-        <div className={styles.Desk}>
-            {Cadena.map((jugador) => (
-                <Card
-                    key={jugador.PlayerId} // Añade una key única para cada Card
-                    PlayerId = {jugador.PlayerId}
-                    isSmall={true}
-                    posicion={jugador.Posicion}
-                    nacionalidad={jugador.Nacionalidad}
-                    imagenJugador={jugador.Imagen}
-                    escudo={jugador.Equipo}
-                    nombreJugador={jugador.Apellido}
-                    ataque={jugador.Ataque}
-                    control={jugador.Control}
-                    defensa={jugador.Defensa}
-                    onClick={() => elijoJugador(jugador.PlayerId)}
-                    jugadorActivo = {jugadorActivo}
-                    className={ styles.active} // Añade clase activa
-                />
-            ))}
-        </div>
-    );
+return (
+    <div className={styles.Desk}>
+        {Cadena.map((jugador) => (
+            <Card
+                key={jugador.PlayerId} // Añade una key única para cada Card
+                PlayerId={jugador.PlayerId}
+                isSmall={true}
+                posicion={jugador.Posicion}
+                nacionalidad={jugador.Nacionalidad}
+                imagenJugador={jugador.Imagen}
+                escudo={jugador.Equipo}
+                nombreJugador={jugador.Apellido}
+                ataque={jugador.Ataque}
+                control={jugador.Control}
+                defensa={jugador.Defensa}
+                onClick={() => elijoJugador(jugador.PlayerId)}
+                jugadorActivo={jugadorActivo}
+                className={styles.active} // Añade clase activa
+            />
+        ))}
+    </div>
+);
 }

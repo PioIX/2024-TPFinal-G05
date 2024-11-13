@@ -14,6 +14,11 @@ export default function EleccionDraft({ onClickButton, inClock }) {
     const [jugadoresTodos, setJugadoresTodos] = useState([])
     const [otraFuncion, setOtraFuncion] = useState(false)
 
+    const [cartaVacia, setCartaVacia] = useState(true)
+
+    const [JugadorUnoEstado, setJugadorUnoEstado] = useState(false)
+    const [JugadorUno, setJugadorUno] = useState([])
+
     async function PlayersTodos() {
         const response = await fetch(`http://localhost:4000/Player`, {
             method: "GET",
@@ -75,26 +80,38 @@ export default function EleccionDraft({ onClickButton, inClock }) {
             // setDesvanecer(false);
         }, 500);
     };
+    
     function seleccionarJugador(jugador) {
-        inClock(jugador)
-        setOtraFuncion(true)
+        console.log(jugador)
+        setJugadorUno(jugador)
+        setJugadorUnoEstado(true)
         setAbrio(false)
-
+        setCartaVacia(false)
+        setOtraFuncion(true)
     }
 
     return (
-        <>  
+        <>
             {otraFuncion && (
-                <div>
-                    OOOOOOOOOOOOOOOO
-                </div>
+                <>
+                {JugadorUnoEstado && JugadorUno && (
+                    <>
+                        <Card
+                            isSmall={true}
+                            posicion={JugadorUno.Posicion}
+                            nacionalidad={JugadorUno.Nacionalidad}
+                            imagenJugador={JugadorUno.Imagen}
+                            escudo={JugadorUno.Equipo}
+                            nombreJugador={JugadorUno.Apellido}
+                            ataque={JugadorUno.Ataque}
+                            control={JugadorUno.Control}
+                            defensa={JugadorUno.Defensa}
+                        />
+                    </>
+                )}
+                </>
             )}
-            {!abrio && (
-                <div onClick={handleClick} >
-                    aaaaaaaa
-                </div>
-            )}
-            {abrio && (
+            {abrio ? (
                 <div>
                     <div className={styles.ConjuntoCartas}>
                         {cincoJugadores.map((jugador) => (
@@ -113,12 +130,15 @@ export default function EleccionDraft({ onClickButton, inClock }) {
                             />
                         ))}
                     </div>
-                    <div className={styles.puntopunto}>
-                        <Button onClick={onClickButton} variant="jugar" text="Continuar"></Button>
-                    </div>
                 </div>
-            )
-            }
+            ) : (
+                <div onClick={handleClick}>
+                    {cartaVacia && cartaVacia && (
+                            <p>COMPONENTE CARD</p>
+                        )}
+                </div>
+            )}
+
         </>
     );
 }

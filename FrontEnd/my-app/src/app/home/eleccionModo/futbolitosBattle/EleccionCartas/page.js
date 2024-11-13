@@ -97,6 +97,10 @@ export default function futbolitosBattle() {
 
         socket.on("Jugadores Listos", handleJugadoresListos);
 
+        if (isConnected) {
+            socket.emit('joinRoom', { room: codigo });
+        }
+
         return () => {
             socket.off("Jugadores Listos", handleJugadoresListos);
         };
