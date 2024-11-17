@@ -76,6 +76,7 @@ export default function futbolitosBattle() {
         }
 
         socket.emit("Estoy Listo", { Estado: 1, UserId: userID, room: codigo });
+        setBloqueado(true);  
         setMensajeEstado("Esperando a... ");
         
         setContador((prevContador) => prevContador + 1); 
@@ -110,7 +111,6 @@ export default function futbolitosBattle() {
         if (contador === 2) {  
             console.log(equipo);
             toggleMode();  
-            setBloqueado(true);  
         }
     }, [contador]); 
 

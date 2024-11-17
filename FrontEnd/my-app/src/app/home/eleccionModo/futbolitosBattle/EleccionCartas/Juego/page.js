@@ -31,9 +31,11 @@ export default function Juego({ EquipoDeTres }) {
     const [estadisticaOponente, setEstadisticaOponente] = useState();
     const [estadisticaPropia, setEstadisticaPropia] = useState();
 
+    const [mensajeEstado, setMensajeEstado] = useState("Elija un Jugador...");
+
     useEffect(() => {
         if (!socket || !isConnected) return;
-        
+
         obtenerEquipo();
 
         if (isConnected) {
@@ -73,7 +75,7 @@ export default function Juego({ EquipoDeTres }) {
             // Espera 2 segundos antes de determinar el ganador
             setTimeout(() => {
                 ganador();
-            }, 2000);
+            }, 4000);
         }
     }, [yoElijo, eligioOponente, tipoEstadisticaOponente]);
 
@@ -135,6 +137,7 @@ export default function Juego({ EquipoDeTres }) {
             setPuntosOponente(puntosOponente + 1);
             resetAll();
         }
+        setMensajeEstado("Seleccione una carta para Continuar...");
     }
 
     function resetAll() {
@@ -172,10 +175,14 @@ export default function Juego({ EquipoDeTres }) {
         if (indice !== -1) {
             jugadores.splice(indice, 1);
         }
+        setMensajeEstado("Seleccione una Estadistica...");
     }
 
     function EnvioEstadisticaElegida(estadistica, tipo) {
+        console.log(tipo)
         setYoElijo(true);
+        setMensajeEstado(`Has Elegido ${tipo}...`);
+
         socket.emit('EnvioEstadistica', { room: codigo, estadistica: estadistica, tipo: tipo, userId: userId, cartaOponente: cartaSeleccionada, elijo: true });
         setEstadisticaPropia(estadistica);
     }
@@ -186,34 +193,41 @@ export default function Juego({ EquipoDeTres }) {
                 <MensajeFin resultado={result} />
             ) : (
                 <>
+                    <div className={styles.divLogOut}>
+                        <p className={styles.MensajeEstado}>{mensajeEstado}</p>
+                    </div>
                     <div className={styles.Juego}>
-                        <div className={styles.fondo}>
-                            {puntaje && (
-                                <div className={styles.TableroPuntaje}>
-                                    <Texto variant="h2" text={puntosMios}></Texto>
-                                    <Texto variant="h2" text=":"></Texto>
-                                    <Texto variant="h2" text={puntosOponente}></Texto>
-                                </div>
-                            )}
-                            <div className={styles.carta}>
-                                {cartaSeleccionada && (
-                                    <CardBattle
-                                        isSmall={false}
-                                        posicion={cartaSeleccionada.Posicion}
-                                        nacionalidad={cartaSeleccionada.Nacionalidad}
-                                        imagenJugador={cartaSeleccionada.Imagen}
-                                        escudo={cartaSeleccionada.Equipo}
-                                        nombreJugador={cartaSeleccionada.Apellido}
-                                        ataque={cartaSeleccionada.Ataque}
-                                        control={cartaSeleccionada.Control}
-                                        defensa={cartaSeleccionada.Defensa}
-                                        onClickAtaque={() => EnvioEstadisticaElegida(cartaSeleccionada.Ataque, "Ataque")}
-                                        onClickControl={() => EnvioEstadisticaElegida(cartaSeleccionada.Control, "Control")}
-                                        onClickDefensa={() => EnvioEstadisticaElegida(cartaSeleccionada.Defensa, "Defensa")}
-                                    />
-                                )}
+                        {puntaje && (
+                            <div className={styles.TableroPuntaje}>
+                                <Texto variant="h2" text={puntosMios}></Texto>
+                                <Texto variant="h2" text=":"></Texto>
+                                <Texto variant="h2" text={puntosOponente}></Texto>
                             </div>
+                        )}
+                        <div className={styles.carta}>
+                            {cartaSeleccionada && (
+                                <CardBattle
+                                    isSmall={false}
+                                    posicion={cartaSeleccionada.Posicion}
+                                    nacionalidad={cartaSeleccionada.Nacionalidad}
+                                    imagenJugador={cartaSeleccionada.Imagen}
+                                    escudo={cartaSeleccionada.Equipo}
+                                    nombreJugador={cartaSeleccionada.Apellido}
+                                    ataque={cartaSeleccionada.Ataque}
+                                    control={cartaSeleccionada.Control}
+                                    defensa={cartaSeleccionada.Defensa}
+                                    onClickAtaque={() => EnvioEstadisticaElegida(cartaSeleccionada.Ataque, "Ataque")}
+                                    onClickControl={() => EnvioEstadisticaElegida(cartaSeleccionada.Control, "Control")}
+                                    onClickDefensa={() => EnvioEstadisticaElegida(cartaSeleccionada.Defensa, "Defensa")}
+                                    estadDisabled={true}
+                                />
+                            )}
                         </div>
+                        {(tipoAtaque || tipoControl || tipoDefensa) && (
+                            <div className={`${styles.versus} ${styles.aparece}`}>
+                                <Texto variant="h2" text="VS"></Texto>
+                            </div>
+                        )}
                         <div className={styles.carta}>
                             {tipoAtaque && (
                                 <CardBattle

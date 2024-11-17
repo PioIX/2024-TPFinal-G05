@@ -17,7 +17,8 @@ export default function CardBattle({
     onClickControl,
     onClickDefensa,
     onClickAtaque,
-    onChangeEstadistica
+    onChangeEstadistica,
+    estadDisabled
 }) {
     const mediaGRL = Math.round(((ataque + control + defensa) / 3) + 7);
     
@@ -73,7 +74,7 @@ export default function CardBattle({
                             [styles.hidden]: activeStat && activeStat !== 'Ataque',
                             [styles.imgstatASmall]: isSmall 
                         })}
-                        onClick={onClickAtaque} onClickCapture={() => handleStatClick('Ataque')} 
+                        onClick={onClickAtaque} onClickCapture={() => handleStatClick('Ataque')} disabled={estadDisabled}
                     >
                         <p className={clsx(styles.p, { [styles.pSmall]: isSmall })}>{ataque}</p>
                     </div>
@@ -83,7 +84,7 @@ export default function CardBattle({
                             [styles.hidden]: activeStat && activeStat !== 'Control',
                             [styles.imgstatCSmall]: isSmall 
                         })}
-                        onClick={onClickControl} onClickCapture={() => handleStatClick('Control')} 
+                        onClick={onClickControl} onClickCapture={() => handleStatClick('Control')} disabled={estadDisabled}
                     >
                         <p className={clsx(styles.p, { [styles.pSmall]: isSmall })}>{control}</p>
                     </div>
@@ -94,7 +95,7 @@ export default function CardBattle({
                             [styles.hidden]: activeStat && activeStat !== 'Defensa',
                             [styles.imgstatDSmall]: isSmall 
                         })}
-                        onClick={onClickDefensa} onClickCapture={() => handleStatClick('Defensa')} 
+                        onClick={onClickDefensa} onClickCapture={() => handleStatClick('Defensa')} disabled={estadDisabled}
                     >
                         <p className={clsx(styles.p, { [styles.pSmall]: isSmall })}>{defensa}</p>
                     </div>
