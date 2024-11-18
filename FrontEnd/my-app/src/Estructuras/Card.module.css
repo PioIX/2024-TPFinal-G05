@@ -254,3 +254,10 @@
     border-radius: 5px;
     pointer-events: none; /* Para que los eventos pasen a la imagen */
 }
+
+.activa {
+    /* border: 2px solid gold; Ejemplo de estilo para la carta activa */
+    filter:drop-shadow(0 0 11px gold);
+    /* filter:opacity(0.5); */
+    transform: scale(1.15);
+}

@@ -6,6 +6,7 @@ import styles from "./page.module.css"
 import Login from "../Estructuras/Login";
 import Register from "@/Estructuras/Register";
 import { useEffect, useState } from "react";
+import MusicPlayer from "@/Components/MusicPlayer";
 
 export default function Home() {
     const [Ingreso, setIngreso] = useState(true);

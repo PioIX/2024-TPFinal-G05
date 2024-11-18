@@ -1,46 +1,55 @@
 "use client";
 
-import { useEffect, useState } from "react"; // Asegúrate de importar useState
+import { useEffect, useState } from "react";
 import Card from "./Card";
 import styles from "./CardEleccion.module.css";
 
 export default function CardEleccion({ Cadena, onPlayerSelect, equipo }) {
-    const [jugadorActivo, setJugadorActivo] = useState(null); // Estado para el jugador activo
-    const [jugadorEquipo, setJugadorEquipo] = useState(null); // Estado para el jugador activo
-
+    const [jugadoresActivos, setJugadoresActivos] = useState(equipo || []); // Controla los jugadores activos
 
     const elijoJugador = (id) => {
-        onPlayerSelect(id); // Llama a la función de selección del jugador
-        setJugadorActivo(id)
-        setJugadorEquipo(equipo)
-        console.log(equipo)
-        if (equipo.includes(id)) { // es aca
-            setJugadorActivo(id)
-        } else (
-            setJugadorActivo(null)
-        )
-    }
+        setJugadoresActivos((prevJugadores) => {
+            const nuevoEquipo = [...prevJugadores];
 
-return (
-    <div className={styles.Desk}>
-        {Cadena.map((jugador) => (
-            <Card
-                key={jugador.PlayerId} // Añade una key única para cada Card
-                PlayerId={jugador.PlayerId}
-                isSmall={true}
-                posicion={jugador.Posicion}
-                nacionalidad={jugador.Nacionalidad}
-                imagenJugador={jugador.Imagen}
-                escudo={jugador.Equipo}
-                nombreJugador={jugador.Apellido}
-                ataque={jugador.Ataque}
-                control={jugador.Control}
-                defensa={jugador.Defensa}
-                onClick={() => elijoJugador(jugador.PlayerId)}
-                jugadorActivo={jugadorActivo}
-                className={styles.active} // Añade clase activa
-            />
-        ))}
-    </div>
-);
+            // Si el jugador ya está activo, lo desactiva
+            if (nuevoEquipo.includes(id)) {
+                return nuevoEquipo.filter((playerId) => playerId !== id);
+            }
+
+            // Si hay 3 jugadores activos, elimina el primero
+            if (nuevoEquipo.length === 3) {
+                nuevoEquipo.shift();
+            }
+
+            // Añade el nuevo jugador
+            nuevoEquipo.push(id);
+
+            // Notificar al padre los jugadores seleccionados
+            onPlayerSelect(nuevoEquipo);
+
+            return nuevoEquipo;
+        });
+    };
+
+    return (
+        <div className={styles.Desk}>
+            {Cadena.map((jugador) => (
+                <Card
+                    
+                    // PlayerId={jugador.PlayerId}
+                    isSmall={true}
+                    posicion={jugador.Posicion}
+                    nacionalidad={jugador.Nacionalidad}
+                    imagenJugador={jugador.Imagen}
+                    escudo={jugador.Equipo}
+                    nombreJugador={jugador.Apellido}
+                    ataque={jugador.Ataque}
+                    control={jugador.Control}
+                    defensa={jugador.Defensa}
+                    onClick={() => elijoJugador(jugador.PlayerId)}
+                    jugadorActivo={jugadoresActivos.includes(jugador.PlayerId)} // Pasar si está activo
+                />
+            ))}
+        </div>
+    );
 }

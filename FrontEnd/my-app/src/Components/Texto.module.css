@@ -52,6 +52,17 @@
   
   font-size: x-large;
 }
+.p2 {
+  font-family: "Russo One", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  color: #ffcc00;
+  
+  font-size: x-large;
+  margin-block-start: 0;
+    margin-block-end: 0;
+}
+
 .pChico {
   font-family: "Russo One", sans-serif;
   font-weight: 500;

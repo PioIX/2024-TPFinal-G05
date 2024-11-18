@@ -5,7 +5,10 @@ import styles from "./page.module.css";
 export default function Guia() {
     return (
         <section className={styles.main}>
-            <h1 className={styles.titulo}>Guía</h1>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
             <div className={styles.modos}>
                 <div className={styles.modo}>
                     <h2 className={styles.h2}>Modo 1: FutDraft</h2>

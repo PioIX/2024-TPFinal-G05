@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Paquete from "@/Estructuras/Paquete";
 import { useRouter } from "next/navigation";
+import MusicPlayer from "@/Components/MusicPlayer";
 
 export default function Home() {
     const [muestroPaquete, setMuestroPaquete] = useState(true);

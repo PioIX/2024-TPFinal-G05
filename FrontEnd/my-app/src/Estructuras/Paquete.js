@@ -4,13 +4,16 @@ import { useEffect, useState } from "react";
 import styles from "./Paquete.module.css";
 import Card from "./Card";
 import Button from "@/Components/Button";
+import Texto from "@/Components/Texto";
 
-export default function Paquete({ onClickButton }) {
+export default function Paquete({ onClickButton, onClickButtonDos }) {
     const [abrio, setAbrio] = useState(true);
     const [desvanecer, setDesvanecer] = useState(false);
     const [cincoJugadores, setCincoJugadores] = useState([]);
     const [jugadoresUser, setJugadoresUser] = useState([]);
     const [jugadoresTodos, setJugadoresTodos] = useState([])
+    const [mensajeNoHayJugadores, setMensajeNoHayJugadores] = useState(false)
+    const [otroBoton, setOtroBoton] = useState(false)
 
     // Función para obtener todos los jugadores
     async function PlayersTodos() {
@@ -76,7 +79,9 @@ export default function Paquete({ onClickButton }) {
         console.log("Jugadores Disponibles: ", jugadoresDisponibles);
 
         if (jugadoresDisponibles.length < 5) {
-            alert("No hay suficientes jugadores disponibles.");
+            // alert("No hay suficientes jugadores disponibles.");
+            setMensajeNoHayJugadores(true)
+            setOtroBoton(true)
             return;
         }
 
@@ -146,9 +151,19 @@ export default function Paquete({ onClickButton }) {
                             />
                         ))}
                     </div>
-                    <div className={styles.puntopunto}>
-                        <Button onClick={onClickButton} variant="jugar" text="Continuar"></Button>
-                    </div>
+                    {mensajeNoHayJugadores && (
+                        <Texto variant="p" text="Ya conseguiste todos los jugadores! ¡Felicidades!"></Texto>
+                    )}
+                    {otroBoton && (
+                        <div className={styles.puntopunto}>
+                            <Button onClick={onClickButtonDos} variant="jugar" text="Entendido"></Button>
+                        </div>
+                    )}
+                    {!otroBoton && (
+                        <div className={styles.puntopunto}>
+                            <Button onClick={onClickButton} variant="jugar" text="Continuar"></Button>
+                        </div>
+                    )}
                 </div>
             )}
         </div>

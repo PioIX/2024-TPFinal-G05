@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styles from "./RankingTable.module.css";
+import Texto from "@/Components/Texto";
 
 export default function RankingTable({ cadenaUsuarios }) {
     const [usersData, setUsersData] = useState([]); // Estado para almacenar los datos recibidos
@@ -41,11 +42,11 @@ export default function RankingTable({ cadenaUsuarios }) {
             <table className={styles.table}>
                 <thead>
                     <tr className={styles.tr}>
-                        <th className={styles.th}>UserName</th>
-                        <th className={styles.th}>Puntos</th>
-                        <th className={styles.th}>Gana</th>
-                        <th className={styles.th}>Pierde</th>
-                        <th className={styles.th}>Empata</th>
+                        <th className={styles.th}><Texto text="UserName" variant="p2"></Texto></th>
+                        <th className={styles.th}><Texto text="Puntos" variant="p2"></Texto></th>
+                        <th className={styles.th}><Texto text="Gana" variant="p2"></Texto></th>
+                        <th className={styles.th}><Texto text="Pierde" variant="p2"></Texto></th>
+                        <th className={styles.th}><Texto text="Empata" variant="p2"></Texto></th>
                     </tr>
                 </thead>
                 <tbody>

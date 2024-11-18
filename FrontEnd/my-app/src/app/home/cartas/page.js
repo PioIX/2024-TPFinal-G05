@@ -10,7 +10,13 @@ export default function Cartas() {
     const [jugadoresUser, setJugadoresUser] = useState([])
     const [todosJugadores, setTodosJugadores] = useState([])
     const [miosTodos, setMiosTodos] = useState(true)
-    const ToggleMode = () => setMiosTodos(!miosTodos);
+
+    const [bloqueado, setBloqueado] = useState(true);
+
+    function ToggleMode () {
+        setMiosTodos(!miosTodos);
+        setBloqueado(!bloqueado);
+    }
 
     async function PlayersTodos() {
         const response = await fetch('http://localhost:4000/Player', {
@@ -69,6 +75,8 @@ export default function Cartas() {
         PlayersDelUsuario();
     }, []);
 
+    
+
     return (
         <section className={styles.main}>
             <div className={styles.informacion}>
@@ -76,8 +84,8 @@ export default function Cartas() {
                 <Texto variant="p" text="En esta seccion podes ver todos los jugadores del juego y tambien que jugadores tenees actualmente."></Texto>
                 <Texto variant="p" text="¡Selecciona la opcion que queres mostrar!"></Texto>
                 <div className={styles.InfoBotones}>
-                    <Button variant="normal" text="Mis cartas" onClick={ToggleMode} ></Button>
-                    <Button variant="normal" text="Cartas Futbolito" onClick={ToggleMode} ></Button>
+                    <Button variant="normal" text="Mis cartas" onClick={ToggleMode} disabled={!bloqueado}></Button>
+                    <Button variant="normal" text="Cartas Futbolito" onClick={ToggleMode} disabled={bloqueado} ></Button>
                 </div>
             </div>
             {miosTodos ? (

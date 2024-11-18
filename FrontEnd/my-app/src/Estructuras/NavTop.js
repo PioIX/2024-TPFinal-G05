@@ -6,6 +6,7 @@ import styles from "./NavTop.module.css"
 import Button from "@/Components/Button"
 import Link from "next/link"
 import Icon from "@/Components/Icon"
+import MusicPlayer from "@/Components/MusicPlayer"
 
 export default function NavTop(nombreEquipoUsuario, onClick) {
     return (

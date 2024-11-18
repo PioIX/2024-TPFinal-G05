@@ -19,6 +19,7 @@ export default function futbolitosBattle() {
     const [mensajeEstado, setMensajeEstado] = useState("Elija sus cartas...");
     const [mensajeError, setMensajeError] = useState(false);
     const [contador, setContador] = useState(0);  
+    const [jugadorActivo, setJugadorActivo] = useState(null);
 
     const userID = localStorage.getItem("userID");
     const codigo = localStorage.getItem("codigoSalaBattle");
@@ -48,33 +49,25 @@ export default function futbolitosBattle() {
     }
 
     const elijoEquipo = (playerID) => {
+        setJugadorActivo(playerID);
         setEquipo((prevEquipo) => {
             const newEquipo = [...prevEquipo];
             if (newEquipo.length === 3) {
                 newEquipo.shift(); 
             }
             newEquipo.push(playerID);  
+            console.log("Equipo: ", equipo);
             return newEquipo;
         });
-        console.log("Equipo: ", equipo);
     };
 
-    // const elijoEquipo = (playerID) => {
-    //     if (equipo.length === 3) {
-    //         equipo.shift();
-    //         equipo.push(playerID);
-    //     } else {
-    //         equipo.push(playerID);
-    //     }
-    //     console.log("Equipo: ", equipo);
-    // };
-
     async function confirmarEquipo() {
-        if (equipo.length !== 3) {
+        console.log(equipo)
+        if (equipo.length !== 3 || equipo[0].length !== 2 || equipo[1].length !== 3 || equipo[2].length !== 3 ) {
             setMensajeError(true);  
             return;
         }
-
+        setMensajeError(false); 
         socket.emit("Estoy Listo", { Estado: 1, UserId: userID, room: codigo });
         setBloqueado(true);  
         setMensajeEstado("Esperando a... ");
@@ -154,6 +147,7 @@ export default function futbolitosBattle() {
                                 Cadena={jugadoresUser}
                                 onPlayerSelect={elijoEquipo}
                                 equipo={equipo}
+                                jugadorActivo={jugadorActivo}
                             />
                         </div>
                     </>

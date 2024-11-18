@@ -1,4 +1,4 @@
-.button{
+.button {
     font-family: "Russo One", sans-serif;
     font-weight: 500;
     font-style: normal;
@@ -13,30 +13,31 @@
     cursor: pointer;
 }
 
-.jugar{
-    
+.jugar {
     margin-top: 100px;
     width: 500px;
     cursor: pointer;
     transition: transform 0.3s ease;
-    cursor: pointer;
-}
-.jugar:hover{
-    transform: scale(1.1);
-    box-shadow:
-    0 0 5px #00ffff, 
-    0 0 10px #00ffff;
 }
 
-.normal{
+.jugar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+}
+
+.normal {
     margin-top: 50px;
     cursor: pointer;
     transition: transform 0.3s ease;
-    cursor: pointer;
 }
-.normal:hover{
+
+.normal:hover {
     transform: scale(1.1);
-    box-shadow:
-    0 0 5px #00ffff, 
-    0 0 10px #00ffff;
+    box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+}
+
+.normal:disabled {
+    background-color: #46021f;
+    filter: grayscale(100%) opacity(0.5); /* Pone el botón en escala de grises y reduce su opacidad */
+    cursor: not-allowed; /* Cambia el cursor para indicar que está deshabilitado */
 }
