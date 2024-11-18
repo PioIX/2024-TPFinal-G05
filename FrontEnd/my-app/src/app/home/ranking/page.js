@@ -48,7 +48,6 @@ export default function Ranking() {
         <>
             <h1 className={styles.titulo}>Ranking</h1>
             <RankingTable cadenaUsuarios = {sortedRankingUser} />
-            <button onClick={mandarMensaje}>aaaaaaaaa</button>
         </>
     );
 }

@@ -277,7 +277,6 @@ export default function Juego({ EquipoDeTres }) {
                         <div id="Cards" className={styles.Cards}>
                             {jugadores.map((jugador) => (
                                 <Card
-                                    key={jugador.Id}
                                     isSmall={true}
                                     posicion={jugador.Posicion}
                                     nacionalidad={jugador.Nacionalidad}

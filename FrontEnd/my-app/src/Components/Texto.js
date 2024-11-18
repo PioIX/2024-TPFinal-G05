@@ -8,6 +8,7 @@ export default function Texto({text,variant}){
             [styles.NavTitle]: variant === 'NavTitle',
             [styles.h2]: variant === 'h2',
             [styles.p]: variant === 'p',
+            [styles.p2]: variant === 'p2',
             [styles.pChico]: variant === 'pChico',
             [styles.error]: variant === 'error'
         })}>{text}</p>

@@ -85,13 +85,13 @@ export default function MensajeFin({ resultado }) {
                     </>
                 )}
                 {mostrarSobre && (
-                    <Paquete onClickButton={continuar} />
+                    <Paquete onClickButton={continuar} onClickButtonDos={continuar}/>
                 )}
                 {mostrarSobreDos && (
                     <>
-                        <Paquete onClickButton={abroElOtroSobre} />
+                        <Paquete onClickButton={abroElOtroSobre} onClickButtonDos={continuar} />
                         {mostrarSobreTres && (
-                            <Paquete onClickButton={continuar} />
+                            <Paquete onClickButton={continuar} onClickButtonDos={continuar}/>
                         )}
                     </>
                 )}
