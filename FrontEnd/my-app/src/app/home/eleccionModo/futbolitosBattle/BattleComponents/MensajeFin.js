@@ -42,12 +42,15 @@ export default function MensajeFin({ resultado }) {
             <div className={styles.cuadro}>
                 {mensajeGanaste && (
                     <>
-                        <div>
-                            <Texto variant="NavTitle" text={resultado}></Texto>
-                            <Texto variant="p" text="Bien ahi, te ganaste dos sobres para que completes la coleccion"></Texto>
-                        </div>
-                        <div>
-                            <Button onClick={() => setMostrarSobreDos(true)} text = "Reclamar"></Button>
+                        <div className = {styles.message}>
+                            <div>
+                                <Texto variant="NavTitle" text={resultado}></Texto>
+                                <Texto variant="p" text="Bien ahi, te ganaste dos sobres para que completes la coleccion"></Texto>
+                            </div>
+                            <div>
+                                <img src = "/images/CopaDelMundo.png" className={styles.corpiño}></img>
+                                <Button onClick={() => setMostrarSobreDos(true)} text = "Reclamar"></Button>
+                            </div>
                         </div>
                     </>
                 )}

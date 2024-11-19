@@ -39,3 +39,13 @@
     align-items: center;
     
 }
+
+.message {
+    display: flex;
+    flex-direction: row;
+    
+}
+.corpiño {
+    height: 50%;
+    width: 540px;
+}

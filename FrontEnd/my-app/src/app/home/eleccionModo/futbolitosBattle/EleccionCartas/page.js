@@ -54,19 +54,21 @@ export default function futbolitosBattle() {
             const newEquipo = [...prevEquipo];
             if (newEquipo.length === 3) {
                 newEquipo.shift(); 
-            }
+            } 
             newEquipo.push(playerID);  
             console.log("Equipo: ", equipo);
             return newEquipo;
         });
     };
 
+
     async function confirmarEquipo() {
         console.log(equipo)
-        if (equipo.length !== 3 || equipo[0].length !== 2 || equipo[1].length !== 3 || equipo[2].length !== 3 ) {
+        if (equipo.length !== 3 || equipo[1].length !== 3 || equipo[2].length !== 3 ) {
             setMensajeError(true);  
             return;
         }
+        equipo[0].shift()
         setMensajeError(false); 
         socket.emit("Estoy Listo", { Estado: 1, UserId: userID, room: codigo });
         setBloqueado(true);  
