@@ -9,3 +9,18 @@
     flex-direction: row;
     justify-content: space-between;
 }
+.Jugador{
+    margin: 10px;
+}
+
+.Mco {
+    margin-left: 150px;
+}
+
+.Extremos{
+    margin-right: 250px;
+}
+
+.Delantero{
+    margin-left: 150px;
+}

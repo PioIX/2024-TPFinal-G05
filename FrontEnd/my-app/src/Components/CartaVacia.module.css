@@ -1,0 +1,21 @@
+.carta {
+    background-image: url("/images/CartaVacia.png");
+    background-size: cover;
+    background-position: center;
+    height: 170px; /* 10% menos de 188px */
+    width: 150px; /* 10% menos de 188px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    font-family: "Russo One", sans-serif;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+}
+
+.carta:hover{
+    transform: scale(1.2);
+
+}

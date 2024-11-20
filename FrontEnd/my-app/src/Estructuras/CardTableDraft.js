@@ -41,7 +41,7 @@ export default function CardTableDraft({
                     <div className={styles.Jugador}>
                         <EleccionDraft></EleccionDraft>
                     </div>
-                    <div className={styles.Jugador}>
+                    <div className={styles.Mco}>
                         <EleccionDraft></EleccionDraft>
                     </div>
                     <div className={styles.Jugador}>
@@ -49,13 +49,13 @@ export default function CardTableDraft({
                     </div>
                 </div>
                 <div className={styles.Vertical}>
-                    <div className={styles.Jugador}>
+                    <div className={styles.Extremos}>
                         <EleccionDraft></EleccionDraft>
                     </div>
-                    <div className={styles.Jugador}>
+                    <div className={styles.Delantero}>
                         <EleccionDraft></EleccionDraft>
                     </div>
-                    <div className={styles.Jugador}>
+                    <div className={styles.Extremos}>
                         <EleccionDraft></EleccionDraft>
                     </div>
                 </div>

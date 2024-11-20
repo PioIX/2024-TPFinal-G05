@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import styles from "./EleccionDraft.module.css";
 import Card from "./Card";
 import Button from "@/Components/Button";
+import CartaVacia from "@/Components/CartaVacia";
 
 export default function EleccionDraft({ onClickButton, inClock }) {
     const [jugadoresId, setJugadoresId] = useState([])
@@ -143,8 +144,13 @@ export default function EleccionDraft({ onClickButton, inClock }) {
             ) : (
                 <div onClick={handleClick}>
                     {cartaVacia && cartaVacia && (
+<<<<<<< Updated upstream
                         <p>COMPONENTE CARD</p>
                     )}
+=======
+                            <CartaVacia></CartaVacia>
+                        )}
+>>>>>>> Stashed changes
                 </div>
             )}
 
