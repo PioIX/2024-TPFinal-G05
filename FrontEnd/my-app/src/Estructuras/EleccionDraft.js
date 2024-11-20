@@ -80,7 +80,7 @@ export default function EleccionDraft({ onClickButton, inClock }) {
             // setDesvanecer(false);
         }, 500);
     };
-    
+
     function seleccionarJugador(jugador) {
         console.log(jugador)
         setJugadorUno(jugador)
@@ -94,48 +94,57 @@ export default function EleccionDraft({ onClickButton, inClock }) {
         <>
             {otraFuncion && (
                 <>
-                {JugadorUnoEstado && JugadorUno && (
-                    <>
-                        <Card
-                            isSmall={true}
-                            posicion={JugadorUno.Posicion}
-                            nacionalidad={JugadorUno.Nacionalidad}
-                            imagenJugador={JugadorUno.Imagen}
-                            escudo={JugadorUno.Equipo}
-                            nombreJugador={JugadorUno.Apellido}
-                            ataque={JugadorUno.Ataque}
-                            control={JugadorUno.Control}
-                            defensa={JugadorUno.Defensa}
-                        />
-                    </>
-                )}
+                    {JugadorUnoEstado && JugadorUno && (
+                        <>
+                            <Card
+                                isSmall={true}
+                                posicion={JugadorUno.Posicion}
+                                nacionalidad={JugadorUno.Nacionalidad}
+                                imagenJugador={JugadorUno.Imagen}
+                                escudo={JugadorUno.Equipo}
+                                nombreJugador={JugadorUno.Apellido}
+                                ataque={JugadorUno.Ataque}
+                                control={JugadorUno.Control}
+                                defensa={JugadorUno.Defensa}
+                            />
+                        </>
+                    )}
                 </>
             )}
             {abrio ? (
-                <div>
-                    <div className={styles.ConjuntoCartas}>
-                        {cincoJugadores.map((jugador) => (
-                            <Card
-                                key={jugador.PlayerId}
-                                isSmall={true}
-                                posicion={jugador.Posicion}
-                                nacionalidad={jugador.Nacionalidad}
-                                imagenJugador={jugador.Imagen}
-                                escudo={jugador.Equipo}
-                                nombreJugador={jugador.Apellido}
-                                ataque={jugador.Ataque}
-                                control={jugador.Control}
-                                defensa={jugador.Defensa}
-                                onClick={() => seleccionarJugador(jugador)}
-                            />
-                        ))}
+                <div className={styles.container}>
+                    <div className={styles.divAround}>
+                        <div className={styles.divTituloBOX}>
+                            <p>Elije a un Jugador</p>
+                        </div>
+                        <div>
+                            <div className={styles.ConjuntoCartas}>
+                                {cincoJugadores.map((jugador) => (
+                                    <div>
+                                        <Card
+                                            key={jugador.PlayerId}
+                                            isSmall={true}
+                                            posicion={jugador.Posicion}
+                                            nacionalidad={jugador.Nacionalidad}
+                                            imagenJugador={jugador.Imagen}
+                                            escudo={jugador.Equipo}
+                                            nombreJugador={jugador.Apellido}
+                                            ataque={jugador.Ataque}
+                                            control={jugador.Control}
+                                            defensa={jugador.Defensa}
+                                            onClick={() => seleccionarJugador(jugador)}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
             ) : (
                 <div onClick={handleClick}>
                     {cartaVacia && cartaVacia && (
-                            <p>COMPONENTE CARD</p>
-                        )}
+                        <p>COMPONENTE CARD</p>
+                    )}
                 </div>
             )}
 
