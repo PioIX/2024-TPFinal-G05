@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import Paquete from "@/Estructuras/Paquete";
 import { useRouter } from "next/navigation";
 import MusicPlayer from "@/Components/MusicPlayer";
+import Icon from "@/Components/Icon";
 
 export default function Home() {
     const [muestroPaquete, setMuestroPaquete] = useState(true);
@@ -60,6 +61,9 @@ export default function Home() {
 
     return (
         <section className={styles.main}>
+            <div className={styles.divLogOut}>
+                <Link href="/."><Icon variant="Nav" srcImg={"/images/LogOut.svg"}></Icon></Link>
+            </div>
             {muestroPaquete ? (
                 <>
                     {primerPaquete && (
