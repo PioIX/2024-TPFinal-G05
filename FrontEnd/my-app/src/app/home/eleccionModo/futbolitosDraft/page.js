@@ -54,7 +54,13 @@ export default function FutbolitosDraft() {
                     <div className={styles.dropdownContent}>
                         <p>Contenido del desplegable</p>
                     </div>
-                    <button onClick={toggleDropdown} className={styles.button}>-</button>
+                    {!isVisible && (
+                        <button onClick={toggleDropdown} className={styles.button}><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M480-528 296-344l-56-56 240-240 240 240-56 56-184-184Z"/></svg></button>
+                    )}
+                    {isVisible && (
+                        <button onClick={toggleDropdown} className={styles.button}><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg></button>
+                    )}
+                    
                 </div>
             </div>
         </section>
