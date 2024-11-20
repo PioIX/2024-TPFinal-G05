@@ -38,13 +38,13 @@ export default function CardTableDraft({
                     </div>
                 </div>
                 <div className={styles.Vertical}>
-                    <div className={styles.Jugador}>
+                    <div className={styles.Mc}>
                         <EleccionDraft></EleccionDraft>
                     </div>
                     <div className={styles.Mco}>
                         <EleccionDraft></EleccionDraft>
                     </div>
-                    <div className={styles.Jugador}>
+                    <div className={styles.Mc}>
                         <EleccionDraft></EleccionDraft>
                     </div>
                 </div>

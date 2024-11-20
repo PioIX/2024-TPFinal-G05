@@ -144,13 +144,8 @@ export default function EleccionDraft({ onClickButton, inClock }) {
             ) : (
                 <div onClick={handleClick}>
                     {cartaVacia && cartaVacia && (
-<<<<<<< Updated upstream
-                        <p>COMPONENTE CARD</p>
-                    )}
-=======
                             <CartaVacia></CartaVacia>
                         )}
->>>>>>> Stashed changes
                 </div>
             )}
 
