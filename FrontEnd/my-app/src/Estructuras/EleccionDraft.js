@@ -118,10 +118,10 @@ export default function EleccionDraft({ onClickButton, inClock }) {
                         <div className={styles.divTituloBOX}>
                             <p>Elije a un Jugador</p>
                         </div>
-                        <div>
+                        <div className={styles.divConjuntoCartaBox}>
                             <div className={styles.ConjuntoCartas}>
                                 {cincoJugadores.map((jugador) => (
-                                    <div>
+                                    <div className={styles.divCarta}>
                                         <Card
                                             key={jugador.PlayerId}
                                             isSmall={true}
