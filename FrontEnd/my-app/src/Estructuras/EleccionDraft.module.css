@@ -39,7 +39,7 @@
     flex-direction: row;
     background-color: rgba(0, 0, 0, 0.5);
     /* Fondo semitransparente (opcional) */
-    z-index: 1000;
+    z-index: 9999;
     /* Asegúrate de que esté por encima de otros elementos */
 }
 
@@ -72,6 +72,7 @@
     background: linear-gradient(180deg, rgb(250, 217, 72),  #cc2222);
     box-shadow: 0 0px 20px #00ffff;
     justify-content: center;
+<<<<<<< Updated upstream
     border-radius: 10px;
     color: rgb(255, 255, 255);
     text-shadow:
@@ -91,3 +92,15 @@
     display: flex;
     align-items: center;
 }
+=======
+}
+
+.laCarta {
+    animation-duration: 0.5s; /* Duración de la animación */
+    animation-fill-mode: both; /* Mantiene el estado después de la animación */
+}
+
+/* .laCarta :hover {
+    background-color: aqua;
+} */
+>>>>>>> Stashed changes

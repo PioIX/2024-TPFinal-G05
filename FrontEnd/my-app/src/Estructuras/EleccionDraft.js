@@ -5,8 +5,10 @@ import styles from "./EleccionDraft.module.css";
 import Card from "./Card";
 import Button from "@/Components/Button";
 import CartaVacia from "@/Components/CartaVacia";
+import 'animate.css';
+import { getDisplayName } from "next/dist/shared/lib/utils";
 
-export default function EleccionDraft({ onClickButton, inClock }) {
+export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADibujar, loRecibio }) {
     const [jugadoresId, setJugadoresId] = useState([])
     const [abrio, setAbrio] = useState(false);
     const [desvanecer, setDesvanecer] = useState(false);
@@ -18,7 +20,10 @@ export default function EleccionDraft({ onClickButton, inClock }) {
     const [cartaVacia, setCartaVacia] = useState(true)
 
     const [JugadorUnoEstado, setJugadorUnoEstado] = useState(false)
-    const [JugadorUno, setJugadorUno] = useState([])
+    const [JugadorUno, setJugadorUno] = useState([]);
+    const [jugadorInicial, setJugadorInicial] = useState(null)
+    const [cambio, setCambio] = useState(null)
+    const [quieroCambiar, setQuieroCambiar] = useState(false)
 
     async function PlayersTodos() {
         const response = await fetch(`http://localhost:4000/Player`, {
@@ -48,12 +53,14 @@ export default function EleccionDraft({ onClickButton, inClock }) {
     }
 
     async function AbroSobres(jugadores) {
-        console.log("Jugadores disponibles: ", jugadores);
+        const jugadoresFiltrados = jugadores.filter((player) => player.Posicion === posicion);
+        console.log(`Jugadores disponibles para la posición "${posicion}":`, jugadoresFiltrados);
 
-        if (jugadores.length < 5) {
-            alert("No hay suficientes jugadores disponibles.");
+        if (jugadoresFiltrados.length < 5) {
+            alert("No hay suficientes jugadores disponibles para esta posición.");
             return;
         }
+
         const barajar = (array) => {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -62,27 +69,33 @@ export default function EleccionDraft({ onClickButton, inClock }) {
             return array;
         };
 
-        const jugadoresAleatorios = barajar(jugadores).slice(0, 5);
+        const jugadoresAleatorios = barajar(jugadoresFiltrados).slice(0, 5);
         setCincoJugadores(jugadoresAleatorios);
 
-        console.log("IDs de los jugadores aleatorios:", jugadoresAleatorios.map(player => player.PlayerId));
+        console.log("IDs de los jugadores aleatorios:", jugadoresAleatorios.map((player) => player.PlayerId));
     }
-    console.log(cincoJugadores)
 
     useEffect(() => {
-        PlayersTodos()
-    }, []);
+        if (jugadoresTodos.length === 0) {
+            PlayersTodos();
+        }
+    }, [jugadoresTodos]);  // Asegúrate de no ejecutar más de una vez si ya hay datos.
 
     const handleClick = () => {
-        AbroSobres(jugadoresTodos)
+        if (!cincoJugadores.length) {  // Asegúrate de no llamar a AbroSobres repetidamente.
+            AbroSobres(jugadoresTodos);
+        }
         setDesvanecer(true);
         setTimeout(() => {
             setAbrio(true);
-            // setDesvanecer(false);
+            // No volver a actualizar el estado si ya está en el estado esperado.
         }, 500);
     };
 
     function seleccionarJugador(jugador) {
+        // if (jugadorSeleccionado) {
+        //     jugadorSeleccionado(jugador);
+        // }
         console.log(jugador)
         setJugadorUno(jugador)
         setJugadorUnoEstado(true)
@@ -91,11 +104,40 @@ export default function EleccionDraft({ onClickButton, inClock }) {
         setOtraFuncion(true)
     }
 
+    function jugadorACambiar(jugador) {
+        jugadorSeleccionado(jugador);
+        setJugadorInicial(jugador)
+    }
+
+
+
+
+    useEffect(() => {
+        if (cartaADibujar) {
+            setCambio(cartaADibujar)
+            setJugadorUno(null)
+        } else {
+            setCambio(cartaADibujar)
+            setJugadorUno(null)
+        }
+        console.log("aa")
+        console.log("Jugador que Seleccione ", jugadorInicial)
+        console.log( "Jugador Que va a rotar (el segundo Click) ", cartaADibujar)
+    }, [])
+
+
+
+    // useEffect (()=>{
+    //     if(cartaADibujar && posicionADibujar){
+    //         setJugadorUno(cartaADibujar)
+    //     }
+    // }, [cartaADibujar, posicionADibujar])
+
     return (
         <>
             {otraFuncion && (
                 <>
-                    {JugadorUnoEstado && JugadorUno && (
+                    {JugadorUno && (
                         <>
                             <Card
                                 isSmall={true}
@@ -107,6 +149,23 @@ export default function EleccionDraft({ onClickButton, inClock }) {
                                 ataque={JugadorUno.Ataque}
                                 control={JugadorUno.Control}
                                 defensa={JugadorUno.Defensa}
+                                onClick={() => jugadorACambiar(JugadorUno)}
+                            />
+                        </>
+                    )}
+                    {cambio && (
+                        <>
+                            <Card
+                                isSmall={true}
+                                posicion={cambio.Posicion}
+                                nacionalidad={cambio.Nacionalidad}
+                                imagenJugador={cambio.Imagen}
+                                escudo={cambio.Equipo}
+                                nombreJugador={cambio.Apellido}
+                                ataque={cambio.Ataque}
+                                control={cambio.Control}
+                                defensa={cambio.Defensa}
+                                onClick={() => jugadorACambiar(cambio)}
                             />
                         </>
                     )}
@@ -120,10 +179,18 @@ export default function EleccionDraft({ onClickButton, inClock }) {
                         </div>
                         <div className={styles.divConjuntoCartaBox}>
                             <div className={styles.ConjuntoCartas}>
+<<<<<<< Updated upstream
                                 {cincoJugadores.map((jugador) => (
                                     <div className={styles.divCarta}>
+=======
+                                {cincoJugadores.map((jugador, index) => (
+                                    <div
+                                        key={jugador.PlayerId}
+                                        className={`animate__animated animate__fadeIn ${styles.laCarta}`}
+                                        style={{ animationDelay: `${index * 0.5}s` }}
+                                    >
+>>>>>>> Stashed changes
                                         <Card
-                                            key={jugador.PlayerId}
                                             isSmall={true}
                                             posicion={jugador.Posicion}
                                             nacionalidad={jugador.Nacionalidad}
@@ -137,6 +204,7 @@ export default function EleccionDraft({ onClickButton, inClock }) {
                                         />
                                     </div>
                                 ))}
+
                             </div>
                         </div>
                     </div>
@@ -144,8 +212,13 @@ export default function EleccionDraft({ onClickButton, inClock }) {
             ) : (
                 <div onClick={handleClick}>
                     {cartaVacia && cartaVacia && (
+<<<<<<< Updated upstream
                             <CartaVacia></CartaVacia>
                         )}
+=======
+                        <CartaVacia></CartaVacia>
+                    )}
+>>>>>>> Stashed changes
                 </div>
             )}
 

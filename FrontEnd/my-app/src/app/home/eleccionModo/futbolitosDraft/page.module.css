@@ -42,7 +42,7 @@
     transform: translateY(0);
     margin: 0;
     padding: 0;
-    z-index: 1;
+    /* z-index: 1; */
 }
 .buttonContainer {
     display: flex;
@@ -57,7 +57,7 @@
     color: white;
     border: none;
     outline: none;
-    z-index: 2;
+    /* z-index: 2; */
     border-radius: 20px 20px 0 0;
     transition: background-color 1.5s ease;
     margin: 0;
@@ -66,22 +66,71 @@
 .button:hover {
     background-color: #00fff2;
 }
-
 .dropdownContent {
     background-color: #f1f1f1;
     padding: 20px;
     text-align: center;
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
     width: 100%;
+    height: 180px; /* Ajusta la altura */
     display: none; /* Oculto inicialmente */
     transform: translateY(0);
     margin: 0;
+    overflow-x: auto; /* Permitir el scroll horizontal */
+    overflow-y: hidden; /* No permitir el scroll vertical */
 }
 
+/* Ocultar la barra de desplazamiento horizontal */
+.dropdownContent::-webkit-scrollbar {
+    height: 0; /* Ocultar la barra de desplazamiento horizontal */
+}
+
+/* Hacer que el contenido se muestre correctamente */
 .show .dropdownContent {
-    display: block; /* Mostrar contenido del desplegable */
+    display: flex; /* Muestra el contenido */
+    flex-direction: row;
+    height: 180px; /* Mantener el scroll habilitado */
 }
 
 .show {
     transform: translateY(0); /* Mueve el botón hacia arriba */
+}
+
+
+/* aaa */
+.Vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.Horizontal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.VerticalDos {
+    display: flex;
+    flex-direction: column;
+}
+
+.HorizontalDos {
+    display: flex;
+    flex-direction: row;
+}
+.Jugador{
+    margin: 10px;
+}
+
+.Mco {
+    margin-left: 150px;
+}
+
+.Extremos{
+    margin-right: 250px;
+}
+
+.Delantero{
+    margin-left: 150px;
 }
