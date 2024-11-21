@@ -179,17 +179,13 @@ export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADib
                         </div>
                         <div className={styles.divConjuntoCartaBox}>
                             <div className={styles.ConjuntoCartas}>
-<<<<<<< Updated upstream
-                                {cincoJugadores.map((jugador) => (
-                                    <div className={styles.divCarta}>
-=======
+
                                 {cincoJugadores.map((jugador, index) => (
                                     <div
                                         key={jugador.PlayerId}
                                         className={`animate__animated animate__fadeIn ${styles.laCarta}`}
                                         style={{ animationDelay: `${index * 0.5}s` }}
                                     >
->>>>>>> Stashed changes
                                         <Card
                                             isSmall={true}
                                             posicion={jugador.Posicion}
@@ -212,13 +208,8 @@ export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADib
             ) : (
                 <div onClick={handleClick}>
                     {cartaVacia && cartaVacia && (
-<<<<<<< Updated upstream
                             <CartaVacia></CartaVacia>
                         )}
-=======
-                        <CartaVacia></CartaVacia>
-                    )}
->>>>>>> Stashed changes
                 </div>
             )}
 

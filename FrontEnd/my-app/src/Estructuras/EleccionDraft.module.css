@@ -72,18 +72,11 @@
     background: linear-gradient(180deg, rgb(250, 217, 72),  #cc2222);
     box-shadow: 0 0px 20px #00ffff;
     justify-content: center;
-<<<<<<< Updated upstream
     border-radius: 10px;
     color: rgb(255, 255, 255);
     text-shadow:
     0 0 5px rgb(0, 191, 255),
     0 0 10px rgb(0, 191, 255);
-}
-
-.divCarta{
-    background-color: #00ffff;
-    border: solid 0.1px red;
-    height: 100%;
 }
 
 .divConjuntoCartaBox{
@@ -92,15 +85,16 @@
     display: flex;
     align-items: center;
 }
-=======
-}
+
 
 .laCarta {
     animation-duration: 0.5s; /* Duración de la animación */
     animation-fill-mode: both; /* Mantiene el estado después de la animación */
+    background-color: #00ffff;
+    border: solid 0.1px red;
+    height: 100%;
 }
 
 /* .laCarta :hover {
     background-color: aqua;
 } */
->>>>>>> Stashed changes
