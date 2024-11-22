@@ -106,7 +106,7 @@ export default function Juego({ EquipoDeTres }) {
         };
 
         try {
-            const response = await fetch('http://localhost:4000/EnvioPuntaje', {
+            const response = await fetch('http://10.1.5.136:3000/EnvioPuntaje', { 
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -155,7 +155,7 @@ export default function Juego({ EquipoDeTres }) {
     async function obtenerEquipo() {
         const playersId = EquipoDeTres;
         try {
-            const response = await fetch(`http://localhost:4000/EquipoDefinido?playersId=${playersId}`, {
+            const response = await fetch(`http://10.1.5.136:3000/EquipoDefinido?playersId=${playersId}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
