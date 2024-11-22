@@ -258,8 +258,8 @@ io.on("connection", (socket) => {
         io.to(data.codigo).emit('mensajeDos', {mesajeFeli: data.ranking, codigo: data.codigo});
     })
 
-    socket.on("Estoy Listo", data => {
-        console.log(data)
+    socket.on("EstoyListo", data => {
+        console.log("SOY BACK", data)
         if (data.Estado == 1) {
             io.to(data.room).emit('Jugadores Listos', {UserId: data.UserId})
         } else {

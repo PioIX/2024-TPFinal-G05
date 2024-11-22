@@ -70,7 +70,8 @@ export default function futbolitosBattle() {
         }
         equipo[0].shift()
         setMensajeError(false); 
-        socket.emit("Estoy Listo", { Estado: 1, UserId: userID, room: codigo });
+        console.log("HOLA")
+        socket.emit("EstoyListo", { Estado: 1, UserId: userID, room: codigo });
         setBloqueado(true);  
         setMensajeEstado("Esperando a... ");
         
