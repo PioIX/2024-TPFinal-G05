@@ -18,7 +18,7 @@ export default function RankingTable({ cadenaUsuarios }) {
         console.log(queryString)
         
         try {
-            const response = await fetch(`http://localhost:4000/PlayerXUserDetalles?${queryString}`, {
+            const response = await fetch(`http://10.1.5.136:3000/PlayerXUserDetalles?${queryString}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
