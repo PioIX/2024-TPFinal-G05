@@ -89,7 +89,7 @@ export default function futbolitosBattle() {
             const data = {
                 Codigo: nuevaSala
             }
-            const response = await fetch('http://10.1.5.136:3000/NuevaSala', {
+            const response = await fetch('http://10.1.5.136:4000/NuevaSala', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
