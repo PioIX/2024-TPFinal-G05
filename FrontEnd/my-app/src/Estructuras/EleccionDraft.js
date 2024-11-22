@@ -28,7 +28,7 @@ export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADib
     const [error, setError] = useState(false)
 
     async function PlayersTodos() {
-        const response = await fetch(`http://10.1.5.136:3000/Player`, {
+        const response = await fetch(`http://10.1.5.136:4000/Player`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

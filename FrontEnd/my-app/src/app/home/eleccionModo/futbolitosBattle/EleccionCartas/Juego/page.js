@@ -155,7 +155,7 @@ export default function Juego({ EquipoDeTres }) {
     async function obtenerEquipo() {
         const playersId = EquipoDeTres;
         try {
-            const response = await fetch(`http://10.1.5.136:3000/EquipoDefinido?playersId=${playersId}`, {
+            const response = await fetch(`http://10.1.5.136:4000/EquipoDefinido?playersId=${playersId}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

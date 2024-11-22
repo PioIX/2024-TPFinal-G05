@@ -25,7 +25,7 @@ export default function futbolitosBattle() {
     const codigo = localStorage.getItem("codigoSalaBattle");
 
     async function PlayersDelUsuario() {
-        const response = await fetch(`http://10.1.5.136:3000/PlayerXUserDetalles?userID=${userID}`, {
+        const response = await fetch(`http://10.1.5.136:4000/PlayerXUserDetalles?userID=${userID}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

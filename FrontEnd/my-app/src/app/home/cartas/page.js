@@ -19,7 +19,7 @@ export default function Cartas() {
     }
 
     async function PlayersTodos() {
-        const response = await fetch('http://localhost:4000/Player', {
+        const response = await fetch('http://10.1.5.136:4000/Player', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export default function Cartas() {
 
     async function PlayersDelUsuario() {
         const userID = localStorage.getItem("userID");
-        const response = await fetch(`http://localhost:4000/PlayerXUserDetalles?userID=${userID}`, {
+        const response = await fetch(`http://10.1.5.136:4000/PlayerXUserDetalles?userID=${userID}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

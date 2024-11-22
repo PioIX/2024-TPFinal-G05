@@ -18,7 +18,7 @@ export default function Paquete({ onClickButton, onClickButtonDos }) {
 
     // Función para obtener todos los jugadores
     async function PlayersTodos() {
-        const response = await fetch(`http://10.1.5.136:3000/Player`, {
+        const response = await fetch(`http://10.1.5.136:4000/Player`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

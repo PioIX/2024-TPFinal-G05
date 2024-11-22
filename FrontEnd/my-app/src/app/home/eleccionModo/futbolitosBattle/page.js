@@ -47,7 +47,7 @@ export default function futbolitosBattle() {
     }
 
     async function traigoSalasCreadas() {
-        const response = await fetch('http://10.1.5.136:3000/Salas', {
+        const response = await fetch('http://10.1.5.136:4000/Salas', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

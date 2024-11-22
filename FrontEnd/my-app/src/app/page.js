@@ -38,7 +38,7 @@ export default function Home() {
     const toggleMode = () => setIngreso(!Ingreso);
 
     async function PedidoUsuarios() {
-        const response = await fetch('http://10.1.5.136:3000/Usuario', {
+        const response = await fetch('http://10.1.5.136:4000/Usuario', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export default function Home() {
                 UserPassword: inputUserPassword,
             }
             console.log("Usuario es ", data)
-            const response = await fetch('http://localhost:4000/ExisteUsuario', {
+            const response = await fetch('http://10.1.5.136:4000/ExisteUsuario', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -106,7 +106,7 @@ export default function Home() {
                 Apellido: inputNewApellido,
             }
 
-            const response = await fetch('http://localhost:4000/NuevoUser', {
+            const response = await fetch('http://10.1.5.136:4000/NuevoUser', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
