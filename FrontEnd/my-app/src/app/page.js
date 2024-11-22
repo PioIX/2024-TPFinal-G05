@@ -38,7 +38,7 @@ export default function Home() {
     const toggleMode = () => setIngreso(!Ingreso);
 
     async function PedidoUsuarios() {
-        const response = await fetch('http://localhost:4000/Usuario', {
+        const response = await fetch('http://10.1.5.136:3000/Usuario', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

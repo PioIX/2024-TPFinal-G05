@@ -9,7 +9,7 @@ export default function Ranking() {
     const { socket, isConnected } = useSocket();
     
     async function rankingUsuario() {
-        const response = await fetch(`http://localhost:4000/Ranking`, {
+        const response = await fetch(`http://10.1.5.136:3000/Ranking`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

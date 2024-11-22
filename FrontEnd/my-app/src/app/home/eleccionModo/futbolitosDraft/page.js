@@ -48,7 +48,7 @@ export default function FutbolitosDraft() {
     console.log("La media del equipo es:", mediaEquipo);
 
     async function PlayersTodos() {
-        const response = await fetch('http://localhost:4000/Player', {
+        const response = await fetch('http://10.1.5.136:3000/Player', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

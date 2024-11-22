@@ -46,7 +46,7 @@ export default function MensajeFin({ resultado }) {
                             <Texto variant="NavTitle" text={resultado} className={styles.title}></Texto>
                             <Texto variant="p" text="¡Bien ahí! Te ganaste dos sobres para completar la colección" className={styles.text}></Texto>
                         </div>
-                        <img src="/images/ii.png" className={styles.corpiño}></img>
+                        <img src="/images/CopaMundo.png" className={styles.corpiño}></img>
                         <Button
                             onClick={() => setMostrarSobreDos(true)}
                             text="Reclamar"
@@ -60,6 +60,7 @@ export default function MensajeFin({ resultado }) {
                             <Texto variant="NavTitle" text={resultado} className={styles.title}></Texto>
                             <Texto variant="p" text="Mala suerte esta vez. ¡Te regalamos un sobre de consuelo!" className={styles.text}></Texto>
                         </div>
+                        <img src="/images/RonaldoLlorando.png" className={styles.corpiño}></img>
                         <Button
                             onClick={() => setMostrarSobre(true)}
                             text="Reclamar"
@@ -73,6 +74,7 @@ export default function MensajeFin({ resultado }) {
                             <Texto variant="NavTitle" text={resultado} className={styles.title}></Texto>
                             <Texto variant="p" text="Empataste, pero no te preocupes, te regalamos un sobre por lástima." className={styles.text}></Texto>
                         </div>
+                        <img src="/images/MessientoEnojado.png" className={styles.corpiño}></img>
                         <Button
                             onClick={() => setMostrarSobre(true)}
                             text="Reclamar"
