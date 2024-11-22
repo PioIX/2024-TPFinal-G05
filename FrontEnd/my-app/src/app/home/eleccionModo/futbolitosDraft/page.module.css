@@ -144,14 +144,11 @@
     font-size: 60px;
     color: white;
     text-shadow:
-<<<<<<< Updated upstream
-        0 0 2px #00e5ff,
-        0 0 5px #ffffff;
+    0 0 2px #00e5ff,
+    0 0 5px #ffffff;
     flex-direction: column;
     gap: 1em;
-    background-color: rgba(0, 0, 0, 0.7);  /* Fondo oscuro con opacidad */
 }
-
 
 .loader {
     border: 16px solid #ffe600;

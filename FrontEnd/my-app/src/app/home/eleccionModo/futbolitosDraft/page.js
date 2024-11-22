@@ -77,7 +77,7 @@ export default function FutbolitosDraft() {
     }, []);
 
     if (cargando) {
-        return <div className={styles.divloader}><div className={styles.loader}></div></div>;
+        return <div className={styles.divloader}><div>No seas ansioso espera un toque</div><div className={styles.loader}></div></div>;
     }
 
     return (
@@ -129,9 +129,7 @@ export default function FutbolitosDraft() {
                 <div className={styles.divLogOutDos}>
                     <p>LISTO</p>
                 </div>
-                {estadisticasFinales && (
-                    
-                )}
+                
                 {/*<div>
                     <div className={`${styles.container} ${isVisible ? styles.show : ''}`}>
                         <div className={styles.dropdownContent}>
