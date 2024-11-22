@@ -14,7 +14,17 @@ export default function FutbolitosDraft() {
 
     const [jugadorSeleccionado, setJugadorSeleccionado] = useState(null)
     const [loRecibio, setLoRecibio] = useState(false)
+    const [jugadorUnoFront, setJugadorUnoFront] = useState(null)
+    const [jugadoresDelEquipo, setJugadoresDelEquipo] = useState([])
 
+    function terminado () {
+        var media = 
+        setMedioDelEquipo()
+    }
+    useEffect(() => {
+        jugadoresDelEquipo.push(jugadorUnoFront)
+    },[jugadorUnoFront])
+    console.log(jugadoresDelEquipo)
     async function PlayersTodos() {
         const response = await fetch('http://localhost:4000/Player', {
             method: "GET",
@@ -56,7 +66,7 @@ export default function FutbolitosDraft() {
                 <div className={styles.Horizontal}>
                     <div className={styles.Vertical}>
                         <div className={styles.Jugador}>
-                            <EleccionDraft posicion="PO" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador), setLoRecibio(true) }} cartaADibujar={jugadorSeleccionado} loRecibio={loRecibio}></EleccionDraft>
+                            <EleccionDraft jugadorUno = {() => {setJugadorUnoFront(jugadorUno)}} posicion="PO" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador), setLoRecibio(true) }} cartaADibujar={jugadorSeleccionado} loRecibio={loRecibio}></EleccionDraft>
                         </div>
                     </div>
                     <div className={styles.Vertical}>

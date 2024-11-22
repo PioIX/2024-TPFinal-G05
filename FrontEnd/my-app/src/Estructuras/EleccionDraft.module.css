@@ -85,7 +85,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center;z-index: 9999;
 }
 
 .laCarta {
@@ -99,4 +99,12 @@
     align-items: center;
     justify-content: center;
     border-radius: 5px;
+    
+}
+
+.laCarta :hover {
+    background:none;
+}
+.ConjuntoCartas :hover {
+    background-color: rgb(255, 0, 183);
 }
