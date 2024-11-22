@@ -14,6 +14,7 @@ export default function Paquete({ onClickButton, onClickButtonDos }) {
     const [jugadoresTodos, setJugadoresTodos] = useState([])
     const [mensajeNoHayJugadores, setMensajeNoHayJugadores] = useState(false)
     const [otroBoton, setOtroBoton] = useState(false)
+    const [cargando, setCargando] = useState(true); // Estado de carga
 
     // Función para obtener todos los jugadores
     async function PlayersTodos() {
@@ -40,6 +41,7 @@ export default function Paquete({ onClickButton, onClickButtonDos }) {
         
         console.log(PlayerXUser); // Todos LOS JUGADORES
         setJugadoresTodos(PlayerXUser)
+        setCargando(false);
         return PlayerXUser;
     }
 
@@ -67,6 +69,7 @@ export default function Paquete({ onClickButton, onClickButtonDos }) {
         }));
         console.log(PlayerXUser)
         setJugadoresUser(PlayerXUser);
+        
     }
 
     async function AbroSobres(jugadores) {
@@ -124,6 +127,10 @@ export default function Paquete({ onClickButton, onClickButtonDos }) {
             setDesvanecer(false);
         }, 500);
     };
+
+    if (cargando) {
+        return <div className={styles.divloader}><div className={styles.loader}></div></div>; // O algún otro componente de carga
+    }
 
     return (
         <div className={styles.container}>
