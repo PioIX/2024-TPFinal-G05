@@ -9,6 +9,7 @@ export default function FutbolitosDraft() {
     const [isVisible, setIsVisible] = useState(false);
     const [todosJugadores, setTodosJugadores] = useState([])
     const [jugadorUno, setJugadorUno] = useState([])
+    const [cargando, setCargando] = useState(true);
     const toggleDropdown = () => { setIsVisible(!isVisible); };
 
     const [jugadorSeleccionado, setJugadorSeleccionado] = useState(null)
@@ -39,11 +40,16 @@ export default function FutbolitosDraft() {
         }));
 
         setTodosJugadores(PlayerXUser)
+        setCargando(false)
     }
 
     useEffect(() => {
         PlayersTodos();
     }, []);
+
+    if (cargando) {
+        return <div className={styles.divloader}><div>No seas ansioso espera un toque</div><div className={styles.loader}></div></div>; // O algún otro componente de carga
+    }
     return (
         <>
             <section>
