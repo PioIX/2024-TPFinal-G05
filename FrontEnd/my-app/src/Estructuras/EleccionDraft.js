@@ -7,8 +7,9 @@ import Button from "@/Components/Button";
 import CartaVacia from "@/Components/CartaVacia";
 import 'animate.css';
 import { getDisplayName } from "next/dist/shared/lib/utils";
+import CardFantasy from "./CardFantasy";
 
-export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADibujar, loRecibio }) {
+export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADibujar, loRecibio, setJugadorUnoFront }) {
     const [jugadoresId, setJugadoresId] = useState([])
     const [abrio, setAbrio] = useState(false);
     const [desvanecer, setDesvanecer] = useState(false);
@@ -102,6 +103,7 @@ export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADib
         setAbrio(false)
         setCartaVacia(false)
         setOtraFuncion(true)
+        setJugadorUnoFront(jugador)
     }
 
     function jugadorACambiar(jugador) {
@@ -139,23 +141,24 @@ export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADib
                 <>
                     {JugadorUno && (
                         <>
-                            <Card
-                                isSmall={true}
-                                posicion={JugadorUno.Posicion}
-                                nacionalidad={JugadorUno.Nacionalidad}
-                                imagenJugador={JugadorUno.Imagen}
-                                escudo={JugadorUno.Equipo}
-                                nombreJugador={JugadorUno.Apellido}
-                                ataque={JugadorUno.Ataque}
-                                control={JugadorUno.Control}
-                                defensa={JugadorUno.Defensa}
-                                onClick={() => jugadorACambiar(JugadorUno)}
-                            />
+                            
+                            <CardFantasy
+                            isSmall={true}
+                            posicion={JugadorUno.Posicion}
+                            nacionalidad={JugadorUno.Nacionalidad}
+                            imagenJugador={JugadorUno.Imagen}
+                            escudo={JugadorUno.Equipo}
+                            nombreJugador={JugadorUno.Apellido}
+                            ataque={JugadorUno.Ataque}
+                            control={JugadorUno.Control}
+                            defensa={JugadorUno.Defensa}
+                            onClick={() => jugadorACambiar(JugadorUno)}
+                            ></CardFantasy>
                         </>
                     )}
                     {cambio && (
                         <>
-                            <Card
+                            <CardFantasy
                                 isSmall={true}
                                 posicion={cambio.Posicion}
                                 nacionalidad={cambio.Nacionalidad}
@@ -186,7 +189,7 @@ export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADib
                                         className={`animate__animated animate__fadeIn ${styles.laCarta}`}
                                         style={{ animationDelay: `${index * 0.5}s` }}
                                     >
-                                        <Card
+                                        <CardFantasy
                                             isSmall={true}
                                             posicion={jugador.Posicion}
                                             nacionalidad={jugador.Nacionalidad}

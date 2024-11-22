@@ -134,3 +134,57 @@
 .Delantero{
     margin-left: 150px;
 }
+
+.divloader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: "Russo One", sans-serif;
+    font-size: 60px;
+    color: white;
+    text-shadow:
+    0 0 2px #00e5ff,
+    0 0 5px #ffffff;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.loader {
+    border: 16px solid #ffe600;
+    border-top: 16px solid #00b7ff;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+  }
+  
+  /* Add some glow effect */
+  .loader::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 50%;
+    box-shadow: inset 0px 0px 20px #00b7ff;
+  }
+  
+  /* Rotate the circle */
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .divLogOut {
+    position: fixed; /* O absolute, según necesites */
+    top: 20px; /* Ajusta la distancia desde la parte superior */
+    left: 20px; /* Ajusta la distancia desde el lado izquierdo */
+    z-index: 1000; /* Asegúrate de que esté encima de otros elementos */
+  }

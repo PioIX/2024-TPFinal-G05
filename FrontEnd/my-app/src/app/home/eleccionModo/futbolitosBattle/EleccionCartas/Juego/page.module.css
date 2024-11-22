@@ -33,7 +33,6 @@
 }
 
 .fondo {
-
     width: 100%;
     /* Asegura que el fondo ocupe todo el ancho del contenedor */
     height: 100%;
@@ -59,8 +58,9 @@
     height:110%;
 
 
+
     background: linear-gradient(270deg, rgb(16, 0, 42), #17000a);
-    margin-top: -10em;
+
 }
 
 .carta {

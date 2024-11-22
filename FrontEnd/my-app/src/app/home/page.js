@@ -70,7 +70,7 @@ export default function Home() {
                         <Paquete onClickButton={abrirPaquete} />
                     )}
                     {segundoPaquete && (
-                        <Paquete onClickButton={abrirPaquete} />
+                        <Paquete onClickButton={abrirPaquete}/>
                     )}
                 </>
             ) : (
