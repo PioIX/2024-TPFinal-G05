@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import Texto from "@/Components/Texto";
-import styles from "./MensajeFin.module.css"
+import styles from "./MensajeFin.module.css";
 import Paquete from "@/Estructuras/Paquete";
 import { useEffect, useState } from "react";
 import Button from "@/Components/Button";
@@ -13,27 +13,27 @@ export default function MensajeFin({ resultado }) {
     const [mensajePerdiste, setMensajePerdiste] = useState(false);
     const [mensajeEmpataste, setMensajeEmpataste] = useState(false);
 
-    const [mostrarSobre, setMostrarSobre] = useState(false)
-    const [mostrarSobreDos, setMostrarSobreDos] = useState(false)
-    const [mostrarSobreTres, setMostrarSobreTres] = useState(false)
+    const [mostrarSobre, setMostrarSobre] = useState(false);
+    const [mostrarSobreDos, setMostrarSobreDos] = useState(false);
+    const [mostrarSobreTres, setMostrarSobreTres] = useState(false);
 
     useEffect(() => {
         if (resultado === "Ganaste") {
-            setMensajeGanaste(true)
+            setMensajeGanaste(true);
         } else if (resultado === "Perdiste") {
-            setMensajePerdiste(true)
+            setMensajePerdiste(true);
         } else if (resultado === "Empataste") {
-            setMensajeEmpataste(true)
+            setMensajeEmpataste(true);
         }
-    })
+    });
 
-    function abroElOtroSobre(){ 
-        setMensajeEmpataste(false)
-        setMostrarSobreDos(false)
-        setMostrarSobreTres(true)
+    function abroElOtroSobre() {
+        setMensajeEmpataste(false);
+        setMostrarSobreDos(false);
+        setMostrarSobreTres(true);
     }
 
-    function continuar () {
+    function continuar() {
         router.push('/home');
     }
 
@@ -41,64 +41,53 @@ export default function MensajeFin({ resultado }) {
         <div className={styles.container}>
             <div className={styles.cuadro}>
                 {mensajeGanaste && (
-                    <>
-                        <div className = {styles.message}>
-                            <div>
-                                <Texto variant="NavTitle" text={resultado}></Texto>
-                                <Texto variant="p" text="Bien ahi, te ganaste dos sobres para que completes la coleccion"></Texto>
-                            </div>
-                            <div>
-                                <img src = "/images/CopaDelMundo.png" className={styles.corpiño}></img>
-                                <Button onClick={() => setMostrarSobreDos(true)} text = "Reclamar"></Button>
-                            </div>
+                    <div className={styles.message}>
+                        <div>
+                            <Texto variant="NavTitle" text={resultado} className={styles.title}></Texto>
+                            <Texto variant="p" text="¡Bien ahí! Te ganaste dos sobres para completar la colección" className={styles.text}></Texto>
                         </div>
-                    </>
+                        <img src="/images/ii.png" className={styles.corpiño}></img>
+                        <Button
+                            onClick={() => setMostrarSobreDos(true)}
+                            text="Reclamar"
+                            className={styles.reclamarButton}
+                        />
+                    </div>
                 )}
                 {mensajePerdiste && (
-                    <>
-                        <div className = {styles.dentroContainer} >
-                            <div>
-                                <Texto variant="NavTitle" text={resultado}></Texto>
-                                <Texto variant="p" text="Mala suerte esta vez, tenes mas chances de sumar jugadores la proxima, te regalamos un sobre de consuelo malo"></Texto>
-                            </div>
-                            <div>
-                                <img></img>
-                            </div>
-                        </div>
-
+                    <div className={styles.message}>
                         <div>
-                            <Button onClick={() => setMostrarSobre(true)} text = "Reclamar"></Button>
+                            <Texto variant="NavTitle" text={resultado} className={styles.title}></Texto>
+                            <Texto variant="p" text="Mala suerte esta vez. ¡Te regalamos un sobre de consuelo!" className={styles.text}></Texto>
                         </div>
-                    </>
+                        <Button
+                            onClick={() => setMostrarSobre(true)}
+                            text="Reclamar"
+                            className={styles.reclamarButton}
+                        />
+                    </div>
                 )}
                 {mensajeEmpataste && (
-                    <>
+                    <div className={styles.message}>
                         <div>
-                            <div>
-                                <Texto variant="NavTitle" text={resultado}></Texto>
-                                <Texto variant="p" text="Que tibio, empateste, no te preocupes, te regalamos un sobre por lastima"></Texto>
-                            </div>
-                            <div>
-                                <img></img>
-                            </div>
+                            <Texto variant="NavTitle" text={resultado} className={styles.title}></Texto>
+                            <Texto variant="p" text="Empataste, pero no te preocupes, te regalamos un sobre por lástima." className={styles.text}></Texto>
                         </div>
-                        <div>
-                            <Button onClick={() => setMostrarSobre(true)} text = "Reclamar"></Button>
-                        </div>
-                    </>
+                        <Button
+                            onClick={() => setMostrarSobre(true)}
+                            text="Reclamar"
+                            className={styles.reclamarButton}
+                        />
+                    </div>
                 )}
-                {mostrarSobre && (
-                    <Paquete onClickButton={continuar} onClickButtonDos={continuar}/>
-                )}
+                {mostrarSobre && <Paquete onClickButton={continuar} onClickButtonDos={continuar} />}
                 {mostrarSobreDos && (
                     <>
                         <Paquete onClickButton={abroElOtroSobre} onClickButtonDos={continuar} />
-                        {mostrarSobreTres && (
-                            <Paquete onClickButton={continuar} onClickButtonDos={continuar}/>
-                        )}
+                        {mostrarSobreTres && <Paquete onClickButton={continuar} onClickButtonDos={continuar} />}
                     </>
                 )}
             </div>
-        </div >
-    )
+        </div>
+    );
 }
