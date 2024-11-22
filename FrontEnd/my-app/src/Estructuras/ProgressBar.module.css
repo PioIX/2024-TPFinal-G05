@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: auto;
+    border-radius: 50%;
+  }
+  
+  .circleWrapper {
+    position: relative;
+    width: 200;
+    height: 300;
+    transform: rotate(-90deg); /* Rotar para que comience desde la parte superior */
+  }
+  
+  .circleBackground, .circleProgress {
+    fill: none;
+    stroke-width: 10; /* Ancho del círculo */
+    transform: rotate(90deg); /* Para iniciar el progreso desde el 0% */
+    transition: stroke-dasharray 0.3s ease-in-out;
+  }
+  
+  .circleBackground {
+    stroke: #ddd; /* Color de fondo */
+  }
+  
+  .circleProgress {
+    stroke: #4caf50; /* Color de la barra de progreso */
+    stroke-linecap: round;
+  }
+  
+  .percentageLabel {
+    position: absolute;
+    font-size: 21px;
+    font-weight: bold;
+    color: #333;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  

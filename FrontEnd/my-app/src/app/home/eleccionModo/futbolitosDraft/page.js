@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Card from "@/Estructuras/Card";
 import EleccionDraft from "@/Estructuras/EleccionDraft";
+import StarRating from "@/Estructuras/StarRating";
+import ResumenFantasy from "@/Estructuras/ResumenFantasy";
 
 export default function FutbolitosDraft() {
     const [isVisible, setIsVisible] = useState(false);
@@ -15,6 +17,8 @@ export default function FutbolitosDraft() {
     const [loRecibio, setLoRecibio] = useState(false);
     const [jugadoresDelEquipo, setJugadoresDelEquipo] = useState([]);
     const [jugadorFijoUno, setJugadorFijoUno] = useState(null);
+
+    const [estadisticasFinales, setEstadisticasFinales] = useState(false);
 
     useEffect(() => {
         if (jugadorFijoUno) {
@@ -67,42 +71,83 @@ export default function FutbolitosDraft() {
         setTodosJugadores(PlayerXUser);
 
         // Cambiar el estado de cargando a false después de 4 segundos
-        setTimeout(() => {
-            setCargando(false);
-        }, 3000);
     }
 
     useEffect(() => {
         PlayersTodos();
+        setTimeout(() => {
+            setCargando(false);
+        }, 1000);
     }, []);
 
     if (cargando) {
         return <div className={styles.divloader}><div>No seas ansioso espera un toque</div><div className={styles.loader}></div></div>;
     }
 
+
     return (
         <>
             <section>
-                <div className={styles.Horizontal}>
-                    <div className={styles.Vertical}>
-                        <div className={styles.Jugador}>
-                            <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="PO" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador), setLoRecibio(true) }} cartaADibujar={jugadorSeleccionado} loRecibio={loRecibio}></EleccionDraft>
+                {!estadisticasFinales && (
+                    <>
+                        <div className={styles.Horizontal}>
+                            <div className={styles.Vertical}>
+                                <div className={styles.Jugador}>
+                                    <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="PO" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador), setLoRecibio(true) }} cartaADibujar={jugadorSeleccionado} loRecibio={loRecibio}></EleccionDraft>
+                                </div>
+                            </div>
+                            <div className={styles.Vertical}>
+                                <div className={styles.Jugador} >
+                                    <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="DFI" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }} cartaADibujar={jugadorSeleccionado} loRecibio={loRecibio}></EleccionDraft>
+                                </div>
+                                <div className={styles.Jugador}>
+                                    <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="DFC" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }}></EleccionDraft>
+                                </div>
+                                <div className={styles.Jugador}>
+                                    <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="DFC" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }}></EleccionDraft>
+                                </div>
+                                <div className={styles.Jugador}>
+                                    <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="DFD" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }}></EleccionDraft>
+                                </div>
+                            </div>
+                            <div className={styles.Vertical}>
+                                <div className={styles.Jugador}>
+                                    <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="MC" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }}></EleccionDraft>
+                                </div>
+                                <div className={styles.Mco}>
+                                    <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="MC" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }}></EleccionDraft>
+                                </div>
+                                <div className={styles.Jugador}>
+                                    <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="MC" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }} ></EleccionDraft>
+                                </div>
+                            </div>
+                            <div className={styles.Vertical}>
+                                <div className={styles.Extremos}>
+                                    <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="EI" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }} ></EleccionDraft>
+                                </div>
+                                <div className={styles.Delantero}>
+                                    <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="DC" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }} ></EleccionDraft>
+                                </div>
+                                <div className={styles.Extremos}>
+                                    <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="ED" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }} ></EleccionDraft>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div className={styles.Vertical}>
-                        <div className={styles.Jugador} >
-                            <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="DFI" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }} cartaADibujar={jugadorSeleccionado} loRecibio={loRecibio}></EleccionDraft>
+                        <div className={styles.divLogOutTres}>
+                            <StarRating rating={mediaEquipo}></StarRating>
                         </div>
-                        <div className={styles.Jugador}>
-                            <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="DFC" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }}></EleccionDraft>
+
+                        <div className={styles.divLogOutDos}>
+                            <p>LISTO</p>
                         </div>
+
                         <div className={styles.Jugador}>
                             <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="DFC" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }}></EleccionDraft>
                         </div>
                         <div className={styles.Jugador}>
                             <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="DFD" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }}></EleccionDraft>
                         </div>
-                    </div>
+
                     <div className={styles.Vertical}>
                         <div className={styles.Jugador}>
                             <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="MC" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }}></EleccionDraft>
@@ -125,11 +170,20 @@ export default function FutbolitosDraft() {
                             <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="ED" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }} ></EleccionDraft>
                         </div>
                     </div>
-                </div>
+
                 <div className={styles.divLogOutDos}>
                     <p>LISTO</p>
                 </div>
                 
+
+                    </>
+                )}
+
+                {estadisticasFinales && (
+                    <>
+                    </>
+                    // <ResumenFantasy></ResumenFantasy>
+                )}
                 {/*<div>
                     <div className={`${styles.container} ${isVisible ? styles.show : ''}`}>
                         <div className={styles.dropdownContent}>

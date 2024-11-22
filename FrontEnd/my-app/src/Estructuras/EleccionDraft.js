@@ -25,6 +25,7 @@ export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADib
     const [jugadorInicial, setJugadorInicial] = useState(null)
     const [cambio, setCambio] = useState(null)
     const [quieroCambiar, setQuieroCambiar] = useState(false)
+    const [error, setError] = useState(false)
 
     async function PlayersTodos() {
         const response = await fetch(`http://localhost:4000/Player`, {
@@ -58,8 +59,8 @@ export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADib
         console.log(`Jugadores disponibles para la posición "${posicion}":`, jugadoresFiltrados);
 
         if (jugadoresFiltrados.length < 5) {
-            alert("No hay suficientes jugadores disponibles para esta posición.");
-            return;
+            alert("Cargando Jugadores..", setAbrio(!abrio));
+            
         }
 
         const barajar = (array) => {
@@ -74,6 +75,9 @@ export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADib
         setCincoJugadores(jugadoresAleatorios);
 
         console.log("IDs de los jugadores aleatorios:", jugadoresAleatorios.map((player) => player.PlayerId));
+        if (jugadoresAleatorios.length === 0) {
+            setAbrio(false)
+        }
     }
 
     useEffect(() => {
