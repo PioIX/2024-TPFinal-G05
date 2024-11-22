@@ -108,38 +108,10 @@ export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADib
         setCartaVacia(false)
         setOtraFuncion(true)
         jugadorUno(Math.round(((jugador.Ataque + jugador.Control + jugador.Defensa) / 3) + 7)) 
-    }
-
-    function jugadorACambiar(jugador) {
-        jugadorSeleccionado(jugador);
-        setJugadorInicial(jugador)
+        jugadorSeleccionado(jugador)
     }
 
 
-
-
-    useEffect(() => {
-        if (cartaADibujar) {
-            setCambio(cartaADibujar)
-            setJugadorUno(null)
-        } else {
-            setCambio(cartaADibujar)
-            setJugadorUno(null)
-        }
-        console.log("aa")
-        console.log("Jugador que Seleccione ", jugadorInicial)
-        console.log( "Jugador Que va a rotar (el segundo Click) ", cartaADibujar)
-    }, [])
-
-    
-
-
-
-    // useEffect (()=>{
-    //     if(cartaADibujar && posicionADibujar){
-    //         setJugadorUno(cartaADibujar)
-    //     }
-    // }, [cartaADibujar, posicionADibujar])
 
     return (
         <>
@@ -158,7 +130,6 @@ export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADib
                             ataque={JugadorUno.Ataque}
                             control={JugadorUno.Control}
                             defensa={JugadorUno.Defensa}
-                            onClick={() => jugadorACambiar(JugadorUno)}
                             ></CardFantasy>
                         </>
                     )}
@@ -174,7 +145,6 @@ export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADib
                                 ataque={cambio.Ataque}
                                 control={cambio.Control}
                                 defensa={cambio.Defensa}
-                                onClick={() => jugadorACambiar(cambio)}
                             />
                         </>
                     )}

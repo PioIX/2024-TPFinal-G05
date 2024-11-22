@@ -35,6 +35,22 @@
     0 0 7px #ffcc00;
   /* Sombra amarilla muy fuerte */
 }
+.h22 {
+  font-family: "Russo One", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  color: #ffcc00;
+  /* /////////// */
+  font-size: 60px;
+  margin-top: -70px;
+  text-shadow:
+    0 0 5px #ffcc00,
+    /* Sombra amarilla más intensa */
+    0 0 7px #ffcc00;
+  /* Sombra amarilla muy fuerte */
+  margin-block-start: 0;
+    margin-block-end: 0;
+}
 
 .error {
   font-size: 13px;

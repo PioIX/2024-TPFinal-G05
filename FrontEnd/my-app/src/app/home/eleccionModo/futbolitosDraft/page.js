@@ -17,6 +17,7 @@ export default function FutbolitosDraft() {
     const [loRecibio, setLoRecibio] = useState(false);
     const [jugadoresDelEquipo, setJugadoresDelEquipo] = useState([]);
     const [jugadorFijoUno, setJugadorFijoUno] = useState(null);
+    const [jugadoresCompletosDelEquipo, setJugadoresCompletosDelEquipo] = useState([])
 
     const [estadisticasFinales, setEstadisticasFinales] = useState(false);
 
@@ -26,21 +27,23 @@ export default function FutbolitosDraft() {
         }
     }, [jugadorFijoUno]);
 
+    useEffect(() => {
+        if (jugadorSeleccionado) {
+            setJugadoresCompletosDelEquipo(prevJugadores => [...prevJugadores, jugadorSeleccionado]);
+        }
+    }, [jugadorSeleccionado]);
+
     function calcularMedia() {
-        // Crear un array con las medias de todos los jugadores
         const medias = jugadoresDelEquipo;
 
-        // Asegurarse de que haya jugadores antes de hacer el cálculo
         if (medias.length === 0) return 0;
 
         const suma = medias.reduce((acc, media) => acc + media, 0);
         const mediaTotal = suma / medias.length;
 
-        // Redondear la media hacia arriba
         return Math.ceil(mediaTotal);
     }
 
-    // Llamar la función para obtener la media
     const mediaEquipo = calcularMedia();
     console.log("La media del equipo es:", mediaEquipo);
 
@@ -69,8 +72,6 @@ export default function FutbolitosDraft() {
         }));
 
         setTodosJugadores(PlayerXUser);
-
-        // Cambiar el estado de cargando a false después de 4 segundos
     }
 
     useEffect(() => {
@@ -81,9 +82,67 @@ export default function FutbolitosDraft() {
     }, []);
 
     if (cargando) {
-        return <div className={styles.divloader}><div>No seas ansioso espera un toque</div><div className={styles.loader}></div></div>;
+        return <div className={styles.divloader}><div className={styles.loader}></div></div>;
     }
 
+    function obtenerMejorPorPosicion(posiciones) {
+        if (!jugadoresCompletosDelEquipo || jugadoresCompletosDelEquipo.length === 0) return null;
+        const jugadoresPorPosicion = jugadoresCompletosDelEquipo.filter(jugador =>
+            posiciones.includes(jugador.Posicion)
+        );
+        if (jugadoresPorPosicion.length === 0) return null;
+        const jugadoresConMedia = jugadoresPorPosicion.map(jugador => {
+            const media = Math.ceil((jugador.Ataque + jugador.Control + jugador.Defensa) / 3);
+            return { ...jugador, media };
+        });
+        return jugadoresConMedia.reduce((mejor, actual) => (actual.media > mejor.media ? actual : mejor));
+    }
+    
+    const mejorDelantero = obtenerMejorPorPosicion(["DC", "EI", "ED"]); 
+    const mejorDefensa = obtenerMejorPorPosicion(["DFC", "DFD", "DFI"]);
+    const mejorMediocentro = obtenerMejorPorPosicion(["MC"]); 
+
+    function calcularPromedioPorGrupo(posiciones) {
+        if (!jugadoresCompletosDelEquipo || jugadoresCompletosDelEquipo.length === 0) return 0;
+    
+        // Filtrar jugadores que pertenezcan a las posiciones dadas
+        const jugadoresGrupo = jugadoresCompletosDelEquipo.filter(jugador =>
+            posiciones.includes(jugador.Posicion)
+        );
+    
+        if (jugadoresGrupo.length === 0) return 0;
+    
+        // Calcular la media de cada jugador del grupo
+        const medias = jugadoresGrupo.map(jugador => {
+            return Math.ceil((jugador.Ataque + jugador.Control + jugador.Defensa) / 3);
+        });
+    
+        // Calcular el promedio del grupo
+        const suma = medias.reduce((acc, media) => acc + media, 0);
+        return (suma / medias.length).toFixed(2); // Redondear a 2 decimales
+    }
+    
+    const valueDefensa = calcularPromedioPorGrupo(["DFC", "DFD", "DFI"]);
+    const valueControl = calcularPromedioPorGrupo(["MC"]);
+    const valueAtaque = calcularPromedioPorGrupo(["DC", "EI", "ED"]);
+    
+    // Mostrar los resultados en consola
+    console.log("Promedio de defensas:", valueDefensa);
+    console.log("Promedio de medios:", valueControl);
+    console.log("Promedio de atacantes:", valueAtaque);
+
+    function listo () {
+        if (jugadoresCompletosDelEquipo.length === 11) {
+            setEstadisticasFinales(true);
+        } else {
+            alert(`Selecciona 11 jugadores para continuar. Actualmente tienes ${jugadoresCompletosDelEquipo.length}.`);
+        }
+        
+    }
+    
+    
+    
+    
 
     return (
         <>
@@ -137,52 +196,18 @@ export default function FutbolitosDraft() {
                             <StarRating rating={mediaEquipo}></StarRating>
                         </div>
 
-                        <div className={styles.divLogOutDos}>
+                        <div className={styles.divLogOutDos} onClick={listo}>
                             <p>LISTO</p>
                         </div>
-
-                        <div className={styles.Jugador}>
-                            <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="DFC" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }}></EleccionDraft>
-                        </div>
-                        <div className={styles.Jugador}>
-                            <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="DFD" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }}></EleccionDraft>
-                        </div>
-
-                    <div className={styles.Vertical}>
-                        <div className={styles.Jugador}>
-                            <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="MC" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }}></EleccionDraft>
-                        </div>
-                        <div className={styles.Mco}>
-                            <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="MC" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }}></EleccionDraft>
-                        </div>
-                        <div className={styles.Jugador}>
-                            <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="MC" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }} ></EleccionDraft>
-                        </div>
-                    </div>
-                    <div className={styles.Vertical}>
-                        <div className={styles.Extremos}>
-                            <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="EI" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }} ></EleccionDraft>
-                        </div>
-                        <div className={styles.Delantero}>
-                            <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="DC" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }} ></EleccionDraft>
-                        </div>
-                        <div className={styles.Extremos}>
-                            <EleccionDraft jugadorUno={(jugador) => { setJugadorFijoUno(jugador) }} posicion="ED" jugadorSeleccionado={(jugador) => { setJugadorSeleccionado(jugador) }} ></EleccionDraft>
-                        </div>
-                    </div>
-
-                <div className={styles.divLogOutDos}>
-                    <p>LISTO</p>
-                </div>
-                
 
                     </>
                 )}
 
                 {estadisticasFinales && (
                     <>
+                       <ResumenFantasy Delantero={mejorDelantero} Defensa={mejorDefensa} MedioCentro={mejorMediocentro} mediaEquipo={mediaEquipo} valueAtaque={valueAtaque} valueDefensa={valueDefensa} valueControl={valueControl}></ResumenFantasy>
                     </>
-                    // <ResumenFantasy></ResumenFantasy>
+                    
                 )}
                 {/*<div>
                     <div className={`${styles.container} ${isVisible ? styles.show : ''}`}>

@@ -1,0 +1,97 @@
+.container {
+    background-image: url("/images/fondoFutbolitosDraft.png");
+    height: 110vh;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 8888;
+    
+}
+
+
+.divGrande {
+    padding: 2em;
+    margin-top: 2.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    width: 80%;
+    height: 70%;
+    gap: 1em;
+    border: 0.1px solid #ffcc00;
+}
+
+.Horizontal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3em;
+}
+
+.contenedorDos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* gap: 4em; */
+}
+
+.Stadisticas {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.graficos {
+    padding: 1em 0 2em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    transition: all 0.3s ease-in-out;
+}
+
+.graficos:hover {
+    transform: scale(1.2);
+}
+
+.mejoresJugadores {
+    background-image: url("/images/cancha.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+
+    opacity: 0.8;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3.5em;
+    padding: 1em 0 5em 0;
+}
+
+.Recompensa {
+    display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-content: center;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 5em;
+}
+
+.Estrellas {
+    width: 100%;
+    height: auto;
+
+}
+.Texto {
+    text-align: right;
+    gap: 2em;
+    width: 100%;
+    height: auto;
+}

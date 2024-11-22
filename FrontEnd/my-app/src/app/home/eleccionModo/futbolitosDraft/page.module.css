@@ -215,6 +215,6 @@
   .divLogOutTres {
     position: fixed; /* O absolute, según necesites */
     top: 20px; /* Ajusta la distancia desde la parte superior */
-    left: 1470px; /* Ajusta la distancia desde el lado izquierdo */
+    left: 1430px; /* Ajusta la distancia desde el lado izquierdo */
     z-index: 1000; /* Asegúrate de que esté encima de otros elementos */
   }

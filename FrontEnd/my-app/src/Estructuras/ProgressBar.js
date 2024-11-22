@@ -1,6 +1,6 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import styles from './ProgressBar.module.css';
+"use client";
+import React, { useState, useEffect } from "react";
+import styles from "./ProgressBar.module.css";
 
 const ProgressBar = ({ value, size = 150 }) => {
   const [progress, setProgress] = useState(0);
@@ -14,41 +14,49 @@ const ProgressBar = ({ value, size = 150 }) => {
       } else {
         clearInterval(interval);
       }
-    }, 10); // Animación más fluida con intervalo de 10ms
-    return () => clearInterval(interval); // Limpiar intervalo en caso de que el componente se desmonte
+    }, 10);
+    return () => clearInterval(interval);
   }, [value]);
 
-  const radius = size / 2 - 10; // Radio del círculo, con margen para el grosor del borde
-  const circumference = 2 * Math.PI * radius; // Circunferencia del círculo
+  const strokeWidth = 10; // Ancho de la barra
+  const radius = size / 2 - strokeWidth; // Radio dinámico
+  const circumference = 2 * Math.PI * radius;
 
-  const strokeDasharray = circumference;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
   return (
-    <div className={styles.container} style={{ width: `${size}px`, height: `${size}px` }}>
-      <svg width={size} height={size} viewBox="0 0 120 120" className={styles.circleWrapper}>
-        {/* Círculo de fondo */}
+    <div
+      className={styles.container}
+      style={{ width: `${size}px`, height: `${size}px` }}
+    >
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        className={styles.circleWrapper}
+      >
+        {/* Fondo */}
         <circle
           className={styles.circleBackground}
-          cx="60"
-          cy="60"
+          cx={size / 2}
+          cy={size / 2}
           r={radius}
+          style={{ strokeWidth }}
         />
-        {/* Círculo de progreso */}
+        {/* Progreso */}
         <circle
           className={styles.circleProgress}
-          cx="60"
-          cy="60"
+          cx={size / 2}
+          cy={size / 2}
           r={radius}
           style={{
-            strokeDasharray: strokeDasharray,
-            strokeDashoffset: strokeDashoffset,
+            strokeWidth,
+            strokeDasharray: circumference,
+            strokeDashoffset,
           }}
         />
       </svg>
-      <div className={styles.percentageLabel}>
-        {progress}%
-      </div>
+      <div className={styles.percentageLabel}>{progress}%</div>
     </div>
   );
 };
