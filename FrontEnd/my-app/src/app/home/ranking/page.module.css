@@ -39,7 +39,7 @@
 .titulo {
   text-align: center;
   font-size: 70px;
-  text-shadow: 0 0 3px #ffcc001f, 0 0 5px #ffcc003b;
+  text-shadow: 0 0 5px #ffcc001f, 0 0 10px #ffcc007e;
   letter-spacing: 3px;
   margin-bottom: 10px;
   /* Espacio debajo del título */

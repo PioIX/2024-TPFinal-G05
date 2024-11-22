@@ -65,14 +65,14 @@
 
 .th, .td {
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #ff00b7;
     text-align: center;
 }
 
 .th {
     background-color: #26002f; /* Amarillo fluorescente */
     font-weight: bold;
-    border: 1px solid #ddd;
+    border: 1px solid #ff00b7;
     text-align: center;
 }
 
@@ -83,10 +83,14 @@
 }
 
 .tr:hover {
-    background-color: rgb(0, 0, 0); /* Evita el cambio de color al pasar el mouse */
+    background-color: #623b6a; /* Amarillo fluorescente */
 }
 
 .td {
-    color: white;  /* Texto blanco */
+    color: black;  /* Texto blanco */
     font-weight: bold;  /* Texto en negrita */
+}
+
+.td:hover{
+    color: white;  /* Texto blanco */ 
 }
