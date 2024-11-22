@@ -20,9 +20,10 @@
 .ConjuntoCartas {
     display: flex;
     flex-direction: row;
-    gap: 3em;
     justify-content: center; /* Centra las cartas horizontalmente */
     align-items: center;     /* Centra las cartas verticalmente */
+    height: 100%;
+    width: 100%;
 }
 
 .container {
@@ -59,7 +60,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    box-shadow: 0 0px 20px #00ffff;
+    box-shadow: 0 0px 20px #fff200;
     border-radius: 10px;
 }
 
@@ -69,21 +70,14 @@
     height: 25%;
     font-family: "Russo One", sans-serif;
     font-size: 40px;
-    background: linear-gradient(180deg, rgb(250, 217, 72),  #cc2222);
-    box-shadow: 0 0px 20px #00ffff;
+    background: linear-gradient(180deg, #00ccffd6, rgb(255, 0, 183));
+    box-shadow: 0 0px 20px #fff200;
     justify-content: center;
-<<<<<<< Updated upstream
     border-radius: 10px;
     color: rgb(255, 255, 255);
     text-shadow:
-    0 0 5px rgb(0, 191, 255),
-    0 0 10px rgb(0, 191, 255);
-}
-
-.divCarta{
-    background-color: #00ffff;
-    border: solid 0.1px red;
-    height: 100%;
+    0 0 5px rgb(242, 255, 0),
+    0 0 10px rgb(0, 234, 255);
 }
 
 .divConjuntoCartaBox{
@@ -91,16 +85,18 @@
     width: 100%;
     display: flex;
     align-items: center;
-}
-=======
+    justify-content: center;
 }
 
 .laCarta {
+    display: flex;
     animation-duration: 0.5s; /* Duración de la animación */
     animation-fill-mode: both; /* Mantiene el estado después de la animación */
+    background-color: #ff00d462;
+    border: solid 0.1px rgb(221, 255, 0);
+    height: 100%;
+    width: 30%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
 }
-
-/* .laCarta :hover {
-    background-color: aqua;
-} */
->>>>>>> Stashed changes
