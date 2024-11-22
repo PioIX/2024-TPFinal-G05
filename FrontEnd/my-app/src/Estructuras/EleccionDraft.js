@@ -9,7 +9,7 @@ import 'animate.css';
 import { getDisplayName } from "next/dist/shared/lib/utils";
 import CardFantasy from "./CardFantasy";
 
-export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADibujar, loRecibio, setJugadorUnoFront }) {
+export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADibujar, loRecibio, jugadorUno }) { // JUGADOR FIJO UNO TIENE QUE IR CAMBIANDD
     const [jugadoresId, setJugadoresId] = useState([])
     const [abrio, setAbrio] = useState(false);
     const [desvanecer, setDesvanecer] = useState(false);
@@ -103,7 +103,7 @@ export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADib
         setAbrio(false)
         setCartaVacia(false)
         setOtraFuncion(true)
-        setJugadorUnoFront(jugador)
+        jugadorUno(Math.round(((jugador.Ataque + jugador.Control + jugador.Defensa) / 3) + 7)) 
     }
 
     function jugadorACambiar(jugador) {
@@ -126,6 +126,8 @@ export default function EleccionDraft({ posicion, jugadorSeleccionado, cartaADib
         console.log("Jugador que Seleccione ", jugadorInicial)
         console.log( "Jugador Que va a rotar (el segundo Click) ", cartaADibujar)
     }, [])
+
+    
 
 
 

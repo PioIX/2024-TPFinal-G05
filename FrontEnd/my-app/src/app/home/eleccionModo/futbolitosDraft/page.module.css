@@ -144,11 +144,13 @@
     font-size: 60px;
     color: white;
     text-shadow:
-    0 0 2px #00e5ff,
-    0 0 5px #ffffff;
+        0 0 2px #00e5ff,
+        0 0 5px #ffffff;
     flex-direction: column;
     gap: 1em;
+    background-color: rgba(0, 0, 0, 0.7);  /* Fondo oscuro con opacidad */
 }
+
 
 .loader {
     border: 16px solid #ffe600;
@@ -187,4 +189,27 @@
     top: 20px; /* Ajusta la distancia desde la parte superior */
     left: 20px; /* Ajusta la distancia desde el lado izquierdo */
     z-index: 1000; /* Asegúrate de que esté encima de otros elementos */
+  }
+  .divLogOutDos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    background-color: rgb(7, 0, 12);
+    position: fixed; /* O absolute, según necesites */
+    top: 700px; /* Ajusta la distancia desde la parte superior */
+    left: 1450px; /* Ajusta la distancia desde el lado izquierdo */
+    z-index: 9999; /* Asegúrate de que esté encima de otros elementos */
+
+    height: 4em;
+    width: 200px;
+    border-radius: 3em;
+    padding-left: 3em;
+
+    font-family: "Russo One", sans-serif;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    border: 0.1px solid #ffcc00;
+
   }

@@ -9,7 +9,7 @@ export default function MusicPlayer({ variant }) {
     const [isPlaying, setIsPlaying] = useState(false); // Estado para manejar la reproducción
     const [audio] = useState(new Audio('/music/HeatWaves.mp3')); // Crear el objeto Audio
 
-    const [position, setPosition] = useState({ x: 1470, y: 650 });
+    const [position, setPosition] = useState({ x: 1470, y: 580 });
     const [isDragging, setIsDragging] = useState(false);
     const [startDrag, setStartDrag] = useState({ x: 0, y: 0 });
 
