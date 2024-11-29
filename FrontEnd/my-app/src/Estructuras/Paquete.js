@@ -18,7 +18,7 @@ export default function Paquete({ onClickButton, onClickButtonDos }) {
 
     // Función para obtener todos los jugadores
     async function PlayersTodos() {
-        const response = await fetch(`http://10.1.5.136:4000/Player`, {
+        const response = await fetch(`http://localhost:4000/Player`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export default function Paquete({ onClickButton, onClickButtonDos }) {
     // Función para obtener jugadores del usuario
     async function PlayersDelUsuario() {
         const userID = localStorage.getItem("userID");
-        const response = await fetch(`http://10.1.5.136:4000/PlayerXUserDetalles?userID=${userID}`, {
+        const response = await fetch(`http://localhost:4000/PlayerXUserDetalles?userID=${userID}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -101,7 +101,7 @@ export default function Paquete({ onClickButton, onClickButtonDos }) {
 
         console.log("IDs de los jugadores aleatorios:", jugadoresAleatorios.map(player => player.PlayerId));
 
-        const response = await fetch('http://10.1.5.136:4000/AbriSobre', {
+        const response = await fetch('http://localhost:4000/AbriSobre', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -22,7 +22,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors({
-    origin: ["http://10.1.5.136:3000", "http://10.1.5.136:3001","http://localhost:3000"],
+    origin: ["http://localhost:3000", "http://localhost:3001","http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
@@ -35,7 +35,7 @@ const server = app.listen(LISTEN_PORT, () => {
 
 const io = require('socket.io')(server, {
     cors: {
-        origin: ["http://10.1.5.136:3000", "http://10.1.5.136:3001","http://localhost:3000"],
+        origin: ["http://localhost:3000", "http://localhost:3001","http://localhost:3000"],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true
     }

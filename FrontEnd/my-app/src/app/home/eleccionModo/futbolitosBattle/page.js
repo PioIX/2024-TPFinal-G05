@@ -47,7 +47,7 @@ export default function futbolitosBattle() {
     }
 
     async function traigoSalasCreadas() {
-        const response = await fetch('http://10.1.5.136:4000/Salas', {
+        const response = await fetch('http://localhost:4000/Salas', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -89,7 +89,7 @@ export default function futbolitosBattle() {
             const data = {
                 Codigo: nuevaSala
             }
-            const response = await fetch('http://10.1.5.136:4000/NuevaSala', {
+            const response = await fetch('http://localhost:4000/NuevaSala', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
