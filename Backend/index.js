@@ -1,7 +1,4 @@
-// CONCIOEERTO QUILMES https://quilmesrock.enigmatickets.com/
-
-
-// Paquetes instalados: -g nodemon, express, body-parser, mysql2, socket.io
+// Paquetes instalados: -g nodemon, express, body-parser, socket.io
 // Agregado al archivo "package.json" la línea --> "start": "nodemon index"
 
 // Proyecto "Node_base"
@@ -12,320 +9,221 @@
 // Revisión 5 - Año 2024
 
 // Cargo librerías instaladas y necesarias
-const LISTEN_PORT = 4000;
-const codigos = []
-const express = require('express');
-const bodyParser = require('body-parser');
-const MySQL = require('./modulos/mysql');
-const session = require('express-session');
+const express = require('express');						// Para el manejo del web server
+const bodyParser = require('body-parser'); 				// Para el manejo de los strings JSON
+const session = require('express-session');				// Para el manejo de las variables de sesión
 const cors = require('cors');
-const app = express();
 
-app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:3001","http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-}));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+const app = express();                                  // Inicializo express para el manejo de las peticiones
+
+app.use(cors());            							// Inicializo express para el manejo de las peticiones
+
+app.use(bodyParser.urlencoded({ extended: false }));	// Inicializo el parser JSON
 app.use(bodyParser.json());
+
+const LISTEN_PORT = 4000;								// Puerto por el que estoy ejecutando la página Web
+
 const server = app.listen(LISTEN_PORT, () => {
-    console.log(`Servidor NodeJS corriendo en http://localhost:${LISTEN_PORT}/`);
-});
+	console.log(`Servidor NodeJS corriendo en http://localhost:${LISTEN_PORT}/`);
+});;
 
 const io = require('socket.io')(server, {
-    cors: {
-        origin: ["http://localhost:3000", "http://localhost:3001","http://localhost:3000"],
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true
-    }
+	cors: {
+		// IMPORTANTE: REVISAR PUERTO DEL FRONTEND
+		//origin: ['http://localhost:3000',"http://localhost:3001"],            	// Permitir el origen localhost:3000
+		origin: "*",
+		methods: ["GET", "POST", "PUT", "DELETE"],  	// Métodos permitidos
+		credentials: true                           	// Habilitar el envío de cookies
+	}
 });
 
 const sessionMiddleware = session({
-    secret: "123456",
-    resave: false,
-    saveUninitialized: true
+	//Elegir tu propia key secreta
+	secret: "supersarasa",
+	resave: false,
+	saveUninitialized: false
 });
-/*
-io.use((socket, next) => {
-    sessionMiddleware(socket.request, {}, next);
-});*/
 
 app.use(sessionMiddleware);
 
-let sesionActual = {
-    UserId: 0,
-    currentContact: 0,
-    PlayerId: [],
-    chatCode: 0
-}
-
-
-// PROYECTO FUTBOLITOS //
-
-// USUARIOS
-
-// LOGIN //
-app.get('/Usuario', async function (req, res) {
-    console.log(req.query)
-    const respuesta = await MySQL.realizarQuery(`SELECT * FROM UserFutbolitos;`)
-    res.send(respuesta)
-})
-app.post('/ExisteUsuario', async function (req, res) {
-
-    console.log(req.body)
-    
-    const respuesta = await MySQL.realizarQuery(`SELECT UserId FROM UserFutbolitos WHERE UserName = '${req.body.UserName}' AND UserPassword = '${req.body.UserPassword}';`)
-    
-    if (respuesta.length > 0) {
-        req.session.userId = respuesta[0].UserId // A REVISAR // 
-        console.log("El user id es: ", respuesta)
-        res.send(respuesta)
-    } else {
-        res.send({ message: "Registrse, Usuario no encontrado" })
-    }
-
-})
-// REGISTER //
-app.post('/NuevoUser', async function (req, res) {
-    console.log(req.body)
-    result = await MySQL.realizarQuery(`INSERT INTO UserFutbolitos (UserName, UserPassword, Nombre, Apellido) VALUES ('${req.body.UserName}','${req.body.UserPassword}','${req.body.Nombre}', '${req.body.Apellido}')`);
-    res.send(result)
-})
-
-// PLAYERS //
-app.get('/Player', async function (req, res) {
-    console.log(req.query)
-    const respuesta = await MySQL.realizarQuery(`SELECT * FROM PlayerFutbolitos;`)
-    res.send(respuesta)
-})
-
-// PLAYERS X USERS//
-app.get('/PlayerXUserDetalles', async function (req, res) {
-    // console.log("Soy el pedido PlayerXUserDetalles");
-    // console.log(req.query);
-
-    const userId = req.query.userID;
-
-    if (!userId) {
-        return res.status(400).send({ message: "UserID es requerido" });
-    }
-
-    try {
-        const respuestaJugadores = await MySQL.realizarQuery(`
-            SELECT PlayerId FROM PlayerUserFutbolitos WHERE UserId = '${userId}';
-        `);
-        // console.log("Respuesta de la consulta de jugadores:", respuestaJugadores);
-
-        if (respuestaJugadores.length > 0) {
-            const conjuntoPlayers = respuestaJugadores.map(row => row.PlayerId);
-            // console.log("IDs de jugadores:", conjuntoPlayers);
-            const jugadoresDetallesPromises = conjuntoPlayers.map(playerId =>
-                MySQL.realizarQuery(`
-                    SELECT * FROM PlayerFutbolitos WHERE PlayerId = ${playerId};
-                `)
-            );
-            const jugadoresDetalles = await Promise.all(jugadoresDetallesPromises);
-            const jugadores = jugadoresDetalles.flat(); 
-            // console.log("ggggggggg gggg ", jugadores)
-
-            res.send(jugadores);
-        } else {
-            res.send({ message: "No se encontraron jugadores para este usuario" });
-        }
-    } catch (error) {
-        console.error("Error en la consulta:", error);
-        res.status(500).send({ message: "Error al realizar la consulta" });
-    }
+io.use((socket, next) => {
+	sessionMiddleware(socket.request, {}, next);
 });
 
-// ABRIR SOBRE //
-app.post('/AbriSobre', async function (req, res) {
-    const { userId, playerIds } = req.body;
-    console.log(userId)
-    console.log(playerIds)
+// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
+// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
+// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
+// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
+// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
+// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
+// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
+// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)
+// A PARTIR DE ESTE PUNTO GENERAREMOS NUESTRO CÓDIGO (PARA RECIBIR PETICIONES, MANEJO DB, ETC.)<
 
-    if (!userId || !Array.isArray(playerIds)) {
-        return res.status(400).send("UserId y playerIds son requeridos.");
-    }
+let tareas = 
+[{
+		nombre: "Crear Base de Datos",
+		responsable: "Marchesi",
+		estado: "Pendiente"
+	},
+	{
+		nombre:	"Crear Evaluaciones",
+		responsable: "Rivas",
+		estado: "Realizada"
+	},
+	{
+		nombre: "Rendi Evaluacion",
+		responsable: "Alumnos",
+		estado: "En proceso"
+	}
+]
 
-    try {
-        const insertPromises = playerIds.map(playerId => {
-            return MySQL.realizarQuery(`INSERT INTO PlayerUserFutbolitos (UserId, PlayerId) VALUES ('${userId}', '${playerId}')`);
-        });
-
-        const results = await Promise.all(insertPromises);
-        console.log(results)
-        res.send(results);
-    } catch (error) {
-        console.error("Error al insertar jugadores:", error);
-        res.status(500).send("Error al insertar jugadores.");
-    }
-});
-
-// SALAS //
-app.get('/Salas', async function (req, res) {
-    console.log(req.query)
-    const respuesta = await MySQL.realizarQuery(`SELECT * FROM SalasFutbolitos;`)
-    res.send(respuesta)
-})
-
-// NUEVA SALA //
-app.post('/NuevaSala', async function (req, res) {
-    console.log(req.body)
-    result = await MySQL.realizarQuery(`INSERT INTO SalasFutbolitos (Codigo) VALUES ('${req.body.Codigo}')`);
-    res.send(result)
-})
-
-// ADMINISTRACION DE EQUIPO || BATTLE //
-app.get('/EquipoDefinido', async function (req, res) {
-    const playersId = req.query.playersId; // Obtén el ID de los jugadores desde la consulta
-    console.log(req.query);
-    console.log("El equipo es: ", playersId)
-
-    try {
-        // Realiza la consulta en la base de datos para obtener los jugadores por ID
-        const respuesta = await MySQL.realizarQuery(`SELECT * FROM PlayerFutbolitos WHERE PlayerId IN (${playersId});`);
-        // console.log(respuesta);
-        res.json(respuesta); // Envía la respuesta en formato JSON
-    } catch (error) {
-        console.error("Error en la consulta:", error);
-        res.status(500).send("Error al obtener los jugadores.");
-    }
-});
+let productos = 
+[{
+		nombre: "Hamburguesa",
+		precio: 10000,
+	},
+	{
+		nombre:	"Papas fritas",
+		precio: 6000,
+	},
+	{
+		nombre: "Cono de helado",
+		precio: 2000,
+	}
+]
 
 app.get('/', (req, res) => {
-    console.log(`[REQUEST - ${req.method}] ${req.url}`);
+	console.log(`[REQUEST - ${req.method}] ${req.url}`);
 });
 
-app.post('/login', (req, res) => {
-    console.log(`[REQUEST - ${req.method}] ${req.url}`);
-});
+app.get('/tareas' , function(req,res) {
+	res.send({tareas: tareas})
+})
 
-app.delete('/login', (req, res) => {
-    console.log(`[REQUEST - ${req.method}] ${req.url}`);
-    res.send(null);
-});
+app.get('/productos' , function(req,res) {
+	res.send({productos: productos})
+})
 
+app.post('/crearTarea', function(req,res) {
+	try {
+        if (req.body.nombre && req.body.responsable) {
+            let existe = false
+            for (let i = 0; i < tareas.length; i++) {
+                if (tareas[i].nombre === req.body.nombre){
+					existe = true
+				}
+            }
+			if (existe) {
+				res.send({ mensaje: "La tarea ya existe"});
+			} else {
+				tareas.push({nombre: req.body.nombre, responsable: req.body.responsable, estado: "Pendiente"})
+				res.send({tareas: tareas});
+			}
+        }
+        else {
+            console.log("LLEGO ESTO", req.body);
+            res.send({ mensaje: "Tuviste un error" , meLlego: req.body});
+        }
+    }
+    catch (err) {
+        console.log("LLEGO ESTO", req.body);
+        res.send({ mensaje: "Tuviste un error", meLlego: req.body });
+    }
+})
 
+app.post('/crearProducto', function(req,res) {
+	try {
+        if (req.body.nombre && req.body.precio) {
+            let existe = false
+            for (let i = 0; i < productos.length; i++) {
+                if (productos[i].nombre === req.body.nombre){
+					existe = true
+				}
+            }
+			if (existe) {
+				res.send({ mensaje: "El producto ya existe"});
+			} else {
+				tareas.push({nombre: req.body.nombre, precio: req.body.precio})
+				res.send({productos: productos});
+			}
+        }
+        else {
+            console.log("LLEGO ESTO", req.body);
+            res.send({ mensaje: "Tuviste un error" , meLlego: req.body});
+        }
+    }
+    catch (err) {
+        console.log("LLEGO ESTO", req.body);
+        res.send({ mensaje: "Tuviste un error", meLlego: req.body });
+    }
+})
 
 
 io.on("connection", (socket) => {
-    const req = socket.request;
+	const req = socket.request;
 
-    socket.on('joinRoom', data => {
-        if (existeSala(data.room)) {
-            if (data.room && data.room.length > 0) {
-                socket.leave(data.room);
-            }
-            socket.join(data.room);
-            sesionActual.chatCode = data.room;
-            console.log("Entraste a ", data.room);
+	/*
+		Data debe ser: 
+		{
+			nombre,
+			responsable
+		}
+	*/
+	socket.on('tareaCreada', data =>{
+		console.log("Tarea creada: ", data);
+		io.emit('avisoCreacion', { event: "Creacion de tarea", message: data });
+	})
 
-            // io.to(data.room).emit('entroSala', { room: data.room, success: true });
+	socket.on('tareaModificada', data =>{
+		console.log("Tarea modificada: ", data);
+		for (let i = 0; i < tareas.length; i++) {
+			if (tareas[i].nombre == data.nombre) {
+				tareas[i].estado = data.estado
+			}
+		}
+		io.emit('avisoModificacion', { event: "Modificadion de tarea de tarea", message: data });
+	})
 
-            const clients = io.sockets.adapter.rooms.get(data.room);
-            if (clients && clients.size === 2) {
-                io.to(data.room).emit('startGame');
-            }
-        } else {
-            codigos.push(data.room);
-            // req.session.room = data.room;
-            socket.join(data.room);
-            sesionActual.chatCode = data.room;
-            console.log("No existía la Sala. Se creó la sala ", sesionActual.chatCode);
+	/*
+		Data debe ser: 
+		{
+			nombre,
+			precio
+		}
+	*/
+	socket.on('productoCreado', data =>{
+		console.log("Producto creado: ", data);
+		io.emit('avisoCreacion', { event: "Creacion de producto", message: data });
+	})
 
-            io.to(data.room).emit('salaCreada', { room: data.room, success: true });
-        }
-    });
+	socket.on('productoModificado', data =>{
+		console.log("Tarea modificada: ", data);
+		for (let i = 0; i < productos.length; i++) {
+			if (productos[i].nombre == data.nombre) {
+				productos[i].precio = data.precio
+			}
+		}
+		io.emit('avisoModificacion', { event: "Modificadion de producto", message: data });
+	})
 
-    socket.on('pingAll', data => {
-        console.log("PING ALL: ", data);
-        io.emit('pingAll', { event: "Ping to all", message: data });
-    });
+	socket.on('pingAll', data => {
+		console.log("PING ALL: ", data);
+		io.emit('pingAll', { event: "Ping to all", message: data });
+	});
 
-    socket.on('EnvioEstadistica', data => {
-        io.to(data.room).emit('Estadistica', { room: data.room, Estadistica: data.estadistica, cartaOponente: data.cartaOponente, userId: data.userId, tipo: data.tipo, elijo: data.elijo});
-        console.log(data)
-    });
 
-    socket.on('disconnect', () => {
-        console.log("Disconnect");
-    });
+	socket.on('sendMessage', data => {
+		io.to(req.session.room).emit('newMessage', { room: req.session.room, message: data });
+	});
 
-    socket.on('mensaje', data =>{
-        console.log(data.ranking, data.codigo)
-        io.to(data.codigo).emit('mensajeDos', {mesajeFeli: data.ranking, codigo: data.codigo});
-    })
-
-    socket.on("EstoyListo", data => {
-        console.log("SOY BACK", data)
-        if (data.Estado == 1) {
-            io.to(data.room).emit('Jugadores Listos', {UserId: data.UserId})
-        } else {
-            return
-        }
-    })
-
+	socket.on('disconnect', () => {
+		console.log("Disconnect");
+	})
 });
 
-function existeSala(room) {
-    return codigos.includes(room);
-}
 
-
-
-app.get('/Ranking', async function (req, res) {
-    console.log(req.query)
-    const respuesta = await MySQL.realizarQuery(`SELECT userName, Puntos, PartidasGanadas, PartidasPerdidas, PartidasEmpatadas, RatioPartida, IdSumo FROM RankingFutbolitos
-    INNER JOIN UserFutbolitos
-    ON  
-    RankingFutbolitos.UserId = UserFutbolitos.UserId
-    ;`)
-    
-    console.log(respuesta)
-    res.send(respuesta)
-
-})
-
-app.post('/EnvioPuntaje', async function (req, res) {
-    const { userId, nuevosPuntos } = req.body;
-    console.log("Datos recibidos:", req.body);
-    
-    let resultado = "";
-    if (nuevosPuntos === 3) {
-        resultado = "PartidasGanadas";
-    } else if (nuevosPuntos === 0) {
-        resultado = "PartidasPerdidas";
-    } else if (nuevosPuntos === 1) {
-        resultado = "PartidasEmpatadas";
-    } else {
-        return res.status(400).send({ message: "Puntos no válidos" }); // Añadir respuesta en caso de que los puntos no sean válidos
-    }
-
-    try {
-        const checkExists = await MySQL.realizarQuery(`SELECT * FROM RankingFutbolitos WHERE UserId = ${userId};`);
-        if (checkExists.length > 0) {
-            // Si el registro existe, actualizamos los puntos con una solicitud PUT
-            const updatePoints = await MySQL.realizarQuery(`UPDATE RankingFutbolitos SET Puntos = Puntos + ${nuevosPuntos}, ${resultado} = ${resultado} + 1 WHERE UserId = ${userId};`);
-            res.send({ message: "Puntos actualizados correctamente", data: updatePoints });
-        } else {
-            // Si el registro no existe, creamos uno nuevo con una solicitud POST
-            const createRecord = await MySQL.realizarQuery(`INSERT INTO RankingFutbolitos (UserId, Puntos, ${resultado}) VALUES (${userId}, ${nuevosPuntos}, 1);`);
-            res.send({ message: "Registro creado y Puntos inicial asignado", data: createRecord });
-        }
-    } catch (error) {
-        console.error("Error en el procesamiento del Puntos:", error);
-        res.status(500).send({ message: "Error al procesar los puntos", error });
-    }
-});
-
-app.get('/UserName', async function (req, res) {
-    console.log(req.query)
-    const respuesta = await MySQL.realizarQuery(`SELECT UserName FROM UserFutbolitos WHERE UserId = ;`)
-    res.send(respuesta)
-
-})
 
 //CHATS
 // app.post('/TraerChat', async function (req, res) {
