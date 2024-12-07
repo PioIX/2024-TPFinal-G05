@@ -116,9 +116,11 @@ import { useEffect, useState } from "react"
 import { useSocket } from "@/app/hooks/useSocket";
 
 export default function () {
+    const { socket, isConnected } = useSocket();
     const [tareas, setTareas] = useState([])
     const [nombre, setNombre]= useState("")
     const [responsable, setResponsable]= useState("")
+    const [estado, setEstado] = useState("")
     
     useEffect(() => {
         obtenerTareas();
@@ -135,8 +137,7 @@ export default function () {
         setTareas(resultado.tareas);
         console.log(tareas)
     }
-    console.log(tareas[2])
-
+    
     
     
     async function crearTareas() {
@@ -164,6 +165,39 @@ export default function () {
             console.log(data)
         }
     }
+        async function crearTareas() {
+        let seCreo = false;
+        const data = {
+            nombre: nombre,
+            responsable: responsable
+        }
+        //Validacion de producto ya existente
+        for (let i = 0; i < tareas.length; i++) {
+            if (tareas[i].nombre == nombre) {
+                seCreo = true;
+                return;
+            }
+        }
+
+        if (seCreo == false) {
+            let result = await fetch("http://localhost:4000/crearTarea", {
+                method: "POST",
+                body: {data}
+            })
+            
+            tareas.push({data});
+            // socket.emit("tareaCreada", {data});
+            console.log(data)
+        }
+    }
+    async function envioEstado() {
+        const data = {
+            estado: estado
+        };
+        socket.emit('pingAll', {data});
+        console.log(data)
+    }
+
 
 
 
@@ -175,6 +209,16 @@ export default function () {
             <input type="text" onChange={(e)=> setResponsable(e.target.value)}placeholder="escribi a resposable tarea"></input>
         </div>
         <button onClick={crearTareas} text="Crear tareas"></button>
+        <div>
+        <input type="text" placeholder="escriba la tarea"></input>
+        
+        <select onChange={(e)=>setEstado(e.target.value)}> 
+            <option value="pendiente">pendiente</option>
+            <option value="en proceso">en proceso</option>
+            <option value="realizada">realizada</option>
+        </select>
+        <button onClick={envioEstado}>enviar aviso</button>
+        </div>
         
         
         
