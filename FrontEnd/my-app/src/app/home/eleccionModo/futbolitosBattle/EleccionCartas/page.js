@@ -31,19 +31,19 @@ export default function futbolitosBattle() {
                 "Content-Type": "application/json",
             },
         });
-        const respuesta = await response.json();
-        const PlayerXUser = respuesta.map((Player) => ({
-            PlayerId: Player.PlayerId,
-            Nombre: Player.Nombre,
-            Apellido: Player.Apellido,
-            Nacionalidad: Player.Nacionalidad,
-            Equipo: Player.Equipo,
-            Posicion: Player.Posicion,
-            Imagen: Player.Imagen,
-            Ataque: Player.Ataque,
-            Control: Player.Control,
-            Defensa: Player.Defensa,
-        }));
+            const respuesta = await response.json();
+            const PlayerXUser = respuesta.map((Player) => ({
+                PlayerId: Player.PlayerId,
+                Nombre: Player.Nombre,
+                Apellido: Player.Apellido,
+                Nacionalidad: Player.Nacionalidad,
+                Equipo: Player.Equipo,
+                Posicion: Player.Posicion,
+                Imagen: Player.Imagen,
+                Ataque: Player.Ataque,
+                Control: Player.Control,
+                Defensa: Player.Defensa,
+            }));
         console.log(PlayerXUser);
         setJugadoresUser(PlayerXUser);
     }
